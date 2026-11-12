@@ -110,11 +110,7 @@ namespace Tolgrim_MechanitorExpanded
         [HarmonyPatch(typeof(MechanitorControlGroupGizmo), nameof(MechanitorControlGroupGizmo.GizmoOnGUI))]
         public static void MechanitorControlGroupGizmo_Postfix(MechanitorControlGroup ___controlGroup)
         {
-            // Clic derecho en el gizmo abre el menú de color además de las opciones nativas
-            if (Event.current.type == EventType.MouseDown && Event.current.button == 1 && Mouse.IsOver(controlGroupRect))
-            {
-                MechColorState.For(___controlGroup)?.OpenMenu();
-            }
+            // El menú contextual completo (Renombrar, Color, etc.) se gestiona en Patch_MechanitorControlGroupGizmo_GizmoOnGUI
         }
 
         // 4. Guardado y carga (ExposeData)

@@ -226,7 +226,8 @@ namespace Tolgrim_MechanitorExpanded
             if (S.showCommandRange)
             {
                 string rangeUnit = "Tolgrim_TilesUnit".Translate();
-                DrawKeyValueRow("Tolgrim_MechControlRange".Translate(), $"24.9 {rangeUnit}", ref curY, width, "Tolgrim_MechControlRangeTip".Translate(), rowIdx++);
+                float currentRange = S.baseCommandRange > 0f ? S.baseCommandRange : 24.9f;
+                DrawKeyValueRow("Tolgrim_MechControlRange".Translate(), $"{currentRange:F1} {rangeUnit}", ref curY, width, "Tolgrim_MechControlRangeTip".Translate(), rowIdx++);
             }
 
             // Cantidad de mecas controlados / supervisados
@@ -256,7 +257,36 @@ namespace Tolgrim_MechanitorExpanded
                     }
                 }
 
+                Rect rowRect = new Rect(0f, curY, width, 24f);
                 DrawKeyValueRow("Tolgrim_ControlGroups".Translate(), groupsDisplay, ref curY, width, groupsTip, rowIdx++);
+
+                // Clic en la fila de grupos de control para desplegar menú rápido de renombrar o colorear grupos
+                if (Mouse.IsOver(rowRect) && Event.current.type == EventType.MouseDown && Event.current.button == 0 && activeControlGroups > 0)
+                {
+                    Event.current.Use();
+                    List<FloatMenuOption> groupMenu = new List<FloatMenuOption>();
+                    for (int i = 0; i < activeControlGroups; i++)
+                    {
+                        MechanitorControlGroup g = tracker.controlGroups[i];
+                        string? custom = WorldComponent_ControlGroupNames.GetCustomName(g);
+                        string gLabel = !string.IsNullOrWhiteSpace(custom) ? custom! : ("Group".Translate() + " " + g.Index);
+
+                        groupMenu.Add(new FloatMenuOption($"{"Tolgrim_RenameControlGroup".Translate()}: {gLabel}", () =>
+                        {
+                            Find.WindowStack.Add(new Dialog_RenameControlGroup(g));
+                        }, TexButton.Rename, Color.white));
+
+                        MechColorState? cState = MechColorState.For(g);
+                        if (cState != null)
+                        {
+                            groupMenu.Add(new FloatMenuOption($"{"Tolgrim_SelectMechColor".Translate()}: {gLabel}", () =>
+                            {
+                                cState.DoDialog();
+                            }, MechColorTextures.ChangeColor, Color.white));
+                        }
+                    }
+                    Find.WindowStack.Add(new FloatMenu(groupMenu));
+                }
             }
 
             curY += 6f;

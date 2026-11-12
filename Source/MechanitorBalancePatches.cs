@@ -35,6 +35,29 @@ namespace Tolgrim_MechanitorExpanded
     }
 
     /// <summary>
+    /// Dibuja el círculo visual del radio de comando del mecanizador adaptado a baseCommandRange.
+    /// </summary>
+    [HarmonyPatch(typeof(Pawn_MechanitorTracker), nameof(Pawn_MechanitorTracker.DrawCommandRadius))]
+    public static class Patch_Pawn_MechanitorTracker_DrawCommandRadius
+    {
+        public static bool Prefix(Pawn_MechanitorTracker __instance, Pawn ___pawn)
+        {
+            if (___pawn != null && ___pawn.Spawned && __instance.AnySelectedDraftedMechs)
+            {
+                float customRange = MechanitorExpandedMod.Settings.baseCommandRange;
+                if (customRange <= 0f) customRange = 24.9f;
+
+                // Limitar a MaxRadialPatternRadius para evitar desbordar el búfer de círculos radiales de GenDraw
+                float maxSafeRadius = GenRadial.MaxRadialPatternRadius - 1f;
+                float drawRadius = UnityEngine.Mathf.Min(customRange, maxSafeRadius);
+
+                GenDraw.DrawRadiusRing(___pawn.Position, drawRadius, UnityEngine.Color.white, (IntVec3 c) => __instance.CanCommandTo(c));
+            }
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Ajusta WorkSpeedGlobal de mecanoides aliados, MechFormingSpeed y WastepacksPerRecharge según ModSettings.
     /// </summary>
     [HarmonyPatch(typeof(StatWorker), nameof(StatWorker.GetValueUnfinalized))]

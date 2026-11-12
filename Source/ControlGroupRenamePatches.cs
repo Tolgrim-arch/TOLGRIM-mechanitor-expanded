@@ -62,15 +62,46 @@ namespace Tolgrim_MechanitorExpanded
             if (merged == null || merged.Count == 0)
             {
                 float btnSize = 18f;
-                // Work mode icon is at (x + width - 52 - 6), so position rename icon to its left
-                Rect renameRect = new Rect(rect.x + rect.width - 52f - 6f - btnSize - 4f, rect.y + 6f + 4f, btnSize, btnSize);
+                // Position rename icon right next to work mode icon
+                Rect renameRect = new Rect(rect.x + rect.width - 52f - 6f - btnSize - 2f, rect.y + 6f + 4f, btnSize, btnSize);
 
                 GUI.color = Color.white;
                 if (Widgets.ButtonImage(renameRect, TexButton.Rename, Color.white, GenUI.MouseoverColor))
                 {
+                    Event.current.Use();
                     Find.WindowStack.Add(new Dialog_RenameControlGroup(controlGroup));
                 }
                 TooltipHandler.TipRegion(renameRect, "Tolgrim_RenameControlGroupTip".Translate());
+            }
+
+            // Clic derecho en el gizmo abre menú contextual de Tolgrim (Renombrar grupo, Cambiar color, etc.)
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 1 && Mouse.IsOver(rect))
+            {
+                Event.current.Use();
+                List<FloatMenuOption> options = new List<FloatMenuOption>
+                {
+                    new FloatMenuOption("Tolgrim_RenameControlGroup".Translate(), () =>
+                    {
+                        Find.WindowStack.Add(new Dialog_RenameControlGroup(controlGroup));
+                    }, TexButton.Rename, Color.white)
+                };
+
+                MechColorState? colorState = MechColorState.For(controlGroup);
+                if (colorState != null)
+                {
+                    foreach (FloatMenuOption colorOpt in colorState.Menu)
+                    {
+                        options.Add(colorOpt);
+                    }
+                }
+
+                // Opciones de modo de trabajo de vainilla para no perderlas al hacer clic derecho
+                foreach (FloatMenuOption wmOpt in MechanitorControlGroupGizmo.GetWorkModeOptions(controlGroup))
+                {
+                    options.Add(wmOpt);
+                }
+
+                Find.WindowStack.Add(new FloatMenu(options));
             }
         }
     }
