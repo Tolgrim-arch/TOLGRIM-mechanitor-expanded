@@ -142,6 +142,18 @@ namespace Tolgrim_MechanitorExpanded
             for (int i = 0; i < hediffs.Count; i++)
             {
                 Hediff h = hediffs[i];
+                if (h.def.defName == "Tolgrim_MechNeurofibre")
+                {
+                    int lvl = (h as Hediff_Level)?.level ?? (int)System.Math.Round(h.Severity);
+                    if (lvl > 0 && lvl > bestTier)
+                    {
+                        bestTier = lvl;
+                        bestHediff = h;
+                        baseVal = lvl * 3f;
+                    }
+                    continue;
+                }
+
                 int tier = GetNeurofibreTier(h.def.defName, out float val);
                 if (tier > bestTier)
                 {

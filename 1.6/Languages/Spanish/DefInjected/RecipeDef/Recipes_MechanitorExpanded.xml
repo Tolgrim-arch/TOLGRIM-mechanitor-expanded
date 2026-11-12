@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <Tolgrim_InstallMechNeurofibre.label>instalar neurofibra mecanizada</Tolgrim_InstallMechNeurofibre.label>
+  <Tolgrim_InstallMechNeurofibre.description>Instala un implante de neurofibra mecanizada para ampliar la capacidad de ancho de banda.</Tolgrim_InstallMechNeurofibre.description>
+  <Tolgrim_InstallMechNeurofibre.jobString>Instalando neurofibra mecanizada.</Tolgrim_InstallMechNeurofibre.jobString>
+
+  <Tolgrim_GestateApocriton.label>gestar apocriton</Tolgrim_GestateApocriton.label>
+  <Tolgrim_GestateApocriton.description>Gesta un mecanoide comandante apocriton ultrapesado.</Tolgrim_GestateApocriton.description>
+  <Tolgrim_GestateApocriton.jobString>Gestando apocriton.</Tolgrim_GestateApocriton.jobString>
+</LanguageData>

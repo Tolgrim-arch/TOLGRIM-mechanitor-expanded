@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <Tolgrim_MechNeurofibre.label>neurofibra mecanizada</Tolgrim_MechNeurofibre.label>
+  <Tolgrim_MechNeurofibre.description>Red artificial de fibras neuronales que amplía la capacidad de ancho de banda del mecanizador (+3 por nivel, hasta 6 niveles).</Tolgrim_MechNeurofibre.description>
+
+  <Tolgrim_BandnodeSerum.label>suero de nodo de banda</Tolgrim_BandnodeSerum.label>
+  <Tolgrim_BandnodeSerum.description>Un suero mecanizado exótico de ultratecnología que teje nodos neuronales microscópicos en el córtex del mecanizador, otorgando +1 de ancho de banda permanente por dosis (hasta un máximo configurable).</Tolgrim_BandnodeSerum.description>
+</LanguageData>

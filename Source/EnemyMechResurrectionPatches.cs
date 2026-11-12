@@ -308,4 +308,31 @@ namespace Tolgrim_MechanitorExpanded
             }
         }
     }
+
+    /// <summary>
+    /// Elimina el efecto visual de pulso y electricidad rojiza (ApocrionAttached) cuando el Apocriton pertenece al jugador.
+    /// </summary>
+    [HarmonyPatch(typeof(CompEffecter), nameof(CompEffecter.CompTick))]
+    public static class Patch_CompEffecter_CompTick_Apocriton
+    {
+        public static bool Prefix(CompEffecter __instance, ref Effecter? ___effecter)
+        {
+            if (!MechanitorExpandedMod.Settings.suppressFriendlyApocritonHateAura)
+            {
+                return true;
+            }
+
+            if (__instance.parent is Pawn pawn && pawn.def == ThingDefOf.Mech_Apocriton && pawn.Faction != null && pawn.Faction.IsPlayer)
+            {
+                if (___effecter != null)
+                {
+                    ___effecter.Cleanup();
+                    ___effecter = null;
+                }
+                return false;
+            }
+
+            return true;
+        }
+    }
 }
