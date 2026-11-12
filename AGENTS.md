@@ -1,87 +1,72 @@
 # AGENTS.md — TOLGRIM: Mechanitor Expanded
 
-Guía operativa, estándares de ingeniería y contexto de desarrollo para agentes de IA que trabajen en este repositorio.
+Permanent guidance for AI development agents working in this repository.
 
----
+## 1. Project context
 
-## 1. Contexto del Proyecto
-
-- **Nombre del Mod:** TOLGRIM: Mechanitor Expanded
+- **Mod:** TOLGRIM: Mechanitor Expanded
 - **PackageId:** `Tolgrim.MechanitorExpanded`
-- **Juego Base:** RimWorld (Versión objetivo: `1.6.4871+`)
-- **DLC Obligatorio:** Biotech (`Ludeon.RimWorld.Biotech`)
-- **Target Framework:** `.NET Framework 4.8` (`net48`), C# `latest` / nullable enable.
-- **Ruta del repositorio:** `c:\Users\jelys\3D Objects\antigravity-projects\rimworld-modding\TOLGRIM-mechanitor-expanded`
-- **Ruta de instalación en RimWorld:** `C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\TOLGRIM - Mechanitor Expanded`
+- **Target game:** RimWorld `1.6.4871+`
+- **Required DLC:** Biotech (`Ludeon.RimWorld.Biotech`)
+- **Technology:** C#, XML, .NET Framework 4.8 (`net48`), C# `latest`, nullable enabled
+- **Repository:** `C:\Users\jelys\3D Objects\antigravity-projects\rimworld-modding\TOLGRIM-mechanitor-expanded`
+- **Local installation:** `C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\TOLGRIM - Mechanitor Expanded`
 
----
+The mod follows a **Vanilla Expanded** philosophy, preserving RimWorld's aesthetics, mechanics, and conventions. Feature scope is defined by each task, not this file.
 
-## 2. Reglas y Estándares de Ingeniería
+## 2. Permanent engineering rules
 
-1. **Principio de Mínimo Código (KISS, DRY, SOLID):**
-   - No crear abstracciones superfluas, menús flotantes innecesarios ni duplicar sistemas de RimWorld o Biotech.
-   - Reutilizar clases nativas (`ITab`, `StatWorker`, `StatPart`, `CompUseEffect`, `Recipe_InstallImplant`, etc.).
-2. **Sin Modificaciones Destructivas:**
-   - Evitar reemplazar `Defs` o métodos originales si no es estrictamente indispensable.
-   - Parchear con `PatchOperation` de forma condicional (`PatchOperationFindMod` verificando `Biotech`).
-   - Evitar Harmony si la arquitectura nativa permite resolver la funcionalidad con `StatPart`, `Comp` o `ITab`.
-3. **Persistencia y Compatibilidad de Guardados:**
-   - Guardar datos personalizados en componentes asociados a cosas reales (`ThingComp` / `CompProperties`).
-   - Nunca dejar referencias rotas si un módulo o sub-sistema es desactivado por el usuario en `ModSettings`.
-4. **Reutilización Gráfica:**
-   - No crear ni copiar archivos `.png` sueltos para items que pueden reutilizar texturas existentes de Core o Biotech. Resolver mediante rutas nativas (`Things/Pawn/Humanlike/Apparel/Mechlink`, `Things/Item/Special/MechSerumHealer`).
-5. **Localización Obligatoria:**
-   - Cualquier texto visible en la UI debe tener clave en `Keyed/` con traducciones en:
-     - `1.6/Languages/English/Keyed/`
-     - `1.6/Languages/Spanish/Keyed/`
-     - `1.6/Languages/SpanishLatin/Keyed/`
+1. **Vanilla first.** Reuse RimWorld/Biotech APIs, `Defs`, stats, components, UI, and assets. Prefer native extension points such as `ITab`, `StatPart`, `ThingComp`, `CompUseEffect`, and recipes. Use Harmony only when necessary.
+2. **Simplicity and modularity.** Apply KISS and DRY; use SOLID where it improves clarity. Avoid duplication, one-off exceptions, and speculative abstractions. Inspect and reuse existing architecture before making changes.
+3. **Non-destructive changes.** Avoid replacing whole vanilla `Defs` or methods. Use targeted, conditional XML patches where appropriate; do not add redundant `PatchOperationFindMod` checks for guaranteed dependencies.
+4. **Native UI.** Prefer integrating mechanitor features into the existing `ITab_Pawn_Mechanitor` alongside pawn inspection tabs. Preserve vanilla styling, controls, tooltips, and existing collapsible sections. Do not add windows or nested tabs unless requested.
+5. **Synchronized visual assets.** Reference Core/Biotech assets instead of copying PNGs. Verify actual definitions and paths for the Mechlink and healer mech serum (possible paths: `Things/Pawn/Humanlike/Apparel/Mechlink`, `Things/Item/Special/MechSerumHealer`). Support third-party texture replacements where technically feasible; never assume universal compatibility.
+6. **Reliable stats.** Integrate bonuses with native calculations, track their sources, prevent double application, and keep displayed explanations consistent with actual gameplay values.
+7. **Persistence and compatibility.** Use native serialization and entity-bound components when appropriate. Protect existing saves; disabling a feature in Mod Settings must not destroy saved data or leave invalid references.
+8. **Localization.** All player-facing text must be localized in `1.6/Languages/English/Keyed/`, `1.6/Languages/Spanish/Keyed/`, and `1.6/Languages/SpanishLatin/Keyed/`.
+9. **Performance.** Avoid costly per-tick work, repeated global scans, and invasive patches. Cache only when necessary, with correct invalidation.
+10. **Verification and scope.** Implement only what was requested. Verify real APIs before using them, build and run available tests, and never equate successful compilation with in-game validation.
 
----
+## 3. Implemented features (context, not pending tasks)
 
-## 3. Estructura del Repositorio
+### Phase 1 — Mechanitor interface
 
-```
-├── .gitignore
-├── AGENTS.md                                   # Este archivo
-├── About/
-│   └── About.xml                               # Metadatos del mod para RimWorld
-├── 1.6/
-│   ├── Assemblies/
-│   │   ├── Tolgrim_MechanitorExpanded.dll      # Ensamblado distribuido
-│   │   └── Tolgrim_MechanitorExpanded.pdb
-│   ├── Defs/
-│   │   ├── HediffDefs/
-│   │   │   └── Hediffs_Neurofibre.xml          # Hediffs, items y cirugías de Neurofibra I-IV
-│   │   └── ThingDefs_Items/
-│   │       └── Items_BandnodeSerum.xml         # Suero Bandnode y receta médica
-│   ├── Languages/
-│   │   ├── English/Keyed/                      # Textos en inglés
-│   │   ├── Spanish/Keyed/                      # Textos en español
-│   │   └── SpanishLatin/Keyed/                 # Textos en español latino
-│   └── Patches/
-│       ├── MechanitorTab_Patch.xml             # Inyección de ITab_Pawn_Mechanitor en BasePawn
-│       └── MechanitorPhase2_Patch.xml          # Inyección de CompMechanitorBandwidth y StatPart
-└── Source/
-    ├── Tolgrim_MechanitorExpanded.csproj       # Proyecto MSBuild para dotnet
-    ├── BandwidthBonusSystem.cs                 # Registry, IBandwidthBonusProvider, StatPart y Comp
-    ├── CompUseEffect_BandnodeSerum.cs          # Lógica del consumible Suero Bandnode
-    ├── ITab_Pawn_Mechanitor.cs                 # Pestaña nativa de inspección del mecanizador
-    ├── MechanitorExpandedMod.cs                # Clase Mod y render de Mod Settings
-    ├── MechanitorExpandedSettings.cs           # Serialización de opciones del mod
-    ├── NeurofibreRecipes.cs                    # Lógica de reemplazo quirúrgico de neurofibra
-    └── SubcoreEncoderRecipeManager.cs          # Reubicación dinámica de recetas al Subcore Encoder
-```
+- Native `ITab_Pawn_Mechanitor`, visible only for pawns with a Mechlink.
+- Collapsible sections: General Information, Capabilities, Implants, and Equipment.
+- Mod Settings for tab dimensions and visibility.
+- Optional runtime relocation of mechanitor implant recipes to the **Subcore Encoder**.
 
----
+### Phase 2 — Bandwidth reinforcement
 
-## 4. Comandos de Compilación y Despliegue
+- Modular permanent bonus registry: `BandwidthBonusRegistry`.
+- Integration with `StatDefOf.MechBandwidth` through `StatPart_MechanitorExpandedBandwidth`.
+- **Mech Neurofibre I–IV** implants: +3, +6, +9, and +12; mutually exclusive and research-gated.
+- **Bandnode Sera**: +1 bandwidth per dose; configurable cap, default 36.
+- Per-mechanitor persistence through `CompMechanitorBandwidth`.
+- Dynamic bonus breakdown tooltip in the Mechanitor tab.
 
-### Compilar el proyecto C#
+### Phase 3 — Hostile Mechanoid Resurrection & Reprogramming
+
+- Reprogramming recipes for gestators (`MechGestator`, `LargeMechGestator`) to resurrect enemy mechanoid corpses using subcores and steel.
+- Ability and job driver `Tolgrim_JobResurrectMech` for instant battlefield resurrection and faction alignment.
+- Friendly Apocriton behavior patches: suppresses Hate Aura on colonists and enables mech recharger gizmos.
+- Runtime toggle in Mod Settings (`enableResurrectEnemyMechs`) with zero overhead when disabled.
+- Harmony integration (`0Harmony.dll`) referenced as compile dependency.
+
+These descriptions reflect the reported project state; inspect the code before assuming implementation details.
+
+## 4. Build and deployment
+
+Run commands from the repository root.
+
+### Build C#
+
 ```powershell
 & "C:\Users\jelys\scoop\apps\dotnet-sdk\current\dotnet.exe" build "Source\Tolgrim_MechanitorExpanded.csproj" -c Release
 ```
 
-### Sincronizar con el directorio del juego
+### Sync to local game installation
+
 ```powershell
 Copy-Item -Path "Source\1.6\Assemblies\*" -Destination "1.6\Assemblies" -Force
 $target = "C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\TOLGRIM - Mechanitor Expanded"
@@ -89,19 +74,10 @@ Copy-Item -Path "About" -Destination "$target\About" -Recurse -Force
 Copy-Item -Path "1.6" -Destination "$target\1.6" -Recurse -Force
 ```
 
----
+Before deploying, confirm that paths exist and the build succeeded. Do not delete unrelated files at the destination.
 
-## 5. Fases Implementadas
+## 5. Workflow
 
-- **Fase 1:**
-  - Pestaña nativa «Mecanizador» (`ITab_Pawn_Mechanitor`) en el panel de inspección de colonos (visible solo con `Mechlink`).
-  - Acordeones colapsables para Información General, Capacidades, Implantes y Equipamiento.
-  - Opciones de Mod Settings para dimensiones y visibilidad.
-  - Reubicación opcional en caliente de recetas de implantes de mecanizador al *Codificador de subnúcleos* (`Subcore Encoder`).
-- **Fase 2:**
-  - Sistema modular de bonificaciones permanentes de ancho de banda (`BandwidthBonusRegistry`).
-  - Inyección en `StatDefOf.MechBandwidth` mediante `StatPart_MechanitorExpandedBandwidth`.
-  - 4 niveles de implantes *Mech Neurofibre* (I: +3, II: +6, III: +9, IV: +12) mutuamente excluyentes y escalonados en tecnología.
-  - Sueros exóticos *Bandnode Sera* (+1 de ancho de banda por dosis, configurable hasta 36 dosis).
-  - Persistencia de datos por mecanizador (`CompMechanitorBandwidth`).
-  - Tooltip explicativo dinámico y detallado en la pestaña «Mecanizador».
+**Inspect → Implement → Verify → Report.**
+
+After each task, briefly summarize changes, affected files, tests performed, and remaining limitations. Always prioritize **native integration, stability, compatibility, and simplicity**.

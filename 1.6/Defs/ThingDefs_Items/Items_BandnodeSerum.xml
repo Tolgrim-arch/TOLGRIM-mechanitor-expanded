@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="MechSerumBase">
+    <defName>Tolgrim_BandnodeSerum</defName>
+    <label>bandnode serum</label>
+    <description>An exotic ultra-tech mechanite serum engineered to permanently expand a mechanitor's neural bandwidth capacity. Administering one dose permanently increases total mech bandwidth by +1 (up to a configurable maximum of 36 doses per mechanitor).\n\nCan only be administered to pawns with an active mechlink.</description>
+    <graphicData>
+      <texPath>Things/Item/Special/MechSerumHealer</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MarketValue>1200</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>Drugs</li>
+    </thingCategories>
+    <tradeability>Sellable</tradeability>
+    <thingSetMakerTags>
+      <li>RewardStandardLowFreq</li>
+    </thingSetMakerTags>
+    <comps>
+      <li Class="CompProperties_Usable">
+        <useJob>UseItem</useJob>
+        <useLabel>Administer {0_label}</useLabel>
+        <useDuration>300</useDuration>
+        <showUseGizmo>true</showUseGizmo>
+      </li>
+      <li Class="CompProperties_UseEffect">
+        <compClass>Tolgrim_MechanitorExpanded.CompUseEffect_BandnodeSerum</compClass>
+      </li>
+      <li Class="CompProperties_UseEffectPlaySound">
+        <soundOnUsed>MechSerumUsed</soundOnUsed>
+      </li>
+      <li Class="CompProperties_UseEffectDestroySelf" />
+    </comps>
+  </ThingDef>
+
+  <RecipeDef>
+    <defName>Tolgrim_AdministerBandnodeSerum</defName>
+    <label>administer bandnode serum</label>
+    <description>Administer a dose of bandnode serum to permanently increase mech bandwidth by +1.</description>
+    <workerClass>Recipe_AdministerUsableItem</workerClass>
+    <jobString>Administering bandnode serum.</jobString>
+    <targetsBodyPart>false</targetsBodyPart>
+    <anesthetize>false</anesthetize>
+    <workAmount>300</workAmount>
+    <dontShowIfAnyIngredientMissing>true</dontShowIfAnyIngredientMissing>
+    <surgeryOutcomeEffect IsNull="True"/>
+    <recipeUsers>
+      <li>Human</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Tolgrim_BandnodeSerum</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Tolgrim_BandnodeSerum</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+</Defs>

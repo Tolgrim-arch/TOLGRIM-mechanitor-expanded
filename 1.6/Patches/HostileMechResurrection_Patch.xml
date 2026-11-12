@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Job para la habilidad de resurrección de mecanoide -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="ResurrectionMech"]/jobDef</xpath>
+    <value>
+      <jobDef>Tolgrim_JobResurrectMech</jobDef>
+    </value>
+  </Operation>
+
+  <!-- Recetas para resucitar y reprogramar mecanoides hostiles -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs</xpath>
+    <value>
+      <RecipeDef ParentName="Tolgrim_BaseHostileMechanoidRecipe">
+        <defName>Tolgrim_ResurrectHostileLightMech</defName>
+        <label>resurrect hostile light mechanoid</label>
+        <description>Resurrect a hostile light mechanoid. Its core must be reinitialized to accept new directives. Requires a basic subcore for reprogramming.</description>
+        <ingredients>
+          <li>
+            <filter>
+              <categories>
+                <li>Corpses</li>
+              </categories>
+            </filter>
+            <count>1</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>Steel</li>
+              </thingDefs>
+            </filter>
+            <count>25</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>SubcoreBasic</li>
+              </thingDefs>
+            </filter>
+            <count>1</count>
+          </li>
+        </ingredients>
+        <fixedIngredientFilter>
+          <thingDefs>
+            <li>Corpse_Mech_Militor</li>
+          </thingDefs>
+        </fixedIngredientFilter>
+        <researchPrerequisite>BasicMechtech</researchPrerequisite>
+      </RecipeDef>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs</xpath>
+    <value>
+      <RecipeDef ParentName="Tolgrim_BaseHostileMechanoidRecipe">
+        <defName>Tolgrim_ResurrectHostileLightHMech</defName>
+        <label>resurrect hostile light mechanoid (high)</label>
+        <description>Resurrect a hostile light mechanoid. Its core must be reinitialized to accept new directives. Requires a high subcore for reprogramming.</description>
+        <ingredients>
+          <li>
+            <filter>
+              <categories>
+                <li>Corpses</li>
+              </categories>
+            </filter>
+            <count>1</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>Steel</li>
+              </thingDefs>
+            </filter>
+            <count>25</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>SubcoreHigh</li>
+              </thingDefs>
+            </filter>
+            <count>1</count>
+          </li>
+        </ingredients>
+        <fixedIngredientFilter>
+          <thingDefs>
+            <li>Corpse_Mech_Warurchin</li>
+          </thingDefs>
+        </fixedIngredientFilter>
+        <researchPrerequisite>HighMechtech</researchPrerequisite>
+      </RecipeDef>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs</xpath>
+    <value>
+      <RecipeDef ParentName="Tolgrim_BaseHostileMechanoidRecipe">
+        <defName>Tolgrim_ResurrectHostileMediumMech</defName>
+        <label>resurrect hostile medium mechanoid</label>
+        <description>Resurrect a hostile medium mechanoid. Its core must be reinitialized to accept new directives. Requires a standard subcore for reprogramming.</description>
+        <ingredients>
+          <li>
+            <filter>
+              <categories>
+                <li>Corpses</li>
+              </categories>
+            </filter>
+            <count>1</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>Steel</li>
+              </thingDefs>
+            </filter>
+            <count>50</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>SubcoreRegular</li>
+              </thingDefs>
+            </filter>
+            <count>1</count>
+          </li>
+        </ingredients>
+        <fixedIngredientFilter>
+          <thingDefs>
+            <li>Corpse_Mech_Lancer</li>
+            <li>Corpse_Mech_Pikeman</li>
+            <li>Corpse_Mech_Scyther</li>
+          </thingDefs>
+        </fixedIngredientFilter>
+        <researchPrerequisite>StandardMechtech</researchPrerequisite>
+      </RecipeDef>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs</xpath>
+    <value>
+      <RecipeDef ParentName="Tolgrim_BaseHostileMechanoidRecipe">
+        <defName>Tolgrim_ResurrectHostileMediumHMech</defName>
+        <label>resurrect hostile medium mechanoid (high)</label>
+        <description>Resurrect a hostile medium mechanoid. Its core must be reinitialized to accept new directives. Requires a high subcore for reprogramming.</description>
+        <ingredients>
+          <li>
+            <filter>
+              <categories>
+                <li>Corpses</li>
+              </categories>
+            </filter>
+            <count>1</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>Steel</li>
+              </thingDefs>
+            </filter>
+            <count>50</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>SubcoreHigh</li>
+              </thingDefs>
+            </filter>
+            <count>1</count>
+          </li>
+        </ingredients>
+        <fixedIngredientFilter>
+          <thingDefs>
+            <li>Corpse_Mech_Legionary</li>
+            <li>Corpse_Mech_Tesseron</li>
+          </thingDefs>
+        </fixedIngredientFilter>
+        <researchPrerequisite>HighMechtech</researchPrerequisite>
+      </RecipeDef>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs</xpath>
+    <value>
+      <RecipeDef ParentName="Tolgrim_BaseHostileMechanoidRecipe">
+        <defName>Tolgrim_ResurrectHostileHeavyMech</defName>
+        <label>resurrect hostile heavy mechanoid</label>
+        <description>Resurrect a hostile heavy mechanoid. Its core must be reinitialized to accept new directives. Requires a high subcore for reprogramming.</description>
+        <ingredients>
+          <li>
+            <filter>
+              <categories>
+                <li>Corpses</li>
+              </categories>
+            </filter>
+            <count>1</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>Steel</li>
+              </thingDefs>
+            </filter>
+            <count>100</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>SubcoreHigh</li>
+              </thingDefs>
+            </filter>
+            <count>1</count>
+          </li>
+        </ingredients>
+        <fixedIngredientFilter>
+          <thingDefs>
+            <li>Corpse_Mech_CentipedeBlaster</li>
+            <li>Corpse_Mech_CentipedeBurner</li>
+            <li>Corpse_Mech_CentipedeGunner</li>
+          </thingDefs>
+        </fixedIngredientFilter>
+        <researchPrerequisite>HighMechtech</researchPrerequisite>
+      </RecipeDef>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs</xpath>
+    <value>
+      <RecipeDef ParentName="Tolgrim_BaseHostileMechanoidRecipe">
+        <defName>Tolgrim_ResurrectHostileUltraHeavyMech</defName>
+        <label>resurrect hostile ultraheavy mechanoid</label>
+        <description>Resurrect a hostile ultraheavy mechanoid. Its core must be fully reinitialized to accept new directives. Advanced systems require additional components and a high subcore.</description>
+        <ingredients>
+          <li>
+            <filter>
+              <categories>
+                <li>Corpses</li>
+              </categories>
+            </filter>
+            <count>1</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>Steel</li>
+              </thingDefs>
+            </filter>
+            <count>150</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>ComponentSpacer</li>
+              </thingDefs>
+            </filter>
+            <count>1</count>
+          </li>
+          <li>
+            <filter>
+              <thingDefs>
+                <li>SubcoreHigh</li>
+              </thingDefs>
+            </filter>
+            <count>1</count>
+          </li>
+        </ingredients>
+        <fixedIngredientFilter>
+          <thingDefs>
+            <li>Corpse_Mech_Apocriton</li>
+            <li>Corpse_Mech_Centurion</li>
+            <li>Corpse_Mech_Diabolus</li>
+            <li>Corpse_Mech_Warqueen</li>
+          </thingDefs>
+        </fixedIngredientFilter>
+        <researchPrerequisite>UltraMechtech</researchPrerequisite>
+      </RecipeDef>
+    </value>
+  </Operation>
+
+  <!-- Inyección de recetas en los gestadores nativos -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="MechGestator"]/recipes</xpath>
+    <value>
+      <li>Tolgrim_ResurrectHostileLightMech</li>
+      <li>Tolgrim_ResurrectHostileLightHMech</li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="LargeMechGestator"]/recipes</xpath>
+    <value>
+      <li>Tolgrim_ResurrectHostileMediumMech</li>
+      <li>Tolgrim_ResurrectHostileMediumHMech</li>
+      <li>Tolgrim_ResurrectHostileHeavyMech</li>
+      <li>Tolgrim_ResurrectHostileUltraHeavyMech</li>
+    </value>
+  </Operation>
+
+</Patch>

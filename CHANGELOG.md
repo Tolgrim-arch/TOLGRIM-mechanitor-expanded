@@ -5,6 +5,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.3.0] — 2026-11-12
+
+### Feature: Enemy Mechanoid Resurrection & Reprogramming
+
+#### Added
+- **Hostile Mech Resurrection & Gestation:**
+  - Integrated native gestation recipes (`Tolgrim_ResurrectHostileLightMech`, etc.) to gestate and reprogram downed/dead hostile mechanoids into colony mechanoids using subcores and steel.
+  - Native support for `MechGestator` and `LargeMechGestator`.
+  - Rebound instant resurrection ability via `Tolgrim_JobResurrectMech` job driver.
+- **Friendly Apocriton Corrections:**
+  - Harmony patch on `ThoughtWorker_HateAura` ensuring colony-aligned Apocritons do not trigger Hate Aura mental breaks on colonists.
+  - Harmony patch on `Pawn.GetGizmos` allowing friendly Apocritons to recharge at colony mech chargers.
+- **Mod Settings Integration:**
+  - Toggle `enableResurrectEnemyMechs` in `MechanitorExpandedSettings` to dynamically enable or disable hostile mech resurrection at runtime.
+- **Localization:** Keyed strings in English, Spanish, and SpanishLatin.
+
+---
+
 ## [0.2.0] — 2026-11-12
 
 ### Phase 2: Neurofibre, Bandnode Sera & Bonus Architecture

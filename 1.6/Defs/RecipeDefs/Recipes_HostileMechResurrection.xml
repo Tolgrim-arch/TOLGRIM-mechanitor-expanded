@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <JobDef ParentName="CastAbilityOnThing">
+    <defName>Tolgrim_JobResurrectMech</defName>
+    <driverClass>JobDriver_CastAbilityGoTo</driverClass>
+    <neverShowWeapon>true</neverShowWeapon>
+    <playerInterruptible>true</playerInterruptible>
+  </JobDef>
+
+  <RecipeDef Name="Tolgrim_BaseHostileMechanoidRecipe" ParentName="BaseMechanoidRecipe" Abstract="True">
+    <mechResurrection>true</mechResurrection>
+    <displayPriority>600</displayPriority>
+    <fixedIngredientFilter>
+      <specialFiltersToAllow>
+        <li>AllowCorpsesMechEnemy</li>
+      </specialFiltersToAllow>
+    </fixedIngredientFilter>
+    <forceHiddenSpecialFilters>
+      <li>AllowCorpsesMechEnemy</li>
+    </forceHiddenSpecialFilters>
+  </RecipeDef>
+
+</Defs>

@@ -6,6 +6,7 @@ namespace Tolgrim_MechanitorExpanded
     public class MechanitorExpandedMod : Mod
     {
         public static MechanitorExpandedSettings Settings { get; private set; } = null!;
+        private Vector2 scrollPosition = Vector2.zero;
 
         public MechanitorExpandedMod(ModContentPack content) : base(content)
         {
@@ -19,8 +20,12 @@ namespace Tolgrim_MechanitorExpanded
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
+            Rect outRect = new Rect(inRect.x, inRect.y, inRect.width, inRect.height);
+            Rect viewRect = new Rect(0f, 0f, inRect.width - 20f, 780f);
+            Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
+
             Listing_Standard listing = new Listing_Standard();
-            listing.Begin(inRect);
+            listing.Begin(viewRect);
 
             // Encabezado de organización y fabricación
             Text.Font = GameFont.Medium;
@@ -34,6 +39,34 @@ namespace Tolgrim_MechanitorExpanded
             {
                 SubcoreEncoderRecipeManager.ApplyRecipeRouting(Settings.moveRecipesToSubcoreEncoder);
             }
+            listing.Gap(10f);
+
+            // Fase 2: Neurofibra y Sueros Bandnode
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsPhase2Section".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(4f);
+
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableNeurofibre".Translate(), ref Settings.enableNeurofibre, "Tolgrim_SettingsEnableNeurofibreTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableBandnodeSera".Translate(), ref Settings.enableBandnodeSera, "Tolgrim_SettingsEnableBandnodeSeraTip".Translate());
+
+            listing.Label($"{"Tolgrim_SettingsMaxBandnodeDoses".Translate()}: {Settings.maxBandnodeSeraDoses}");
+            Settings.maxBandnodeSeraDoses = Mathf.RoundToInt(listing.Slider(Settings.maxBandnodeSeraDoses, 1f, 100f));
+
+            listing.Label($"{"Tolgrim_SettingsNeurofibreMult".Translate()}: {Settings.neurofibreMultiplier:0.0}x");
+            Settings.neurofibreMultiplier = Mathf.Round(listing.Slider(Settings.neurofibreMultiplier, 0.5f, 3.0f) * 2f) / 2f;
+
+            listing.Label($"{"Tolgrim_SettingsSerumMult".Translate()}: {Settings.serumMultiplier:0.0}x");
+            Settings.serumMultiplier = Mathf.Round(listing.Slider(Settings.serumMultiplier, 0.5f, 3.0f) * 2f) / 2f;
+            listing.Gap(10f);
+
+            // Fase 3: Resurrección de mecanoides hostiles
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsEnemyMechsSection".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(4f);
+
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableEnemyMechs".Translate(), ref Settings.enableResurrectEnemyMechs, "Tolgrim_SettingsEnableEnemyMechsTip".Translate());
             listing.Gap(10f);
 
             // Encabezado de visualización y tamaño
@@ -85,6 +118,7 @@ namespace Tolgrim_MechanitorExpanded
             }
 
             listing.End();
+            Widgets.EndScrollView();
             base.DoSettingsWindowContents(inRect);
         }
     }

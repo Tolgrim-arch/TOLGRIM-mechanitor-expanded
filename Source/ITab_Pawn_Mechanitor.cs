@@ -186,7 +186,10 @@ namespace Tolgrim_MechanitorExpanded
             string bwDisplay = $"{usedBandwidth} / {totalBandwidth} ({"Tolgrim_BandwidthAvailable".Translate()}: {freeBandwidth})";
             Color bwColor = freeBandwidth < 0 ? ColorLibrary.Red : (freeBandwidth == 0 ? ColorLibrary.Yellow : Color.white);
             
-            TaggedString bwTip = "Bandwidth".Translate().Colorize(ColoredText.TipSectionTitleColor) + ": " + $"{usedBandwidth} / {totalBandwidth}\n\n" + "BandwidthGizmoTip".Translate();
+            // Tooltip nativo con desglose real desde StatWorker
+            StatRequest bwReq = StatRequest.For(pawn);
+            string bwExplanation = StatDefOf.MechBandwidth.Worker.GetExplanationFull(bwReq, StatDefOf.MechBandwidth.toStringNumberSense, totalBandwidth);
+            TaggedString bwTip = "Bandwidth".Translate().Colorize(ColoredText.TipSectionTitleColor) + ": " + $"{usedBandwidth} / {totalBandwidth}\n\n" + bwExplanation;
             if (tracker.UsedBandwidthFromSubjects > 0)
             {
                 bwTip += $"\n\n{"BandwidthUsage".Translate()}: {tracker.UsedBandwidthFromSubjects}";
@@ -196,6 +199,28 @@ namespace Tolgrim_MechanitorExpanded
                 bwTip += $"\n\n{"MechGestationBandwidthUsed".Translate()}: {tracker.UsedBandwidthFromGestation}";
             }
             DrawKeyValueRow("Tolgrim_MechBandwidth".Translate(), bwDisplay, ref curY, width, bwTip, rowIdx++, bwColor);
+
+            // Desglose de bonificaciones de Neurofibra, Sueros y otras fuentes
+            float neuroBonus = BandwidthBonusRegistry.GetBonusBySource(pawn, "Neurofibre");
+            if (neuroBonus > 0f)
+            {
+                DrawKeyValueRow("Tolgrim_NeurofibreBonus".Translate(), $"+{neuroBonus:0.##}", ref curY, width, "Tolgrim_NeurofibreBonusTip".Translate(), rowIdx++);
+            }
+
+            CompMechanitorBandwidth? bwComp = pawn.TryGetComp<CompMechanitorBandwidth>();
+            int doses = bwComp?.bandnodeSerumDoses ?? 0;
+            float serumBonus = BandwidthBonusRegistry.GetBonusBySource(pawn, "BandnodeSera");
+            if (doses > 0 || S.enableBandnodeSera)
+            {
+                string serumVal = $"+{serumBonus:0.##} ({doses}/{S.maxBandnodeSeraDoses})";
+                DrawKeyValueRow("Tolgrim_BandnodeSeraBonus".Translate(), serumVal, ref curY, width, "Tolgrim_BandnodeSeraDesc".Translate(), rowIdx++);
+            }
+
+            float otherBonus = BandwidthBonusRegistry.GetTotalBonus(pawn) - neuroBonus - serumBonus;
+            if (otherBonus > 0.001f)
+            {
+                DrawKeyValueRow("Tolgrim_OtherBandwidthBonus".Translate(), $"+{otherBonus:0.##}", ref curY, width, null, rowIdx++);
+            }
 
             // Radio de control de mecas (configurable)
             if (S.showCommandRange)
@@ -367,6 +392,7 @@ namespace Tolgrim_MechanitorExpanded
         private bool IsMechanitorRelatedHediff(Hediff h)
         {
             if (h.def == HediffDefOf.MechlinkImplant) return true;
+            if (NeurofibreBonusProvider.GetNeurofibreTier(h.def.defName, out _) > 0) return true;
             if (h.def.defName.Contains("Sublink") || h.def.defName.Contains("RemoteRepairer") || 
                 h.def.defName.Contains("RemoteShielder") || h.def.defName.Contains("RepairProbe") ||
                 h.def.defName.Contains("MechFormfeeder") || h.def.defName.Contains("Mechlink"))
@@ -550,6 +576,12 @@ namespace Tolgrim_MechanitorExpanded
 
         private string GetHediffBonusSummary(Hediff hediff)
         {
+            if (NeurofibreBonusProvider.GetNeurofibreTier(hediff.def.defName, out float baseVal) > 0)
+            {
+                float mult = MechanitorExpandedMod.Settings?.neurofibreMultiplier ?? 1f;
+                return $"+{baseVal * mult:0.##} {"Tolgrim_ShortBandwidth".Translate()}";
+            }
+
             HediffStage stage = hediff.CurStage;
             if (stage == null || stage.statOffsets.NullOrEmpty())
             {

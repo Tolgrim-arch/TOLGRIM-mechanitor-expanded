@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Biotech</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <!-- 1. Añadir CompMechanitorBandwidth a Human -->
+        <li Class="PatchOperationAdd">
+          <xpath>/Defs/ThingDef[defName="Human"]/comps</xpath>
+          <value>
+            <li Class="Tolgrim_MechanitorExpanded.CompProperties_MechanitorBandwidth" />
+          </value>
+        </li>
+
+        <!-- 2. Añadir StatPart_MechanitorExpandedBandwidth a MechBandwidth -->
+        <li Class="PatchOperationConditional">
+          <xpath>/Defs/StatDef[defName="MechBandwidth"]/parts</xpath>
+          <match Class="PatchOperationAdd">
+            <xpath>/Defs/StatDef[defName="MechBandwidth"]/parts</xpath>
+            <value>
+              <li Class="Tolgrim_MechanitorExpanded.StatPart_MechanitorExpandedBandwidth" />
+            </value>
+          </match>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>/Defs/StatDef[defName="MechBandwidth"]</xpath>
+            <value>
+              <parts>
+                <li Class="Tolgrim_MechanitorExpanded.StatPart_MechanitorExpandedBandwidth" />
+              </parts>
+            </value>
+          </nomatch>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+</Patch>

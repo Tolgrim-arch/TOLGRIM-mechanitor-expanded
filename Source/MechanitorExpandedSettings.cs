@@ -23,6 +23,16 @@ namespace Tolgrim_MechanitorExpanded
         // Organización de fabricación: mover recetas de implantes de mecanizador al Subcore Encoder
         public bool moveRecipesToSubcoreEncoder = false;
 
+        // Fase 2: Neurofibra y Sueros Bandnode
+        public bool enableNeurofibre = true;
+        public bool enableBandnodeSera = true;
+        public int maxBandnodeSeraDoses = 36;
+        public float neurofibreMultiplier = 1.0f;
+        public float serumMultiplier = 1.0f;
+
+        // Fase 3: Resurrección y hackeo de mecanoides enemigos
+        public bool enableResurrectEnemyMechs = true;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -40,6 +50,14 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref defaultExpandEquipment, "defaultExpandEquipment", true);
 
             Scribe_Values.Look(ref moveRecipesToSubcoreEncoder, "moveRecipesToSubcoreEncoder", false);
+
+            Scribe_Values.Look(ref enableNeurofibre, "enableNeurofibre", true);
+            Scribe_Values.Look(ref enableBandnodeSera, "enableBandnodeSera", true);
+            Scribe_Values.Look(ref maxBandnodeSeraDoses, "maxBandnodeSeraDoses", 36);
+            Scribe_Values.Look(ref neurofibreMultiplier, "neurofibreMultiplier", 1.0f);
+            Scribe_Values.Look(ref serumMultiplier, "serumMultiplier", 1.0f);
+
+            Scribe_Values.Look(ref enableResurrectEnemyMechs, "enableResurrectEnemyMechs", true);
         }
 
         public void ResetToDefaults()
@@ -55,6 +73,12 @@ namespace Tolgrim_MechanitorExpanded
             defaultExpandImplants = true;
             defaultExpandEquipment = true;
             moveRecipesToSubcoreEncoder = false;
+            enableNeurofibre = true;
+            enableBandnodeSera = true;
+            maxBandnodeSeraDoses = 36;
+            neurofibreMultiplier = 1.0f;
+            serumMultiplier = 1.0f;
+            enableResurrectEnemyMechs = true;
         }
     }
 }

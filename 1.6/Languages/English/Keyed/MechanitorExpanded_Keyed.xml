@@ -71,4 +71,31 @@
   <Tolgrim_SettingsExpandEquipment>Equipment expanded</Tolgrim_SettingsExpandEquipment>
 
   <Tolgrim_SettingsResetDefaults>Reset to defaults</Tolgrim_SettingsResetDefaults>
+
+  <!-- Phase 2: Neurofibre, Bandnode Sera & Mod Settings -->
+  <Tolgrim_NeurofibreBonus>Neurofibre bonus</Tolgrim_NeurofibreBonus>
+  <Tolgrim_NeurofibreBonusTip>Permanent bandwidth bonus granted by the installed Mech Neurofibre implant.</Tolgrim_NeurofibreBonusTip>
+  <Tolgrim_BandnodeSeraBonus>Bandnode Sera</Tolgrim_BandnodeSeraBonus>
+  <Tolgrim_BandnodeSeraBreakdown>Bandnode Sera ({0} doses)</Tolgrim_BandnodeSeraBreakdown>
+  <Tolgrim_BandnodeSeraDesc>Permanent bandwidth gained from administered Bandnode Sera doses (+1 per dose).</Tolgrim_BandnodeSeraDesc>
+  <Tolgrim_OtherBandwidthBonus>Other bonuses</Tolgrim_OtherBandwidthBonus>
+
+  <Tolgrim_RequiresMechanitor>Requires an active mechlink (mechanitor).</Tolgrim_RequiresMechanitor>
+  <Tolgrim_BandnodeSeraDisabled>Bandnode Sera are currently disabled in Mod Settings.</Tolgrim_BandnodeSeraDisabled>
+  <Tolgrim_BandnodeSeraMaxReached>Maximum Bandnode Sera limit reached ({0} doses).</Tolgrim_BandnodeSeraMaxReached>
+  <Tolgrim_BandnodeSerumUsedMsg>{0} permanently gained +1 mech bandwidth from Bandnode Serum ({1}/{2} doses).</Tolgrim_BandnodeSerumUsedMsg>
+
+  <Tolgrim_SettingsPhase2Section>Neurofibre &amp; Bandnode Sera</Tolgrim_SettingsPhase2Section>
+  <Tolgrim_SettingsEnableNeurofibre>Enable Mech Neurofibre implants</Tolgrim_SettingsEnableNeurofibre>
+  <Tolgrim_SettingsEnableNeurofibreTip>When disabled, Neurofibre implants stop granting bandwidth bonuses and cannot be surgically installed, without deleting existing implants from saves.</Tolgrim_SettingsEnableNeurofibreTip>
+  <Tolgrim_SettingsEnableBandnodeSera>Enable Bandnode Sera</Tolgrim_SettingsEnableBandnodeSera>
+  <Tolgrim_SettingsEnableBandnodeSeraTip>When disabled, Bandnode Sera stop granting bandwidth bonuses and cannot be administered, without deleting saved dose counts.</Tolgrim_SettingsEnableBandnodeSeraTip>
+  <Tolgrim_SettingsMaxBandnodeDoses>Max Bandnode Sera doses per mechanitor</Tolgrim_SettingsMaxBandnodeDoses>
+  <Tolgrim_SettingsNeurofibreMult>Neurofibre bonus multiplier</Tolgrim_SettingsNeurofibreMult>
+  <Tolgrim_SettingsSerumMult>Bandnode Serum bonus multiplier</Tolgrim_SettingsSerumMult>
+
+  <!-- Hostile Mech Resurrection -->
+  <Tolgrim_SettingsEnemyMechsSection>Enemy Mechanoid Reprogramming</Tolgrim_SettingsEnemyMechsSection>
+  <Tolgrim_SettingsEnableEnemyMechs>Enable hostile mechanoid resurrection</Tolgrim_SettingsEnableEnemyMechs>
+  <Tolgrim_SettingsEnableEnemyMechsTip>Allows player gestators and mechanitors to resurrect and reprogram enemy mechanoid corpses using subcores and components, converting them permanently into colony mechs.</Tolgrim_SettingsEnableEnemyMechsTip>
 </LanguageData>

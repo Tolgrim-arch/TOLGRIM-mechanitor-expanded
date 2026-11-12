@@ -71,4 +71,31 @@
   <Tolgrim_SettingsExpandEquipment>Equipamiento expandido</Tolgrim_SettingsExpandEquipment>
 
   <Tolgrim_SettingsResetDefaults>Restablecer valores por defecto</Tolgrim_SettingsResetDefaults>
+
+  <!-- Fase 2: Neurofibra, Sueros Bandnode y Mod Settings -->
+  <Tolgrim_NeurofibreBonus>Bonificación Neurofibra</Tolgrim_NeurofibreBonus>
+  <Tolgrim_NeurofibreBonusTip>Bonificación permanente de ancho de banda otorgada por el implante Mech Neurofibre instalado.</Tolgrim_NeurofibreBonusTip>
+  <Tolgrim_BandnodeSeraBonus>Sueros Bandnode</Tolgrim_BandnodeSeraBonus>
+  <Tolgrim_BandnodeSeraBreakdown>Sueros Bandnode ({0} dosis)</Tolgrim_BandnodeSeraBreakdown>
+  <Tolgrim_BandnodeSeraDesc>Ancho de banda permanente obtenido mediante dosis de Suero Bandnode (+1 por dosis).</Tolgrim_BandnodeSeraDesc>
+  <Tolgrim_OtherBandwidthBonus>Otras bonificaciones</Tolgrim_OtherBandwidthBonus>
+
+  <Tolgrim_RequiresMechanitor>Requiere un mechlink activo (mecanizador).</Tolgrim_RequiresMechanitor>
+  <Tolgrim_BandnodeSeraDisabled>Los Sueros Bandnode están desactivados en la configuración del mod.</Tolgrim_BandnodeSeraDisabled>
+  <Tolgrim_BandnodeSeraMaxReached>Límite máximo de Sueros Bandnode alcanzado ({0} dosis).</Tolgrim_BandnodeSeraMaxReached>
+  <Tolgrim_BandnodeSerumUsedMsg>{0} ha ganado +1 de ancho de banda permanente por Suero Bandnode ({1}/{2} dosis).</Tolgrim_BandnodeSerumUsedMsg>
+
+  <Tolgrim_SettingsPhase2Section>Neurofibra y Sueros Bandnode</Tolgrim_SettingsPhase2Section>
+  <Tolgrim_SettingsEnableNeurofibre>Activar implantes Mech Neurofibre</Tolgrim_SettingsEnableNeurofibre>
+  <Tolgrim_SettingsEnableNeurofibreTip>Si se desactiva, los implantes Neurofibre dejan de otorgar ancho de banda y no pueden instalarse, sin eliminar los implantes ya guardados.</Tolgrim_SettingsEnableNeurofibreTip>
+  <Tolgrim_SettingsEnableBandnodeSera>Activar Sueros Bandnode</Tolgrim_SettingsEnableBandnodeSera>
+  <Tolgrim_SettingsEnableBandnodeSeraTip>Si se desactiva, los Sueros Bandnode dejan de otorgar ancho de banda y no pueden administrarse, sin borrar el contador de dosis guardado.</Tolgrim_SettingsEnableBandnodeSeraTip>
+  <Tolgrim_SettingsMaxBandnodeDoses>Máximo de dosis de Suero Bandnode por mecanizador</Tolgrim_SettingsMaxBandnodeDoses>
+  <Tolgrim_SettingsNeurofibreMult>Multiplicador de bonificación de Neurofibra</Tolgrim_SettingsNeurofibreMult>
+  <Tolgrim_SettingsSerumMult>Multiplicador de bonificación de Suero Bandnode</Tolgrim_SettingsSerumMult>
+
+  <!-- Resurrección y reprogramación de mecanoides hostiles -->
+  <Tolgrim_SettingsEnemyMechsSection>Reprogramación de mecanoides hostiles</Tolgrim_SettingsEnemyMechsSection>
+  <Tolgrim_SettingsEnableEnemyMechs>Activar resurrección de mecanoides hostiles</Tolgrim_SettingsEnableEnemyMechs>
+  <Tolgrim_SettingsEnableEnemyMechsTip>Permite a los gestadores y mecanizadores resucitar y reprogramar cadáveres de mecanoides hostiles usando subnúcleos y componentes, convirtiéndolos permanentemente en mecas de la colonia.</Tolgrim_SettingsEnableEnemyMechsTip>
 </LanguageData>

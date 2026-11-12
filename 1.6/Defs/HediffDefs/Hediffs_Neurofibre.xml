@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- ================= HEDIFF DEFS (4 LEVELS) ================= -->
+  <HediffDef ParentName="ImplantHediffBase" Name="Tolgrim_NeurofibreHediffBase" Abstract="True">
+    <hediffClass>Hediff_Implant</hediffClass>
+    <isBad>false</isBad>
+    <duplicationAllowed>false</duplicationAllowed>
+    <keepOnBodyPartRestoration>true</keepOnBodyPartRestoration>
+    <defaultLabelColor>(0.6, 0.85, 1.0)</defaultLabelColor>
+  </HediffDef>
+
+  <HediffDef ParentName="Tolgrim_NeurofibreHediffBase">
+    <defName>Tolgrim_NeurofibreImplantI</defName>
+    <label>mech neurofibre I</label>
+    <description>A tier I neural-lace augmentation woven around the mechanitor's mechlink, expanding total mech bandwidth by +3.</description>
+    <descriptionShort>Expands mechanitor bandwidth by +3.</descriptionShort>
+  </HediffDef>
+
+  <HediffDef ParentName="Tolgrim_NeurofibreHediffBase">
+    <defName>Tolgrim_NeurofibreImplantII</defName>
+    <label>mech neurofibre II</label>
+    <description>A tier II neural-lace augmentation woven around the mechanitor's mechlink, expanding total mech bandwidth by +6.</description>
+    <descriptionShort>Expands mechanitor bandwidth by +6.</descriptionShort>
+  </HediffDef>
+
+  <HediffDef ParentName="Tolgrim_NeurofibreHediffBase">
+    <defName>Tolgrim_NeurofibreImplantIII</defName>
+    <label>mech neurofibre III</label>
+    <description>A tier III neural-lace augmentation woven around the mechanitor's mechlink, expanding total mech bandwidth by +9.</description>
+    <descriptionShort>Expands mechanitor bandwidth by +9.</descriptionShort>
+  </HediffDef>
+
+  <HediffDef ParentName="Tolgrim_NeurofibreHediffBase">
+    <defName>Tolgrim_NeurofibreImplantIV</defName>
+    <label>mech neurofibre IV</label>
+    <description>A tier IV neural-lace augmentation woven around the mechanitor's mechlink, expanding total mech bandwidth by +12.</description>
+    <descriptionShort>Expands mechanitor bandwidth by +12.</descriptionShort>
+  </HediffDef>
+
+  <!-- ================= THING DEFS (ITEMS) ================= -->
+  <ThingDef Abstract="True" Name="Tolgrim_NeurofibreItemBase" ParentName="MechanitorImplantCraftableBase">
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/Mechlink</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.65</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>0.5</Mass>
+      <WorkToMake>4000</WorkToMake>
+    </statBases>
+    <recipeMaker>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="Tolgrim_NeurofibreItemBase">
+    <defName>Tolgrim_MechNeurofibreI</defName>
+    <label>mech neurofibre I</label>
+    <description>A tier I neural-lace implant crafted from a spare mechlink. When surgically installed into a mechanitor's brain, it permanently increases their bandwidth by +3. Mutually exclusive with other neurofibre tiers.</description>
+    <descriptionHyperlinks>
+      <HediffDef>Tolgrim_NeurofibreImplantI</HediffDef>
+    </descriptionHyperlinks>
+    <statBases>
+      <MarketValue>800</MarketValue>
+    </statBases>
+    <costList>
+      <Mechlink>1</Mechlink>
+      <Steel>40</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>StandardMechtech</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="Tolgrim_NeurofibreItemBase">
+    <defName>Tolgrim_MechNeurofibreII</defName>
+    <label>mech neurofibre II</label>
+    <description>A tier II neural-lace implant crafted from a spare mechlink and standard subcore. When surgically installed into a mechanitor's brain, it permanently increases their bandwidth by +6. Replaces any lower neurofibre tier.</description>
+    <descriptionHyperlinks>
+      <HediffDef>Tolgrim_NeurofibreImplantII</HediffDef>
+    </descriptionHyperlinks>
+    <statBases>
+      <MarketValue>1400</MarketValue>
+      <WorkToMake>6000</WorkToMake>
+    </statBases>
+    <costList>
+      <Mechlink>1</Mechlink>
+      <Plasteel>30</Plasteel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+      <SubcoreRegular>1</SubcoreRegular>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>StandardMechtech</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="Tolgrim_NeurofibreItemBase">
+    <defName>Tolgrim_MechNeurofibreIII</defName>
+    <label>mech neurofibre III</label>
+    <description>A tier III neural-lace implant reinforced with spacer components. When surgically installed into a mechanitor's brain, it permanently increases their bandwidth by +9. Replaces any lower neurofibre tier.</description>
+    <descriptionHyperlinks>
+      <HediffDef>Tolgrim_NeurofibreImplantIII</HediffDef>
+    </descriptionHyperlinks>
+    <statBases>
+      <MarketValue>2200</MarketValue>
+      <WorkToMake>8000</WorkToMake>
+    </statBases>
+    <costList>
+      <Mechlink>1</Mechlink>
+      <Plasteel>50</Plasteel>
+      <ComponentSpacer>2</ComponentSpacer>
+      <SubcoreRegular>1</SubcoreRegular>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>HighMechtech</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>10</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="Tolgrim_NeurofibreItemBase">
+    <defName>Tolgrim_MechNeurofibreIV</defName>
+    <label>mech neurofibre IV</label>
+    <description>A tier IV archotech-grade neural-lace implant powered by a high subcore. When surgically installed into a mechanitor's brain, it permanently increases their bandwidth by +12. Replaces any lower neurofibre tier.</description>
+    <descriptionHyperlinks>
+      <HediffDef>Tolgrim_NeurofibreImplantIV</HediffDef>
+    </descriptionHyperlinks>
+    <statBases>
+      <MarketValue>3400</MarketValue>
+      <WorkToMake>10000</WorkToMake>
+    </statBases>
+    <costList>
+      <Mechlink>1</Mechlink>
+      <Plasteel>80</Plasteel>
+      <ComponentSpacer>4</ComponentSpacer>
+      <SubcoreHigh>1</SubcoreHigh>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>HighMechtech</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>12</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- ================= SURGERY RECIPES ================= -->
+  <RecipeDef Abstract="True" Name="Tolgrim_SurgeryInstallNeurofibreBase" ParentName="SurgeryInstallImplantBase">
+    <workerClass>Tolgrim_MechanitorExpanded.Recipe_InstallNeurofibre</workerClass>
+    <appliedOnFixedBodyParts>
+      <li>Brain</li>
+    </appliedOnFixedBodyParts>
+    <recipeUsers>
+      <li>Human</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef ParentName="Tolgrim_SurgeryInstallNeurofibreBase">
+    <defName>Tolgrim_InstallNeurofibreI</defName>
+    <label>install mech neurofibre I</label>
+    <description>Install a mech neurofibre I implant.</description>
+    <jobString>Installing mech neurofibre I.</jobString>
+    <addsHediff>Tolgrim_NeurofibreImplantI</addsHediff>
+    <ingredients>
+      <li>
+        <filter><thingDefs><li>Tolgrim_MechNeurofibreI</li></thingDefs></filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs><li>Tolgrim_MechNeurofibreI</li></thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+  <RecipeDef ParentName="Tolgrim_SurgeryInstallNeurofibreBase">
+    <defName>Tolgrim_InstallNeurofibreII</defName>
+    <label>install mech neurofibre II</label>
+    <description>Install a mech neurofibre II implant.</description>
+    <jobString>Installing mech neurofibre II.</jobString>
+    <addsHediff>Tolgrim_NeurofibreImplantII</addsHediff>
+    <ingredients>
+      <li>
+        <filter><thingDefs><li>Tolgrim_MechNeurofibreII</li></thingDefs></filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs><li>Tolgrim_MechNeurofibreII</li></thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+  <RecipeDef ParentName="Tolgrim_SurgeryInstallNeurofibreBase">
+    <defName>Tolgrim_InstallNeurofibreIII</defName>
+    <label>install mech neurofibre III</label>
+    <description>Install a mech neurofibre III implant.</description>
+    <jobString>Installing mech neurofibre III.</jobString>
+    <addsHediff>Tolgrim_NeurofibreImplantIII</addsHediff>
+    <ingredients>
+      <li>
+        <filter><thingDefs><li>Tolgrim_MechNeurofibreIII</li></thingDefs></filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs><li>Tolgrim_MechNeurofibreIII</li></thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+  <RecipeDef ParentName="Tolgrim_SurgeryInstallNeurofibreBase">
+    <defName>Tolgrim_InstallNeurofibreIV</defName>
+    <label>install mech neurofibre IV</label>
+    <description>Install a mech neurofibre IV implant.</description>
+    <jobString>Installing mech neurofibre IV.</jobString>
+    <addsHediff>Tolgrim_NeurofibreImplantIV</addsHediff>
+    <ingredients>
+      <li>
+        <filter><thingDefs><li>Tolgrim_MechNeurofibreIV</li></thingDefs></filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs><li>Tolgrim_MechNeurofibreIV</li></thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+</Defs>
