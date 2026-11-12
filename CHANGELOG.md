@@ -5,6 +5,28 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.6.0] — 2026-11-12
+
+### Feature: Native Mechanoid Accent Color Customization (Mech Colors Integration)
+
+#### Added
+- **Native Mech Accent Color Architecture (`MechColorSystem.cs` & `MechColorPatches.cs`):**
+  - Integrated individual accent coloring for colony mechanoids, mechanitor control groups, and overseer mechanitors.
+  - Hierarchical inheritance: Mechanoid Color -> Control Group Color -> Mechanitor Default Color -> Colony Allegiance Color.
+  - Real-time shader rendering hook via `PawnRenderUtility.SetMatPropBlockOverlay`, `PawnRenderer.DynamicDrawPhaseAt`, and `PawnRenderNodeWorker.GetMaterialPropertyBlock`.
+  - Automatic dirtying of UI portraits cache (`PortraitsCache.SetDirty`) upon color or opacity change.
+- **Interactive UI & Gizmos:**
+  - `Command_MechColor`: Native gizmo with `UI/Commands/ChangeColor` and color dot indicator on selected mechs and mechanitors.
+  - Multi-selection support (`MergedMechColorState`) allowing simultaneous recoloring of groups of mechanoids.
+  - `Dialog_ChooseMechColor`: Color picker modal with ColorDef palette, default-color reset toggle, and opacity percentage slider.
+  - Control group gizmo integration: Right-click float menu options ("Select color", "Copy color", "Reset to default") and color indicator dot.
+- **Safe Persistence & Compatibility:**
+  - Serialized via `ExposeData` under `tolgrim_mechColor` with backward-compatibility fallback reading `kathanon.MechColors` nodes from existing saves.
+- **Localization:**
+  - Full translations for commands, dialogs, and tooltips in English, Spanish, and SpanishLatin.
+
+---
+
 ## [0.5.0] — 2026-11-12
 
 ### Feature: Subcore Encoder Custom Crafting & Resource Cost Customization

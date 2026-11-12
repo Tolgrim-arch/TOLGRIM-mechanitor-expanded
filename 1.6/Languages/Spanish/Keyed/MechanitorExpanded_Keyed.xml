@@ -139,4 +139,17 @@
   <Tolgrim_CraftPowerfocusChip>Permitir fabricar Chip de enfoque</Tolgrim_CraftPowerfocusChip>
   <Tolgrim_CraftNanostructuringChip>Permitir fabricar Chip de nanoestructuración</Tolgrim_CraftNanostructuringChip>
   <Tolgrim_CraftMechlink>Permitir fabricar Mecaenlace</Tolgrim_CraftMechlink>
+
+  <!-- Personalización de Colores de Mecanoides -->
+  <Tolgrim_SetMechColorLabel>Cambiar color del meca</Tolgrim_SetMechColorLabel>
+  <Tolgrim_SetMechColorDesc>Establece un color de acento personalizado para este mecanoide.</Tolgrim_SetMechColorDesc>
+  <Tolgrim_SetDefaultMechColorLabel>Color de mecas por defecto</Tolgrim_SetDefaultMechColorLabel>
+  <Tolgrim_SetDefaultMechColorDesc>Establece un color de acento por defecto para todos los mecanoides controlados por este mecanizador.</Tolgrim_SetDefaultMechColorDesc>
+  <Tolgrim_SelectMechColor>Seleccionar color...</Tolgrim_SelectMechColor>
+  <Tolgrim_CopyMechColor>Copiar color</Tolgrim_CopyMechColor>
+  <Tolgrim_DefaultMechColor>Restablecer a color por defecto</Tolgrim_DefaultMechColor>
+  <Tolgrim_ChooseMechColorTitle>Elegir color de acento para {0}</Tolgrim_ChooseMechColorTitle>
+  <Tolgrim_DefaultColorCheck>Por defecto</Tolgrim_DefaultColorCheck>
+  <Tolgrim_FromDefaultColor>heredado</Tolgrim_FromDefaultColor>
+  <Tolgrim_MechColorOpacity>Opacidad:</Tolgrim_MechColorOpacity>
 </LanguageData>

@@ -139,4 +139,17 @@
   <Tolgrim_CraftPowerfocusChip>Allow crafting Powerfocus Chip</Tolgrim_CraftPowerfocusChip>
   <Tolgrim_CraftNanostructuringChip>Allow crafting Nano Structuring Chip</Tolgrim_CraftNanostructuringChip>
   <Tolgrim_CraftMechlink>Allow crafting Mechlink</Tolgrim_CraftMechlink>
+
+  <!-- Mech Colors Customization -->
+  <Tolgrim_SetMechColorLabel>Set mech color</Tolgrim_SetMechColorLabel>
+  <Tolgrim_SetMechColorDesc>Set an individual accent color for this mechanoid.</Tolgrim_SetMechColorDesc>
+  <Tolgrim_SetDefaultMechColorLabel>Set default mech color</Tolgrim_SetDefaultMechColorLabel>
+  <Tolgrim_SetDefaultMechColorDesc>Set a default accent color for all mechs controlled by this mechanitor.</Tolgrim_SetDefaultMechColorDesc>
+  <Tolgrim_SelectMechColor>Select color...</Tolgrim_SelectMechColor>
+  <Tolgrim_CopyMechColor>Copy color</Tolgrim_CopyMechColor>
+  <Tolgrim_DefaultMechColor>Reset to default color</Tolgrim_DefaultMechColor>
+  <Tolgrim_ChooseMechColorTitle>Choose mech accent color for {0}</Tolgrim_ChooseMechColorTitle>
+  <Tolgrim_DefaultColorCheck>Default</Tolgrim_DefaultColorCheck>
+  <Tolgrim_FromDefaultColor>from default</Tolgrim_FromDefaultColor>
+  <Tolgrim_MechColorOpacity>Opacity:</Tolgrim_MechColorOpacity>
 </LanguageData>
