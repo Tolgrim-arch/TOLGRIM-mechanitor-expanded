@@ -98,4 +98,16 @@
   <Tolgrim_SettingsEnemyMechsSection>Reprogramación de mecanoides hostiles</Tolgrim_SettingsEnemyMechsSection>
   <Tolgrim_SettingsEnableEnemyMechs>Activar resurrección de mecanoides hostiles</Tolgrim_SettingsEnableEnemyMechs>
   <Tolgrim_SettingsEnableEnemyMechsTip>Permite a los gestadores y mecanizadores resucitar y reprogramar cadáveres de mecanoides hostiles usando subnúcleos y componentes, convirtiéndolos permanentemente en mecas de la colonia.</Tolgrim_SettingsEnableEnemyMechsTip>
+
+  <Tolgrim_SettingsTabInterface>Interfaz y Recetas</Tolgrim_SettingsTabInterface>
+  <Tolgrim_SettingsTabBandwidth>Ancho de Banda</Tolgrim_SettingsTabBandwidth>
+  <Tolgrim_SettingsTabMechanoids>Mecanoides y Apocriton</Tolgrim_SettingsTabMechanoids>
+
+  <Tolgrim_SettingsApocritonSection>Gestación y Comportamiento de Apocriton</Tolgrim_SettingsApocritonSection>
+  <Tolgrim_SettingsEnableApocritonGestation>Permitir gestar Apocriton desde cero</Tolgrim_SettingsEnableApocritonGestation>
+  <Tolgrim_SettingsEnableApocritonGestationTip>Activa la receta para gestar un Apocriton directamente en el gestador grande de mecanoides (requiere Ultra Mecatecnología).</Tolgrim_SettingsEnableApocritonGestationTip>
+  <Tolgrim_SettingsSuppressHateAura>Suprimir Aura de Odio en Apocriton aliado</Tolgrim_SettingsSuppressHateAura>
+  <Tolgrim_SettingsSuppressHateAuraTip>Evita que los Apocriton pertenecientes a la colonia o aliados apliquen el penalizador de estado de ánimo por Aura de Odio a los colonos.</Tolgrim_SettingsSuppressHateAuraTip>
+  <Tolgrim_SettingsEnableApocritonRecharge>Activar recarga de resurrección en Apocriton aliado</Tolgrim_SettingsEnableApocritonRecharge>
+  <Tolgrim_SettingsEnableApocritonRechargeTip>Permite que los Apocriton de la colonia regeneren gradualmente las cargas de su habilidad de resurrección con el tiempo.</Tolgrim_SettingsEnableApocritonRechargeTip>
 </LanguageData>

@@ -32,6 +32,9 @@ namespace Tolgrim_MechanitorExpanded
 
         // Fase 3: Resurrección y hackeo de mecanoides enemigos
         public bool enableResurrectEnemyMechs = true;
+        public bool suppressFriendlyApocritonHateAura = true;
+        public bool enableApocritonRecharge = true;
+        public bool enableApocritonGestation = true;
 
         public override void ExposeData()
         {
@@ -58,6 +61,9 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref serumMultiplier, "serumMultiplier", 1.0f);
 
             Scribe_Values.Look(ref enableResurrectEnemyMechs, "enableResurrectEnemyMechs", true);
+            Scribe_Values.Look(ref suppressFriendlyApocritonHateAura, "suppressFriendlyApocritonHateAura", true);
+            Scribe_Values.Look(ref enableApocritonRecharge, "enableApocritonRecharge", true);
+            Scribe_Values.Look(ref enableApocritonGestation, "enableApocritonGestation", true);
         }
 
         public void ResetToDefaults()
@@ -79,6 +85,9 @@ namespace Tolgrim_MechanitorExpanded
             neurofibreMultiplier = 1.0f;
             serumMultiplier = 1.0f;
             enableResurrectEnemyMechs = true;
+            suppressFriendlyApocritonHateAura = true;
+            enableApocritonRecharge = true;
+            enableApocritonGestation = true;
         }
     }
 }

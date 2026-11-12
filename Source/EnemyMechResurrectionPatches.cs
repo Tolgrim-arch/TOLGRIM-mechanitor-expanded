@@ -127,7 +127,7 @@ namespace Tolgrim_MechanitorExpanded
 
         public static void Postfix(Pawn __instance)
         {
-            if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs)
+            if (!MechanitorExpandedMod.Settings.enableApocritonRecharge)
             {
                 return;
             }
@@ -190,7 +190,7 @@ namespace Tolgrim_MechanitorExpanded
     {
         public static bool Prefix(Pawn p, ref ThoughtState __result)
         {
-            if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs)
+            if (!MechanitorExpandedMod.Settings.suppressFriendlyApocritonHateAura)
             {
                 return true;
             }
@@ -291,6 +291,21 @@ namespace Tolgrim_MechanitorExpanded
 
             __result = __instance.ability.CanApplyOn(target);
             return false;
+        }
+    }
+
+    /// <summary>
+    /// Controla dinámicamente la disponibilidad de la receta Tolgrim_GestateApocriton según ModSettings.
+    /// </summary>
+    [HarmonyPatch(typeof(RecipeDef), nameof(RecipeDef.AvailableNow), MethodType.Getter)]
+    public static class Patch_RecipeDef_AvailableNow_Apocriton
+    {
+        public static void Postfix(RecipeDef __instance, ref bool __result)
+        {
+            if (__result && __instance.defName == "Tolgrim_GestateApocriton" && !MechanitorExpandedMod.Settings.enableApocritonGestation)
+            {
+                __result = false;
+            }
         }
     }
 }

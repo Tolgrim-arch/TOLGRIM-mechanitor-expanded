@@ -98,4 +98,16 @@
   <Tolgrim_SettingsEnemyMechsSection>Enemy Mechanoid Reprogramming</Tolgrim_SettingsEnemyMechsSection>
   <Tolgrim_SettingsEnableEnemyMechs>Enable hostile mechanoid resurrection</Tolgrim_SettingsEnableEnemyMechs>
   <Tolgrim_SettingsEnableEnemyMechsTip>Allows player gestators and mechanitors to resurrect and reprogram enemy mechanoid corpses using subcores and components, converting them permanently into colony mechs.</Tolgrim_SettingsEnableEnemyMechsTip>
+
+  <Tolgrim_SettingsTabInterface>Interface &amp; Recipes</Tolgrim_SettingsTabInterface>
+  <Tolgrim_SettingsTabBandwidth>Bandwidth</Tolgrim_SettingsTabBandwidth>
+  <Tolgrim_SettingsTabMechanoids>Mechanoids &amp; Apocriton</Tolgrim_SettingsTabMechanoids>
+
+  <Tolgrim_SettingsApocritonSection>Apocriton Gestation &amp; Behavior</Tolgrim_SettingsApocritonSection>
+  <Tolgrim_SettingsEnableApocritonGestation>Allow Apocriton gestation from scratch</Tolgrim_SettingsEnableApocritonGestation>
+  <Tolgrim_SettingsEnableApocritonGestationTip>Enables the recipe to gestate an Apocriton directly at the Large Mech Gestator (requires Ultra Mechtech).</Tolgrim_SettingsEnableApocritonGestationTip>
+  <Tolgrim_SettingsSuppressHateAura>Suppress friendly Apocriton Hate Aura</Tolgrim_SettingsSuppressHateAura>
+  <Tolgrim_SettingsSuppressHateAuraTip>Prevents colony-aligned or friendly Apocritons from causing Hate Aura mood debuffs to colonists.</Tolgrim_SettingsSuppressHateAuraTip>
+  <Tolgrim_SettingsEnableApocritonRecharge>Enable friendly Apocriton resurrection recharge</Tolgrim_SettingsEnableApocritonRecharge>
+  <Tolgrim_SettingsEnableApocritonRechargeTip>Allows colony Apocritons to gradually regenerate their mech resurrection ability charges over time.</Tolgrim_SettingsEnableApocritonRechargeTip>
 </LanguageData>
