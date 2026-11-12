@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <!-- Tab Header (Compacto para encajar en el botón nativo de 72px) -->
+  <Tolgrim_TabMechanitor>Mecanit.</Tolgrim_TabMechanitor>
+
+  <!-- Units -->
+  <Tolgrim_TilesUnit>casillas</Tolgrim_TilesUnit>
+
+  <!-- Headers -->
+  <Tolgrim_MechGeneralHeader>Información General</Tolgrim_MechGeneralHeader>
+  <Tolgrim_MechStatsHeader>Capacidades</Tolgrim_MechStatsHeader>
+  <Tolgrim_MechImplantsHeader>Implantes de Mecanizador</Tolgrim_MechImplantsHeader>
+  <Tolgrim_MechEquipmentHeader>Equipamiento de Mecanizador</Tolgrim_MechEquipmentHeader>
+
+  <!-- General Info Rows -->
+  <Tolgrim_MechStatus>Estado</Tolgrim_MechStatus>
+  <Tolgrim_MechStateActive>Activo y en control</Tolgrim_MechStateActive>
+  <Tolgrim_MechStateImpaired>Incapacitado / Fuera de control</Tolgrim_MechStateImpaired>
+
+  <Tolgrim_MechBandwidth>Ancho de banda</Tolgrim_MechBandwidth>
+  <Tolgrim_BandwidthAvailable>Libre</Tolgrim_BandwidthAvailable>
+
+  <Tolgrim_MechControlRange>Radio de comando</Tolgrim_MechControlRange>
+  <Tolgrim_MechControlRangeTip>Radio máximo (en casillas) desde el mecanizador dentro del cual puede comandar directamente a los mecas reclutados en combate (24.9 casillas).</Tolgrim_MechControlRangeTip>
+
+  <Tolgrim_MechsCount>Mecas controlados</Tolgrim_MechsCount>
+  <Tolgrim_MechsControlledTip>Cantidad de mecas actualmente controlados en línea frente al total de mecas supervisados vinculados a este mecanizador.</Tolgrim_MechsControlledTip>
+
+  <Tolgrim_ControlGroups>Grupos de control</Tolgrim_ControlGroups>
+  <Tolgrim_ControlGroupsTip>Grupos de control actualmente asignados frente al límite total permitido para este mecanizador.</Tolgrim_ControlGroupsTip>
+
+  <!-- Compact Stat Labels for implants and equipment summaries -->
+  <Tolgrim_ShortBandwidth>Banda</Tolgrim_ShortBandwidth>
+  <Tolgrim_ShortControlGroups>Grupos</Tolgrim_ShortControlGroups>
+  <Tolgrim_ShortGestationSpeed>Gestación</Tolgrim_ShortGestationSpeed>
+  <Tolgrim_ShortRepairSpeed>Reparación</Tolgrim_ShortRepairSpeed>
+  <Tolgrim_ShortRepairDist>Alcance rep.</Tolgrim_ShortRepairDist>
+  <Tolgrim_ShortShieldDist>Alcance esc.</Tolgrim_ShortShieldDist>
+  <Tolgrim_ShortShieldEnergy>Energía esc.</Tolgrim_ShortShieldEnergy>
+  <Tolgrim_ShortWorkSpeed>Vel. mecas</Tolgrim_ShortWorkSpeed>
+
+  <!-- Empty states -->
+  <Tolgrim_NoMechImplants>Sin implantes de mecanizador detectados.</Tolgrim_NoMechImplants>
+  <Tolgrim_NoMechEquipment>Sin equipamiento con bonificaciones de mecanizador.</Tolgrim_NoMechEquipment>
+
+  <!-- ModSettings Keys -->
+  <Tolgrim_SettingsCategory>TOLGRIM: Mechanitor Expanded</Tolgrim_SettingsCategory>
+
+  <Tolgrim_SettingsCraftingSection>Organización y Fabricación</Tolgrim_SettingsCraftingSection>
+  <Tolgrim_SettingsMoveRecipes>Mover fabricación de implantes de mecanizador al Codificador de subnúcleos</Tolgrim_SettingsMoveRecipes>
+  <Tolgrim_SettingsMoveRecipesTip>Mueve todas las tareas de fabricación de implantes de mecanizador (sublinks, reparadores remotos, etc., incluidos los de mods compatibles) desde la mesa de mecanizado hacia el Codificador de subnúcleos. Esto despeja la mesa de mecanizado y agrupa la tecnología del mecanizador en su propio edificio.</Tolgrim_SettingsMoveRecipesTip>
+
+  <Tolgrim_SettingsLayoutSection>Dimensiones del Panel de Inspección</Tolgrim_SettingsLayoutSection>
+  <Tolgrim_SettingsTabWidth>Ancho del panel</Tolgrim_SettingsTabWidth>
+  <Tolgrim_SettingsTabHeight>Alto del panel</Tolgrim_SettingsTabHeight>
+
+  <Tolgrim_SettingsVisibilitySection>Visibilidad de Filas y Secciones</Tolgrim_SettingsVisibilitySection>
+  <Tolgrim_SettingsShowCommandRange>Mostrar radio de comando</Tolgrim_SettingsShowCommandRange>
+  <Tolgrim_SettingsShowCommandRangeTip>Muestra u oculta la fila del radio de control de mecas en Información General.</Tolgrim_SettingsShowCommandRangeTip>
+  <Tolgrim_SettingsShowControlGroups>Mostrar grupos de control</Tolgrim_SettingsShowControlGroups>
+  <Tolgrim_SettingsShowControlGroupsTip>Muestra u oculta la fila de grupos de control en Información General.</Tolgrim_SettingsShowControlGroupsTip>
+  <Tolgrim_SettingsShowImplants>Mostrar sección de implantes</Tolgrim_SettingsShowImplants>
+  <Tolgrim_SettingsShowImplantsTip>Habilita la lista de implantes de mecanizador detectados en el personaje.</Tolgrim_SettingsShowImplantsTip>
+  <Tolgrim_SettingsShowEquipment>Mostrar sección de equipamiento</Tolgrim_SettingsShowEquipment>
+  <Tolgrim_SettingsShowEquipmentTip>Habilita la lista de prendas y armas que aportan estadísticas al mecanizador.</Tolgrim_SettingsShowEquipmentTip>
+
+  <Tolgrim_SettingsAccordionsSection>Estado Inicial de Secciones (Expandido al abrir)</Tolgrim_SettingsAccordionsSection>
+  <Tolgrim_SettingsExpandGeneral>Información General expandida</Tolgrim_SettingsExpandGeneral>
+  <Tolgrim_SettingsExpandStats>Capacidades expandidas</Tolgrim_SettingsExpandStats>
+  <Tolgrim_SettingsExpandImplants>Implantes expandidos</Tolgrim_SettingsExpandImplants>
+  <Tolgrim_SettingsExpandEquipment>Equipamiento expandido</Tolgrim_SettingsExpandEquipment>
+
+  <Tolgrim_SettingsResetDefaults>Restablecer valores por defecto</Tolgrim_SettingsResetDefaults>
+</LanguageData>

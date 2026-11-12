@@ -1,0 +1,12 @@
+# Build artifacts
+**/bin/
+**/obj/
+Source/1.6/
+
+# IDE files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates

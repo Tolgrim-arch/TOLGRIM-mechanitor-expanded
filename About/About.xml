@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>TOLGRIM: Mechanitor Expanded</name>
+  <author>Tolgrim</author>
+  <packageId>Tolgrim.MechanitorExpanded</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>Mechanitor Expanded — Expande y profundiza la experiencia del mecanizador en RimWorld con Biotech.
+
+Fase 1: Implementación de la pestaña nativa «Mecanizador» en el panel de inspección de colonos para consultar en tiempo real estado, ancho de banda, alcance, capacidades y bonificaciones por implantes y equipo.</description>
+  <modDependencies>
+    <li>
+      <packageId>Ludeon.RimWorld.Biotech</packageId>
+      <displayName>Biotech</displayName>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>Ludeon.RimWorld.Biotech</li>
+  </loadAfter>
+</ModMetaData>

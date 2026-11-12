@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!-- Inyecta la pestaña ITab_Pawn_Mechanitor en BasePawn condicionalmente con Biotech -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Biotech</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[@Name="BasePawn"]/inspectorTabs</xpath>
+      <value>
+        <li>Tolgrim_MechanitorExpanded.ITab_Pawn_Mechanitor</li>
+      </value>
+    </match>
+  </Operation>
+</Patch>

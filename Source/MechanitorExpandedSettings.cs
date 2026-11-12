@@ -1,0 +1,60 @@
+using Verse;
+
+namespace Tolgrim_MechanitorExpanded
+{
+    public class MechanitorExpandedSettings : ModSettings
+    {
+        // Pestaña y apariencia
+        public float tabWidth = 490f;
+        public float tabHeight = 480f;
+        public bool showCommandRange = true;
+        public bool showControlGroups = true;
+
+        // Secciones activas / visibles
+        public bool showImplantsSection = true;
+        public bool showEquipmentSection = true;
+
+        // Estado inicial de colapso de los acordeones
+        public bool defaultExpandGeneral = true;
+        public bool defaultExpandStats = true;
+        public bool defaultExpandImplants = true;
+        public bool defaultExpandEquipment = true;
+
+        // Organización de fabricación: mover recetas de implantes de mecanizador al Subcore Encoder
+        public bool moveRecipesToSubcoreEncoder = false;
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref tabWidth, "tabWidth", 490f);
+            Scribe_Values.Look(ref tabHeight, "tabHeight", 480f);
+            Scribe_Values.Look(ref showCommandRange, "showCommandRange", true);
+            Scribe_Values.Look(ref showControlGroups, "showControlGroups", true);
+
+            Scribe_Values.Look(ref showImplantsSection, "showImplantsSection", true);
+            Scribe_Values.Look(ref showEquipmentSection, "showEquipmentSection", true);
+
+            Scribe_Values.Look(ref defaultExpandGeneral, "defaultExpandGeneral", true);
+            Scribe_Values.Look(ref defaultExpandStats, "defaultExpandStats", true);
+            Scribe_Values.Look(ref defaultExpandImplants, "defaultExpandImplants", true);
+            Scribe_Values.Look(ref defaultExpandEquipment, "defaultExpandEquipment", true);
+
+            Scribe_Values.Look(ref moveRecipesToSubcoreEncoder, "moveRecipesToSubcoreEncoder", false);
+        }
+
+        public void ResetToDefaults()
+        {
+            tabWidth = 490f;
+            tabHeight = 480f;
+            showCommandRange = true;
+            showControlGroups = true;
+            showImplantsSection = true;
+            showEquipmentSection = true;
+            defaultExpandGeneral = true;
+            defaultExpandStats = true;
+            defaultExpandImplants = true;
+            defaultExpandEquipment = true;
+            moveRecipesToSubcoreEncoder = false;
+        }
+    }
+}

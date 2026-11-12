@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <!-- Tab Header -->
+  <Tolgrim_TabMechanitor>Mechanitor</Tolgrim_TabMechanitor>
+
+  <!-- Units -->
+  <Tolgrim_TilesUnit>cells</Tolgrim_TilesUnit>
+
+  <!-- Headers -->
+  <Tolgrim_MechGeneralHeader>General Information</Tolgrim_MechGeneralHeader>
+  <Tolgrim_MechStatsHeader>Capabilities</Tolgrim_MechStatsHeader>
+  <Tolgrim_MechImplantsHeader>Mechanitor Implants</Tolgrim_MechImplantsHeader>
+  <Tolgrim_MechEquipmentHeader>Mechanitor Equipment</Tolgrim_MechEquipmentHeader>
+
+  <!-- General Info Rows -->
+  <Tolgrim_MechStatus>Status</Tolgrim_MechStatus>
+  <Tolgrim_MechStateActive>Active and in control</Tolgrim_MechStateActive>
+  <Tolgrim_MechStateImpaired>Impaired / Out of control</Tolgrim_MechStateImpaired>
+
+  <Tolgrim_MechBandwidth>Bandwidth</Tolgrim_MechBandwidth>
+  <Tolgrim_BandwidthAvailable>Free</Tolgrim_BandwidthAvailable>
+
+  <Tolgrim_MechControlRange>Command range</Tolgrim_MechControlRange>
+  <Tolgrim_MechControlRangeTip>Maximum radius (in cells) around the mechanitor where drafted mechs can be actively commanded in combat (24.9 cells).</Tolgrim_MechControlRangeTip>
+
+  <Tolgrim_MechsCount>Controlled mechs</Tolgrim_MechsCount>
+  <Tolgrim_MechsControlledTip>Number of mechs currently actively controlled online vs total overseen mechs linked to this mechanitor.</Tolgrim_MechsControlledTip>
+
+  <Tolgrim_ControlGroups>Control groups</Tolgrim_ControlGroups>
+  <Tolgrim_ControlGroupsTip>Control groups currently assigned vs total available limit for this mechanitor.</Tolgrim_ControlGroupsTip>
+
+  <!-- Compact Stat Labels for implants and equipment summaries -->
+  <Tolgrim_ShortBandwidth>Bandwidth</Tolgrim_ShortBandwidth>
+  <Tolgrim_ShortControlGroups>Groups</Tolgrim_ShortControlGroups>
+  <Tolgrim_ShortGestationSpeed>Gestation</Tolgrim_ShortGestationSpeed>
+  <Tolgrim_ShortRepairSpeed>Repair</Tolgrim_ShortRepairSpeed>
+  <Tolgrim_ShortRepairDist>Repair dist.</Tolgrim_ShortRepairDist>
+  <Tolgrim_ShortShieldDist>Shield dist.</Tolgrim_ShortShieldDist>
+  <Tolgrim_ShortShieldEnergy>Shield energy</Tolgrim_ShortShieldEnergy>
+  <Tolgrim_ShortWorkSpeed>Mech work spd</Tolgrim_ShortWorkSpeed>
+
+  <!-- Empty states -->
+  <Tolgrim_NoMechImplants>No mechanitor implants detected.</Tolgrim_NoMechImplants>
+  <Tolgrim_NoMechEquipment>No equipment with mechanitor bonuses equipped.</Tolgrim_NoMechEquipment>
+
+  <!-- ModSettings Keys -->
+  <Tolgrim_SettingsCategory>TOLGRIM: Mechanitor Expanded</Tolgrim_SettingsCategory>
+
+  <Tolgrim_SettingsCraftingSection>Organization and Crafting</Tolgrim_SettingsCraftingSection>
+  <Tolgrim_SettingsMoveRecipes>Move mechanitor implant crafting to Subcore Encoder</Tolgrim_SettingsMoveRecipes>
+  <Tolgrim_SettingsMoveRecipesTip>Moves all mechanitor implant recipes (sublinks, remote repairers, etc., including from compatible mods) from the Machining Table to the Subcore Encoder. This declutters the Machining Table and groups all mechanitor-related tech into its dedicated workstation.</Tolgrim_SettingsMoveRecipesTip>
+
+  <Tolgrim_SettingsLayoutSection>Inspect Panel Dimensions</Tolgrim_SettingsLayoutSection>
+  <Tolgrim_SettingsTabWidth>Panel width</Tolgrim_SettingsTabWidth>
+  <Tolgrim_SettingsTabHeight>Panel height</Tolgrim_SettingsTabHeight>
+
+  <Tolgrim_SettingsVisibilitySection>Rows and Sections Visibility</Tolgrim_SettingsVisibilitySection>
+  <Tolgrim_SettingsShowCommandRange>Show command range</Tolgrim_SettingsShowCommandRange>
+  <Tolgrim_SettingsShowCommandRangeTip>Toggles visibility of the mech command radius row under General Information.</Tolgrim_SettingsShowCommandRangeTip>
+  <Tolgrim_SettingsShowControlGroups>Show control groups</Tolgrim_SettingsShowControlGroups>
+  <Tolgrim_SettingsShowControlGroupsTip>Toggles visibility of the control groups row under General Information.</Tolgrim_SettingsShowControlGroupsTip>
+  <Tolgrim_SettingsShowImplants>Show implants section</Tolgrim_SettingsShowImplants>
+  <Tolgrim_SettingsShowImplantsTip>Enables the list of detected mechanitor implants on the pawn.</Tolgrim_SettingsShowImplantsTip>
+  <Tolgrim_SettingsShowEquipment>Show equipment section</Tolgrim_SettingsShowEquipment>
+  <Tolgrim_SettingsShowEquipmentTip>Enables the list of apparel and weapons providing mechanitor bonuses.</Tolgrim_SettingsShowEquipmentTip>
+
+  <Tolgrim_SettingsAccordionsSection>Initial Section States (Expanded when opened)</Tolgrim_SettingsAccordionsSection>
+  <Tolgrim_SettingsExpandGeneral>General Information expanded</Tolgrim_SettingsExpandGeneral>
+  <Tolgrim_SettingsExpandStats>Capabilities expanded</Tolgrim_SettingsExpandStats>
+  <Tolgrim_SettingsExpandImplants>Implants expanded</Tolgrim_SettingsExpandImplants>
+  <Tolgrim_SettingsExpandEquipment>Equipment expanded</Tolgrim_SettingsExpandEquipment>
+
+  <Tolgrim_SettingsResetDefaults>Reset to defaults</Tolgrim_SettingsResetDefaults>
+</LanguageData>
