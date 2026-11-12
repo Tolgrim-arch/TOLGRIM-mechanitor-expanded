@@ -5,6 +5,58 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.5.0] — 2026-11-12
+
+### Feature: Subcore Encoder Custom Crafting & Resource Cost Customization
+
+#### Added
+- **Native Subcore Encoder Crafting Recipes (`1.6/Defs/RecipeDefs/Recipes_SubcoreEncoderCrafting.xml`):**
+  - Added crafting recipes to `SubcoreEncoder` for mechanoids and mechanitor technology without requiring analog pattern scanning:
+    - **Standard Subcore** (`Tolgrim_CraftSubcoreRegular`): Basic subcore, steel, industrial components (`StandardMechtech`).
+    - **High Subcore** (`Tolgrim_CraftSubcoreHigh`): Standard subcore, steel, industrial components (`HighMechtech`).
+    - **Signal Chip** (`Tolgrim_CraftSignalChip`): Basic subcore, plasteel, uranium, industrial components (`StandardMechtech`).
+    - **Powerfocus Chip** (`Tolgrim_CraftPowerfocusChip`): Signal chip, plasteel, uranium, industrial components (`HighMechtech`).
+    - **Nano Structuring Chip** (`Tolgrim_CraftNanostructuringChip`): Powerfocus chip, plasteel, uranium, spacer components (`UltraMechtech`).
+    - **Mechlink** (`Tolgrim_CraftMechlink`): Nano structuring chips, spacer components (`UltraMechtech`).
+  - Configured with `mechanitorOnlyRecipe` and `SubcoreEncodingSpeed` work speed stat.
+- **Dynamic Cost Adjustment & Availability (`SubcoreEncoderCraftingManager`):**
+  - Real-time recipe ingredient count adjustment based on user settings via `IngredientCount.SetBaseCount`.
+  - Harmony postfix on `RecipeDef.AvailableNow` to toggle recipe visibility and availability at runtime without restarts.
+- **New ModSettings Tab: Subcore Crafting (`SettingsTab.Crafting`):**
+  - Dedicated tab organizing workstation options.
+  - Per-item enable/disable checkboxes.
+  - Interactive numeric stepper entries (`Widgets.IntEntry`) with +/- increments to configure costs of each resource.
+- **Localization:**
+  - Added keyed labels, descriptions, and tab strings across English, Spanish, and SpanishLatin.
+
+---
+
+## [0.4.0] — 2026-11-12
+
+### Feature: Control Group Renaming QoL, Balance Sliders & Apocriton Visual Fixes
+
+#### Added
+- **Mechanoid Control Group Renaming (`WorldComponent_ControlGroupNames` & `Dialog_RenameControlGroup`):**
+  - Ability to rename mechanoid control groups using RimWorld's native rename window.
+  - Rename button icon (`TexButton.Rename`) added directly to `MechanitorControlGroupGizmo`.
+  - Right-click float menu context option to trigger rename dialog.
+  - Real-time label rendering in the gizmo and in `MechanitorControlGroup.LabelIndexWithWorkMode`.
+  - Custom group names displayed in the control group tooltip in `ITab_Pawn_Mechanitor`.
+  - World-level persistence preserving names across save/load cycles.
+- **Comprehensive Mechanitor & Mech Balance ModSettings (`SettingsTab.Balance`):**
+  - Base command radius slider: 24.9 to 999 tiles.
+  - General mechanoid work speed slider: 100% to 3000%.
+  - Gestation speed slider: 100% to 3000%.
+  - Instant gestation toggle (`instantMechGestation`).
+  - Infinite energy toggle (`infiniteMechEnergy`).
+  - Wastepack suppression toggle (`disableMechWastepacks`).
+- **Visual Polish & Bug Fixes:**
+  - Patched `CompEffecter.CompTick` to remove hostile pulsing/electrical effect (`ApocritonAttached`) from colony-controlled Apocritons.
+  - Harmonized Neurofibre terminology and eliminated Spanglish in UI and DevMode inspector.
+  - Replaced multiple split Neurofibre implants with a unified tiered implant progression.
+
+---
+
 ## [0.3.0] — 2026-11-12
 
 ### Feature: Enemy Mechanoid Resurrection, Reprogramming & Apocriton Gestation
