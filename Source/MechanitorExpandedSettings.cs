@@ -44,6 +44,34 @@ namespace Tolgrim_MechanitorExpanded
         public bool infiniteMechEnergy = false;
         public bool disableMechWastepacks = false;
 
+        // Fase 5: Fabricación en el Subcore Encoder (Subnúcleos, Chips y Mechlink)
+        public bool craftSubcoreRegular = true;
+        public int costSubcoreRegularSteel = 50;
+        public int costSubcoreRegularComponents = 4;
+
+        public bool craftSubcoreHigh = true;
+        public int costSubcoreHighSteel = 50;
+        public int costSubcoreHighComponents = 4;
+
+        public bool craftSignalChip = true;
+        public int costSignalChipPlasteel = 25;
+        public int costSignalChipUranium = 5;
+        public int costSignalChipComponents = 2;
+
+        public bool craftPowerfocusChip = true;
+        public int costPowerfocusChipPlasteel = 25;
+        public int costPowerfocusChipUranium = 5;
+        public int costPowerfocusChipComponents = 3;
+
+        public bool craftNanostructuringChip = true;
+        public int costNanostructuringChipPlasteel = 50;
+        public int costNanostructuringChipUranium = 15;
+        public int costNanostructuringChipSpacerComponents = 2;
+
+        public bool craftMechlink = true;
+        public int costMechlinkNanostructuringChips = 2;
+        public int costMechlinkSpacerComponents = 10;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -79,6 +107,33 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref instantMechGestation, "instantMechGestation", false);
             Scribe_Values.Look(ref infiniteMechEnergy, "infiniteMechEnergy", false);
             Scribe_Values.Look(ref disableMechWastepacks, "disableMechWastepacks", false);
+
+            Scribe_Values.Look(ref craftSubcoreRegular, "craftSubcoreRegular", true);
+            Scribe_Values.Look(ref costSubcoreRegularSteel, "costSubcoreRegularSteel", 50);
+            Scribe_Values.Look(ref costSubcoreRegularComponents, "costSubcoreRegularComponents", 4);
+
+            Scribe_Values.Look(ref craftSubcoreHigh, "craftSubcoreHigh", true);
+            Scribe_Values.Look(ref costSubcoreHighSteel, "costSubcoreHighSteel", 50);
+            Scribe_Values.Look(ref costSubcoreHighComponents, "costSubcoreHighComponents", 4);
+
+            Scribe_Values.Look(ref craftSignalChip, "craftSignalChip", true);
+            Scribe_Values.Look(ref costSignalChipPlasteel, "costSignalChipPlasteel", 25);
+            Scribe_Values.Look(ref costSignalChipUranium, "costSignalChipUranium", 5);
+            Scribe_Values.Look(ref costSignalChipComponents, "costSignalChipComponents", 2);
+
+            Scribe_Values.Look(ref craftPowerfocusChip, "craftPowerfocusChip", true);
+            Scribe_Values.Look(ref costPowerfocusChipPlasteel, "costPowerfocusChipPlasteel", 25);
+            Scribe_Values.Look(ref costPowerfocusChipUranium, "costPowerfocusChipUranium", 5);
+            Scribe_Values.Look(ref costPowerfocusChipComponents, "costPowerfocusChipComponents", 3);
+
+            Scribe_Values.Look(ref craftNanostructuringChip, "craftNanostructuringChip", true);
+            Scribe_Values.Look(ref costNanostructuringChipPlasteel, "costNanostructuringChipPlasteel", 50);
+            Scribe_Values.Look(ref costNanostructuringChipUranium, "costNanostructuringChipUranium", 15);
+            Scribe_Values.Look(ref costNanostructuringChipSpacerComponents, "costNanostructuringChipSpacerComponents", 2);
+
+            Scribe_Values.Look(ref craftMechlink, "craftMechlink", true);
+            Scribe_Values.Look(ref costMechlinkNanostructuringChips, "costMechlinkNanostructuringChips", 2);
+            Scribe_Values.Look(ref costMechlinkSpacerComponents, "costMechlinkSpacerComponents", 10);
         }
 
         public void ResetToDefaults()
@@ -109,6 +164,33 @@ namespace Tolgrim_MechanitorExpanded
             instantMechGestation = false;
             infiniteMechEnergy = false;
             disableMechWastepacks = false;
+
+            craftSubcoreRegular = true;
+            costSubcoreRegularSteel = 50;
+            costSubcoreRegularComponents = 4;
+
+            craftSubcoreHigh = true;
+            costSubcoreHighSteel = 50;
+            costSubcoreHighComponents = 4;
+
+            craftSignalChip = true;
+            costSignalChipPlasteel = 25;
+            costSignalChipUranium = 5;
+            costSignalChipComponents = 2;
+
+            craftPowerfocusChip = true;
+            costPowerfocusChipPlasteel = 25;
+            costPowerfocusChipUranium = 5;
+            costPowerfocusChipComponents = 3;
+
+            craftNanostructuringChip = true;
+            costNanostructuringChipPlasteel = 50;
+            costNanostructuringChipUranium = 15;
+            costNanostructuringChipSpacerComponents = 2;
+
+            craftMechlink = true;
+            costMechlinkNanostructuringChips = 2;
+            costMechlinkSpacerComponents = 10;
         }
     }
 }

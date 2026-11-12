@@ -295,14 +295,22 @@ namespace Tolgrim_MechanitorExpanded
     }
 
     /// <summary>
-    /// Controla dinámicamente la disponibilidad de la receta Tolgrim_GestateApocriton según ModSettings.
+    /// Controla dinámicamente la disponibilidad de recetas personalizadas según ModSettings.
     /// </summary>
     [HarmonyPatch(typeof(RecipeDef), nameof(RecipeDef.AvailableNow), MethodType.Getter)]
     public static class Patch_RecipeDef_AvailableNow_Apocriton
     {
         public static void Postfix(RecipeDef __instance, ref bool __result)
         {
-            if (__result && __instance.defName == "Tolgrim_GestateApocriton" && !MechanitorExpandedMod.Settings.enableApocritonGestation)
+            if (!__result) return;
+
+            if (__instance.defName == "Tolgrim_GestateApocriton" && !MechanitorExpandedMod.Settings.enableApocritonGestation)
+            {
+                __result = false;
+                return;
+            }
+
+            if (!SubcoreEncoderCraftingManager.IsRecipeAvailable(__instance))
             {
                 __result = false;
             }

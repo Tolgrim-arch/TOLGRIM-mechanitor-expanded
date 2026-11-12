@@ -99,7 +99,8 @@
   <Tolgrim_SettingsEnableEnemyMechs>Activar resurrección de mecanoides hostiles</Tolgrim_SettingsEnableEnemyMechs>
   <Tolgrim_SettingsEnableEnemyMechsTip>Permite a los gestadores y mecanizadores resucitar y reprogramar cadáveres de mecanoides hostiles usando subnúcleos y componentes, convirtiéndolos permanentemente en mecas de la colonia.</Tolgrim_SettingsEnableEnemyMechsTip>
 
-  <Tolgrim_SettingsTabInterface>Interfaz y Recetas</Tolgrim_SettingsTabInterface>
+  <Tolgrim_SettingsTabInterface>Interfaz</Tolgrim_SettingsTabInterface>
+  <Tolgrim_SettingsTabCrafting>Fabricación</Tolgrim_SettingsTabCrafting>
   <Tolgrim_SettingsTabBandwidth>Ancho de Banda</Tolgrim_SettingsTabBandwidth>
   <Tolgrim_SettingsTabMechanoids>Mecanoides y Apocriton</Tolgrim_SettingsTabMechanoids>
 
@@ -127,4 +128,15 @@
   <Tolgrim_RenameControlGroup>Renombrar grupo de control</Tolgrim_RenameControlGroup>
   <Tolgrim_RenameControlGroupTip>Cambiar el nombre de este grupo de control de mecanoides.</Tolgrim_RenameControlGroupTip>
   <Tolgrim_ControlGroupRenamed>Grupo de control renombrado a '{0}'.</Tolgrim_ControlGroupRenamed>
+
+  <!-- Ajustes de Fabricación en Codificador de Subnúcleos -->
+  <Tolgrim_SettingsCraftingSectionHeader>Organización del Puesto de Trabajo</Tolgrim_SettingsCraftingSectionHeader>
+  <Tolgrim_SettingsEncoderRecipesTitle>Recetas del Codificador de Subnúcleos</Tolgrim_SettingsEncoderRecipesTitle>
+  <Tolgrim_SettingsEncoderRecipesDesc>Habilita o deshabilita recetas y personaliza los costos de materiales requeridos para fabricar cada objeto en el Codificador de Subnúcleos.</Tolgrim_SettingsEncoderRecipesDesc>
+  <Tolgrim_CraftSubcoreRegular>Permitir fabricar Subnúcleo estándar</Tolgrim_CraftSubcoreRegular>
+  <Tolgrim_CraftSubcoreHigh>Permitir fabricar Subnúcleo avanzado</Tolgrim_CraftSubcoreHigh>
+  <Tolgrim_CraftSignalChip>Permitir fabricar Chip de señal</Tolgrim_CraftSignalChip>
+  <Tolgrim_CraftPowerfocusChip>Permitir fabricar Chip de enfoque</Tolgrim_CraftPowerfocusChip>
+  <Tolgrim_CraftNanostructuringChip>Permitir fabricar Chip de nanoestructuración</Tolgrim_CraftNanostructuringChip>
+  <Tolgrim_CraftMechlink>Permitir fabricar Mecaenlace</Tolgrim_CraftMechlink>
 </LanguageData>

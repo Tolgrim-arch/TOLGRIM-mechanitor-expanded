@@ -11,6 +11,7 @@ Permanent guidance for AI development agents working in this repository.
 - **Technology:** C#, XML, .NET Framework 4.8 (`net48`), C# `latest`, nullable enabled
 - **Repository:** `C:\Users\jelys\3D Objects\antigravity-projects\rimworld-modding\TOLGRIM-mechanitor-expanded`
 - **Local installation:** `C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\TOLGRIM - Mechanitor Expanded`
+- **Changelog:** `C:\Users\jelys\3D Objects\antigravity-projects\rimworld-modding\TOLGRIM-mechanitor-expanded\CHANGELOG.md`
 
 The mod follows a **Vanilla Expanded** philosophy, preserving RimWorld's aesthetics, mechanics, and conventions. Feature scope is defined by each task, not this file.
 

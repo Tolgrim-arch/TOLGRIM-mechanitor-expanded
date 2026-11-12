@@ -9,6 +9,7 @@ namespace Tolgrim_MechanitorExpanded
         private enum SettingsTab
         {
             Interface,
+            Crafting,
             Bandwidth,
             Mechanoids,
             Balance
@@ -17,6 +18,23 @@ namespace Tolgrim_MechanitorExpanded
         public static MechanitorExpandedSettings Settings { get; private set; } = null!;
         private SettingsTab currentTab = SettingsTab.Interface;
         private Vector2 scrollPosition = Vector2.zero;
+
+        // Buffers de edición para campos numéricos
+        private static string bufSubcoreRegSteel = "";
+        private static string bufSubcoreRegComp = "";
+        private static string bufSubcoreHighSteel = "";
+        private static string bufSubcoreHighComp = "";
+        private static string bufSigChipPlasteel = "";
+        private static string bufSigChipUranium = "";
+        private static string bufSigChipComp = "";
+        private static string bufPowChipPlasteel = "";
+        private static string bufPowChipUranium = "";
+        private static string bufPowChipComp = "";
+        private static string bufNanoChipPlasteel = "";
+        private static string bufNanoChipUranium = "";
+        private static string bufNanoChipComp = "";
+        private static string bufMechlinkNano = "";
+        private static string bufMechlinkComp = "";
 
         public MechanitorExpandedMod(ModContentPack content) : base(content)
         {
@@ -37,6 +55,7 @@ namespace Tolgrim_MechanitorExpanded
             List<TabRecord> tabs = new List<TabRecord>
             {
                 new TabRecord("Tolgrim_SettingsTabInterface".Translate(), () => { currentTab = SettingsTab.Interface; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Interface),
+                new TabRecord("Tolgrim_SettingsTabCrafting".Translate(), () => { currentTab = SettingsTab.Crafting; scrollPosition = Vector2.zero; SyncCraftingBuffers(); }, currentTab == SettingsTab.Crafting),
                 new TabRecord("Tolgrim_SettingsTabBandwidth".Translate(), () => { currentTab = SettingsTab.Bandwidth; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Bandwidth),
                 new TabRecord("Tolgrim_SettingsTabMechanoids".Translate(), () => { currentTab = SettingsTab.Mechanoids; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Mechanoids),
                 new TabRecord("Tolgrim_SettingsTabBalance".Translate(), () => { currentTab = SettingsTab.Balance; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Balance)
@@ -46,7 +65,7 @@ namespace Tolgrim_MechanitorExpanded
             TabDrawer.DrawTabs(tabRect, tabs);
 
             Rect contentRect = tabRect.ContractedBy(14f);
-            float viewHeight = currentTab == SettingsTab.Interface ? 560f : 360f;
+            float viewHeight = currentTab == SettingsTab.Crafting ? 820f : (currentTab == SettingsTab.Interface ? 560f : 380f);
             Rect viewRect = new Rect(0f, 0f, contentRect.width - 20f, viewHeight);
 
             Widgets.BeginScrollView(contentRect, ref scrollPosition, viewRect);
@@ -58,6 +77,9 @@ namespace Tolgrim_MechanitorExpanded
             {
                 case SettingsTab.Interface:
                     DrawInterfaceTab(listing);
+                    break;
+                case SettingsTab.Crafting:
+                    DrawCraftingTab(listing);
                     break;
                 case SettingsTab.Bandwidth:
                     DrawBandwidthTab(listing);
@@ -77,6 +99,8 @@ namespace Tolgrim_MechanitorExpanded
             {
                 Settings.ResetToDefaults();
                 SubcoreEncoderRecipeManager.ApplyRecipeRouting(Settings.moveRecipesToSubcoreEncoder);
+                SubcoreEncoderCraftingManager.ApplyAllIngredientCosts();
+                SyncCraftingBuffers();
             }
 
             listing.End();
@@ -84,10 +108,29 @@ namespace Tolgrim_MechanitorExpanded
             base.DoSettingsWindowContents(inRect);
         }
 
-        private static void DrawInterfaceTab(Listing_Standard listing)
+        private static void SyncCraftingBuffers()
+        {
+            bufSubcoreRegSteel = Settings.costSubcoreRegularSteel.ToString();
+            bufSubcoreRegComp = Settings.costSubcoreRegularComponents.ToString();
+            bufSubcoreHighSteel = Settings.costSubcoreHighSteel.ToString();
+            bufSubcoreHighComp = Settings.costSubcoreHighComponents.ToString();
+            bufSigChipPlasteel = Settings.costSignalChipPlasteel.ToString();
+            bufSigChipUranium = Settings.costSignalChipUranium.ToString();
+            bufSigChipComp = Settings.costSignalChipComponents.ToString();
+            bufPowChipPlasteel = Settings.costPowerfocusChipPlasteel.ToString();
+            bufPowChipUranium = Settings.costPowerfocusChipUranium.ToString();
+            bufPowChipComp = Settings.costPowerfocusChipComponents.ToString();
+            bufNanoChipPlasteel = Settings.costNanostructuringChipPlasteel.ToString();
+            bufNanoChipUranium = Settings.costNanostructuringChipUranium.ToString();
+            bufNanoChipComp = Settings.costNanostructuringChipSpacerComponents.ToString();
+            bufMechlinkNano = Settings.costMechlinkNanostructuringChips.ToString();
+            bufMechlinkComp = Settings.costMechlinkSpacerComponents.ToString();
+        }
+
+        private static void DrawCraftingTab(Listing_Standard listing)
         {
             Text.Font = GameFont.Medium;
-            listing.Label("Tolgrim_SettingsCraftingSection".Translate());
+            listing.Label("Tolgrim_SettingsCraftingSectionHeader".Translate());
             Text.Font = GameFont.Small;
             listing.Gap(4f);
 
@@ -99,6 +142,88 @@ namespace Tolgrim_MechanitorExpanded
             }
             listing.Gap(10f);
 
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsEncoderRecipesTitle".Translate());
+            Text.Font = GameFont.Small;
+            listing.Label("Tolgrim_SettingsEncoderRecipesDesc".Translate());
+            listing.Gap(8f);
+
+            // 1. Standard Subcore
+            listing.CheckboxLabeled("Tolgrim_CraftSubcoreRegular".Translate(), ref Settings.craftSubcoreRegular);
+            if (Settings.craftSubcoreRegular)
+            {
+                DrawCostRow(listing, "Steel".Translate(), ref Settings.costSubcoreRegularSteel, ref bufSubcoreRegSteel);
+                DrawCostRow(listing, "ComponentIndustrial".Translate(), ref Settings.costSubcoreRegularComponents, ref bufSubcoreRegComp);
+            }
+            listing.Gap(6f);
+
+            // 2. High Subcore
+            listing.CheckboxLabeled("Tolgrim_CraftSubcoreHigh".Translate(), ref Settings.craftSubcoreHigh);
+            if (Settings.craftSubcoreHigh)
+            {
+                DrawCostRow(listing, "Steel".Translate(), ref Settings.costSubcoreHighSteel, ref bufSubcoreHighSteel);
+                DrawCostRow(listing, "ComponentIndustrial".Translate(), ref Settings.costSubcoreHighComponents, ref bufSubcoreHighComp);
+            }
+            listing.Gap(6f);
+
+            // 3. Signal Chip
+            listing.CheckboxLabeled("Tolgrim_CraftSignalChip".Translate(), ref Settings.craftSignalChip);
+            if (Settings.craftSignalChip)
+            {
+                DrawCostRow(listing, "Plasteel".Translate(), ref Settings.costSignalChipPlasteel, ref bufSigChipPlasteel);
+                DrawCostRow(listing, "Uranium".Translate(), ref Settings.costSignalChipUranium, ref bufSigChipUranium);
+                DrawCostRow(listing, "ComponentIndustrial".Translate(), ref Settings.costSignalChipComponents, ref bufSigChipComp);
+            }
+            listing.Gap(6f);
+
+            // 4. Powerfocus Chip
+            listing.CheckboxLabeled("Tolgrim_CraftPowerfocusChip".Translate(), ref Settings.craftPowerfocusChip);
+            if (Settings.craftPowerfocusChip)
+            {
+                DrawCostRow(listing, "Plasteel".Translate(), ref Settings.costPowerfocusChipPlasteel, ref bufPowChipPlasteel);
+                DrawCostRow(listing, "Uranium".Translate(), ref Settings.costPowerfocusChipUranium, ref bufPowChipUranium);
+                DrawCostRow(listing, "ComponentIndustrial".Translate(), ref Settings.costPowerfocusChipComponents, ref bufPowChipComp);
+            }
+            listing.Gap(6f);
+
+            // 5. Nanostructuring Chip
+            listing.CheckboxLabeled("Tolgrim_CraftNanostructuringChip".Translate(), ref Settings.craftNanostructuringChip);
+            if (Settings.craftNanostructuringChip)
+            {
+                DrawCostRow(listing, "Plasteel".Translate(), ref Settings.costNanostructuringChipPlasteel, ref bufNanoChipPlasteel);
+                DrawCostRow(listing, "Uranium".Translate(), ref Settings.costNanostructuringChipUranium, ref bufNanoChipUranium);
+                DrawCostRow(listing, "ComponentSpacer".Translate(), ref Settings.costNanostructuringChipSpacerComponents, ref bufNanoChipComp);
+            }
+            listing.Gap(6f);
+
+            // 6. Mechlink
+            listing.CheckboxLabeled("Tolgrim_CraftMechlink".Translate(), ref Settings.craftMechlink);
+            if (Settings.craftMechlink)
+            {
+                DrawCostRow(listing, "NanostructuringChip".Translate(), ref Settings.costMechlinkNanostructuringChips, ref bufMechlinkNano);
+                DrawCostRow(listing, "ComponentSpacer".Translate(), ref Settings.costMechlinkSpacerComponents, ref bufMechlinkComp);
+            }
+
+            // Aplicar cambios en vivo a las recetas
+            SubcoreEncoderCraftingManager.ApplyAllIngredientCosts();
+        }
+
+        private static void DrawCostRow(Listing_Standard listing, string label, ref int costValue, ref string buffer)
+        {
+            Rect rowRect = listing.GetRect(24f);
+            Rect labelRect = new Rect(rowRect.x + 24f, rowRect.y, 220f, rowRect.height);
+            Rect entryRect = new Rect(rowRect.x + 250f, rowRect.y, 160f, rowRect.height);
+
+            Text.Anchor = TextAnchor.MiddleLeft;
+            Widgets.Label(labelRect, label);
+            Text.Anchor = TextAnchor.UpperLeft;
+
+            Widgets.IntEntry(entryRect, ref costValue, ref buffer, 1);
+            if (costValue < 1) costValue = 1;
+        }
+
+        private static void DrawInterfaceTab(Listing_Standard listing)
+        {
             Text.Font = GameFont.Medium;
             listing.Label("Tolgrim_SettingsLayoutSection".Translate());
             Text.Font = GameFont.Small;

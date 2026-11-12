@@ -99,7 +99,8 @@
   <Tolgrim_SettingsEnableEnemyMechs>Enable hostile mechanoid resurrection</Tolgrim_SettingsEnableEnemyMechs>
   <Tolgrim_SettingsEnableEnemyMechsTip>Allows player gestators and mechanitors to resurrect and reprogram enemy mechanoid corpses using subcores and components, converting them permanently into colony mechs.</Tolgrim_SettingsEnableEnemyMechsTip>
 
-  <Tolgrim_SettingsTabInterface>Interface &amp; Recipes</Tolgrim_SettingsTabInterface>
+  <Tolgrim_SettingsTabInterface>Interface</Tolgrim_SettingsTabInterface>
+  <Tolgrim_SettingsTabCrafting>Subcore Crafting</Tolgrim_SettingsTabCrafting>
   <Tolgrim_SettingsTabBandwidth>Bandwidth</Tolgrim_SettingsTabBandwidth>
   <Tolgrim_SettingsTabMechanoids>Mechanoids &amp; Apocriton</Tolgrim_SettingsTabMechanoids>
 
@@ -127,4 +128,15 @@
   <Tolgrim_RenameControlGroup>Rename control group</Tolgrim_RenameControlGroup>
   <Tolgrim_RenameControlGroupTip>Change the label of this mechanoid control group.</Tolgrim_RenameControlGroupTip>
   <Tolgrim_ControlGroupRenamed>Control group renamed to '{0}'.</Tolgrim_ControlGroupRenamed>
+
+  <!-- Subcore Encoder Crafting Settings -->
+  <Tolgrim_SettingsCraftingSectionHeader>Workstation Organization</Tolgrim_SettingsCraftingSectionHeader>
+  <Tolgrim_SettingsEncoderRecipesTitle>Subcore Encoder Custom Recipes</Tolgrim_SettingsEncoderRecipesTitle>
+  <Tolgrim_SettingsEncoderRecipesDesc>Enable or disable recipes and customize the material costs required to craft each item at the Subcore Encoder.</Tolgrim_SettingsEncoderRecipesDesc>
+  <Tolgrim_CraftSubcoreRegular>Allow crafting Standard Subcore</Tolgrim_CraftSubcoreRegular>
+  <Tolgrim_CraftSubcoreHigh>Allow crafting High Subcore</Tolgrim_CraftSubcoreHigh>
+  <Tolgrim_CraftSignalChip>Allow crafting Signal Chip</Tolgrim_CraftSignalChip>
+  <Tolgrim_CraftPowerfocusChip>Allow crafting Powerfocus Chip</Tolgrim_CraftPowerfocusChip>
+  <Tolgrim_CraftNanostructuringChip>Allow crafting Nano Structuring Chip</Tolgrim_CraftNanostructuringChip>
+  <Tolgrim_CraftMechlink>Allow crafting Mechlink</Tolgrim_CraftMechlink>
 </LanguageData>
