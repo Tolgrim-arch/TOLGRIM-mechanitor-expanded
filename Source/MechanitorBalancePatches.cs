@@ -53,7 +53,12 @@ namespace Tolgrim_MechanitorExpanded
                 return;
             }
 
-            if (req.Thing is Pawn pawn && pawn.Faction == Faction.OfPlayer)
+            if (Current.ProgramState != ProgramState.Playing || Find.FactionManager?.OfPlayer == null)
+            {
+                return;
+            }
+
+            if (req.Thing is Pawn pawn && pawn.Faction != null && pawn.Faction.IsPlayer)
             {
                 if (___stat == StatDefOf.WorkSpeedGlobal && pawn.RaceProps.IsMechanoid)
                 {
@@ -95,7 +100,7 @@ namespace Tolgrim_MechanitorExpanded
                 return true;
             }
 
-            if (___pawn != null && ___pawn.Faction == Faction.OfPlayer)
+            if (___pawn != null && ___pawn.Faction != null && ___pawn.Faction.IsPlayer)
             {
                 __instance.CurLevel = __instance.MaxLevel;
                 return false;

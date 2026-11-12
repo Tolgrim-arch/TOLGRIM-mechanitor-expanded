@@ -88,7 +88,8 @@
         </ingredients>
         <fixedIngredientFilter>
           <thingDefs>
-            <li>Corpse_Mech_Warurchin</li>
+            <li>Corpse_Mech_Fabricor</li>
+            <li>Corpse_Mech_Paramedic</li>
           </thingDefs>
         </fixedIngredientFilter>
         <researchPrerequisite>HighMechtech</researchPrerequisite>
