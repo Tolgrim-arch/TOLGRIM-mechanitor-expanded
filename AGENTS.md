@@ -50,6 +50,8 @@ The mod follows a **Vanilla Expanded** philosophy, preserving RimWorld's aesthet
 - Reprogramming recipes for gestators (`MechGestator`, `LargeMechGestator`) to resurrect enemy mechanoid corpses using subcores and steel.
 - Ability and job driver `Tolgrim_JobResurrectMech` for instant battlefield resurrection and faction alignment.
 - Friendly Apocriton behavior patches: suppresses Hate Aura on colonists and enables mech recharger gizmos.
+- Gestation of Apocriton from scratch (`Tolgrim_GestateApocriton`) in `LargeMechGestator` with balanced colony stats (Bandwidth: 6, UltraMechtech).
+- Friendly Apocriton resurrection patch in vanilla `ResurrectUltraheavyMech`.
 - Runtime toggle in Mod Settings (`enableResurrectEnemyMechs`) with zero overhead when disabled.
 - Harmony integration (`0Harmony.dll`) referenced as compile dependency.
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Receta para gestar un Apocriton desde cero en el gestador grande -->
+  <RecipeDef ParentName="SuperHeavyMechanoidRecipe">
+    <defName>Tolgrim_GestateApocriton</defName>
+    <label>gestate apocriton</label>
+    <description>Gestate an ultraheavy apocriton commander mechanoid.</description>
+    <products>
+      <Mech_Apocriton>1</Mech_Apocriton>
+    </products>
+    <descriptionHyperlinks>
+      <ThingDef>Mech_Apocriton</ThingDef>
+    </descriptionHyperlinks>
+    <gestationCycles>12</gestationCycles>
+    <researchPrerequisite>UltraMechtech</researchPrerequisite>
+    <ingredients Inherit="False">
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>200</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Plasteel</li>
+          </thingDefs>
+        </filter>
+        <count>250</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ComponentSpacer</li>
+          </thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>SignalChip</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PowerfocusChip</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>NanostructuringChip</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>SubcoreHigh</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+  </RecipeDef>
+
+</Defs>

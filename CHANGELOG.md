@@ -7,9 +7,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ## [0.3.0] — 2026-11-12
 
-### Feature: Enemy Mechanoid Resurrection & Reprogramming
+### Feature: Enemy Mechanoid Resurrection, Reprogramming & Apocriton Gestation
 
 #### Added
+- **Apocriton Gestation from Scratch:**
+  - Added `Tolgrim_GestateApocriton` recipe to `LargeMechGestator` requiring `UltraMechtech` research, high subcore, boss chips (Signal, Powerfocus, Nanostructuring), plasteel, and steel.
+  - Adjusted Apocriton colony balance: `BandwidthCost` (6), `ControlTakingTime` (30s), and `MechEnergyLossPerHP` (0.15).
+  - Added `Corpse_Mech_Apocriton` to vanilla `ResurrectUltraheavyMech` recipe for standard friendly resurrection in gestators.
 - **Hostile Mech Resurrection & Gestation:**
   - Integrated native gestation recipes (`Tolgrim_ResurrectHostileLightMech`, etc.) to gestate and reprogram downed/dead hostile mechanoids into colony mechanoids using subcores and steel.
   - Native support for `MechGestator` and `LargeMechGestator`.

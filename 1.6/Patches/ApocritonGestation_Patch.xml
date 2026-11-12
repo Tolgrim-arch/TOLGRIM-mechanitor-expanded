@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Añadir receta de gestación de Apocriton a LargeMechGestator -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="LargeMechGestator"]/recipes</xpath>
+    <value>
+      <li>Tolgrim_GestateApocriton</li>
+    </value>
+  </Operation>
+
+  <!-- Permitir resucitar el cadáver de un Apocriton aliado en ResurrectUltraheavyMech -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/RecipeDef[defName="ResurrectUltraheavyMech"]/fixedIngredientFilter/thingDefs</xpath>
+    <value>
+      <li>Corpse_Mech_Apocriton</li>
+    </value>
+  </Operation>
+
+  <!-- Ajustes de estadísticas para control colonial del Apocriton (BandwidthCost, ControlTakingTime, MechEnergyLossPerHP) -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="Mech_Apocriton"]/statBases/BandwidthCost</xpath>
+    <value>
+      <BandwidthCost>6</BandwidthCost>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="Mech_Apocriton"]/statBases/ControlTakingTime</xpath>
+    <value>
+      <ControlTakingTime>30</ControlTakingTime>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="Mech_Apocriton"]/statBases</xpath>
+    <value>
+      <MechEnergyLossPerHP>0.15</MechEnergyLossPerHP>
+    </value>
+  </Operation>
+
+</Patch>
