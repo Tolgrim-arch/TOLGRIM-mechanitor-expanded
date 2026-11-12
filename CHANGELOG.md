@@ -1,68 +1,56 @@
 # Changelog — TOLGRIM: Mechanitor Expanded
 
-Todos los cambios notables, hitos y fases implementadas de este proyecto se documentan en este archivo.
-
-Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/) y siguiendo [Semantic Versioning](https://semver.org/).
+All notable changes to this project are documented in this file.
+Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [SemVer](https://semver.org/).
 
 ---
 
 ## [0.2.0] — 2026-11-12
 
-### Fase 2: Neurofibra, Sueros Bandnode y Sistema de Bonificaciones
+### Phase 2: Neurofibre, Bandnode Sera & Bonus Architecture
 
-#### Añadido
-- **Sistema Genérico de Bonificaciones de Ancho de Banda (`BandwidthBonusRegistry`):**
-  - Infraestructura modular y extensible basada en proveedores (`IBandwidthBonusProvider`).
-  - Soporte para fuentes de bonificación acumulativas y no acumulativas.
-  - Integración nativa mediante `StatPart_MechanitorExpandedBandwidth` en `StatDefOf.MechBandwidth` para que todos los sistemas del juego (Gizmos, InfoCard, StatWorker y la pestaña de inspección) lean el valor consolidado sin duplicar cálculos.
-- **Componente de Persistencia por Mecanizador (`CompMechanitorBandwidth`):**
-  - Inyectado mediante parche condicional en `Human` para almacenar de forma segura las dosis consumidas de sueros (`Scribe_Values`).
-- **Implantes Mech Neurofibre (Niveles I a IV):**
-  - Cuatro implantes progresivos de ancho de banda:
-    - **Mech Neurofibre I:** +3 Bandwidth.
-    - **Mech Neurofibre II:** +6 Bandwidth.
-    - **Mech Neurofibre III:** +9 Bandwidth.
-    - **Mech Neurofibre IV:** +12 Bandwidth.
-  - Comportamiento quirúrgico mutuamente excluyente (`Recipe_InstallNeurofibre`): instalar un nivel superior remueve de forma automática y limpia el nivel anterior.
-  - Recetas de fabricación escalonadas entre `StandardMechtech` y `HighMechtech` utilizando Mechlinks sobrantes, componentes y subnúcleos.
-  - Reutilización gráfica nativa del sprite original de `Mechlink` (`Things/Pawn/Humanlike/Apparel/Mechlink`) sin duplicar archivos PNG.
-- **Sueros Neuronales Bandnode (`Tolgrim_BandnodeSerum`):**
-  - Consumible exótico de rareza ultra-tech (`tradeTags: ExoticMisc`, recompensa de misiones de baja frecuencia).
-  - Otorga +1 de ancho de banda permanente por dosis, con un límite configurable (por defecto 36 dosis).
-  - Bloqueo preventivo de administración si el colono no es mecanizador o si ya alcanzó el tope permitido.
-  - Reutilización gráfica nativa del sprite de `MechSerumHealer` (`Things/Item/Special/MechSerumHealer`).
-- **Desglose en la Pestaña «Mecanizador» y Tooltips:**
-  - Nuevas filas reactivas que desglosan la bonificación de Neurofibra, Sueros Bandnode (`dosis / máximo`) y bonificaciones de otras fuentes.
-  - Tooltip nativo completo en la estadística de Ancho de Banda mediante `StatWorker.GetExplanationFull`, detallando el desglose real (base, equipo, implantes, sueros y mods externos).
-- **Ampliación de Mod Settings:**
-  - Opciones para habilitar/deshabilitar de forma segura Neurofibra y Sueros Bandnode (sin corromper partidas guardadas).
-  - Configuración del límite máximo de dosis de suero por mecanizador (1 a 100).
-  - Sliders para multiplicadores de bonificación de Neurofibra y Sueros (0.5x a 3.0x).
-- **Localización Completa:**
-  - Claves agregadas en Inglés (`English`), Español (`Spanish`) y Español Latino (`SpanishLatin`).
+#### Added
+- **Bandwidth Bonus System (`BandwidthBonusRegistry`):**
+  - Modular bonus provider framework supporting cumulative and non-cumulative modifiers.
+  - Native `StatPart_MechanitorExpandedBandwidth` injected into `StatDefOf.MechBandwidth` for unified game-wide calculations without modifier duplication.
+- **Per-Mechanitor Persistence (`CompMechanitorBandwidth`):**
+  - Custom comp injected into pawns to safely store administered serum doses (`Scribe_Values`).
+- **Mech Neurofibre Implants (Tiers I–IV):**
+  - 4 progressive bandwidth implants (+3, +6, +9, +12).
+  - Mutually exclusive surgical installation (`Recipe_InstallNeurofibre`) cleanly replacing lower tiers.
+  - Tiered recipes at `StandardMechtech` and `HighMechtech` using spare Mechlinks, subcores, and components.
+  - Native reuse of the vanilla Mechlink sprite (`Things/Pawn/Humanlike/Apparel/Mechlink`).
+- **Bandnode Sera (`Tolgrim_BandnodeSerum`):**
+  - Exotic ultratech usable item granting permanent +1 Bandwidth per dose (default cap: 36 doses).
+  - Validation preventing administration to non-mechanitors or capped pawns.
+  - Native reuse of the vanilla Healer Mech Serum sprite (`Things/Item/Special/MechSerumHealer`).
+- **Mechanitor Tab & Tooltip Integration:**
+  - Real-time bonus breakdown rows (Neurofibre, Bandnode Sera, other sources).
+  - Native `StatWorker.GetExplanationFull` bandwidth tooltips showing exact contributor breakdown.
+- **Expanded Mod Settings:**
+  - Safe toggles for Neurofibre and Bandnode Sera without corrupting existing saves.
+  - Configurable serum dose cap (1–100) and bonus multipliers (0.5x–3.0x).
+- **Localization:** Full English, Spanish, and Latin American Spanish keys.
 
 ---
 
 ## [0.1.0] — 2026-11-12
 
-### Fase 1: Implementación de la Pestaña «Mecanizador»
+### Phase 1: Native «Mechanitor» Inspector Tab
 
-#### Añadido
-- **Pestaña Nativa en el Panel de Inspección (`ITab_Pawn_Mechanitor`):**
-  - Integrada al mismo nivel que las pestañas nativas del juego (`Personaje`, `Necesidades`, `Salud`, `Equipo`).
-  - Condición de visibilidad estricta: visible únicamente en colonos con `Mechlink` activo y reconocido como mecanizador. Oculta para colonos normales.
-  - Acordeones colapsables interactivos con iconos nativos (`Collapse` / `Reveal`).
-  - Scroll vertical fluido con márgenes dedicados para evitar solapamientos con el botón de cierre `[X]`.
-- **Contenido del Panel:**
-  - **Información General:** Estado del mecanizador (`Activo` / `Incapacitado`), Ancho de banda total/usado/libre, Radio de comando en combate (24.9 casillas), mecas controlados y grupos de control.
-  - **Capacidades:** Estadísticas en tiempo real de Biotech (`MechBandwidth`, `MechControlGroups`, `MechRemoteRepairDistance`, `MechRemoteShieldDistance`, `MechRemoteShieldEnergy`, `MechFormingSpeed`, `MechRepairSpeed`, `MechWorkSpeed`).
-  - **Implantes de Mecanizador:** Detección dinámica de implantes instalados y resumen compacto de sus modificadores.
-  - **Equipamiento de Mecanizador:** Filtrado e inspección de prendas, armaduras y armas que otorguen modificadores de mecanizador, con iconos y tooltips.
-- **Sistema de Mod Settings (`MechanitorExpandedMod` & `MechanitorExpandedSettings`):**
-  - Sliders de configuración para ajustar el ancho (430px - 650px) y alto (400px - 700px) de la pestaña.
-  - Filtros de visibilidad para filas y secciones.
-  - Configuración del estado inicial desplegado/colapsado de los acordeones.
-  - **Reubicación de Fabricación al Codificador de Subnúcleos:** Opción configurable en caliente para mover todas las recetas de implantes de mecanizador desde la Mesa de Mecanizado al Codificador de Subnúcleos (`Subcore Encoder`), despejando la mesa de trabajo.
-- **Parches y Compatibilidad:**
-  - Inyección no destructiva mediante `PatchOperationFindMod` verificando el DLC `Biotech`.
-  - Soporte de idiomas en Español (`Mecanit.`), Español Latino e Inglés (`Mechanitor`).
+#### Added
+- **Native Inspector Tab (`ITab_Pawn_Mechanitor`):**
+  - Integrated into the pawn inspect pane alongside vanilla tabs.
+  - Strict visibility: only displays on active mechanitors with an installed Mechlink.
+  - Collapsible native accordions with smooth vertical scrolling.
+- **Inspector Sections:**
+  - **General:** Mechanitor status, total/used/free bandwidth, combat command radius (24.9 cells), controlled mechs, and control groups.
+  - **Capabilities:** Real-time Biotech stats (`MechBandwidth`, `MechControlGroups`, repair/shield range, forming/repair speed).
+  - **Implants & Equipment:** Dynamic detection of mechanitor-relevant implants and worn gear with compact bonus summaries.
+- **Mod Settings System:**
+  - Custom tab dimensions (width: 430–650px, height: 400–700px).
+  - Row and section visibility toggles and default accordion states.
+  - **Hot-swappable Recipe Routing:** Option to move mechanitor implant recipes from the Machining Table to the Subcore Encoder.
+- **Patches & Compatibility:**
+  - Non-destructive XML patches (`PatchOperationFindMod`) scoped to Biotech.
+  - Full localization in English, Spanish, and Latin American Spanish.
