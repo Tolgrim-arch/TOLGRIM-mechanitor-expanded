@@ -110,4 +110,16 @@
   <Tolgrim_SettingsSuppressHateAuraTip>Evita que los Apocriton pertenecientes a la colonia o aliados apliquen el penalizador de estado de ánimo por Aura de Odio a los colonos.</Tolgrim_SettingsSuppressHateAuraTip>
   <Tolgrim_SettingsEnableApocritonRecharge>Activar recarga de resurrección en Apocriton aliado</Tolgrim_SettingsEnableApocritonRecharge>
   <Tolgrim_SettingsEnableApocritonRechargeTip>Permite que los Apocriton de la colonia regeneren gradualmente las cargas de su habilidad de resurrección con el tiempo.</Tolgrim_SettingsEnableApocritonRechargeTip>
+
+  <Tolgrim_SettingsTabBalance>Ajustes del Mecanizador</Tolgrim_SettingsTabBalance>
+  <Tolgrim_SettingsBalanceSection>Parámetros de Mecanizador y Mecanoides</Tolgrim_SettingsBalanceSection>
+  <Tolgrim_SettingsCommandRange>Rango de comando base de mecanoides</Tolgrim_SettingsCommandRange>
+  <Tolgrim_SettingsMechWorkSpeed>Velocidad de trabajo general de mecanoides</Tolgrim_SettingsMechWorkSpeed>
+  <Tolgrim_SettingsGestationSpeed>Velocidad de gestación de mecanoides</Tolgrim_SettingsGestationSpeed>
+  <Tolgrim_SettingsInstantGestation>Gestación instantánea de mecanoides</Tolgrim_SettingsInstantGestation>
+  <Tolgrim_SettingsInstantGestationTip>Establece la velocidad de gestación al máximo para que los ciclos se completen casi al instante.</Tolgrim_SettingsInstantGestationTip>
+  <Tolgrim_SettingsInfiniteEnergy>Energía infinita en mecanoides (sin desgaste)</Tolgrim_SettingsInfiniteEnergy>
+  <Tolgrim_SettingsInfiniteEnergyTip>Mantiene la energía de los mecanoides de la colonia siempre al máximo sin consumirse.</Tolgrim_SettingsInfiniteEnergyTip>
+  <Tolgrim_SettingsDisableWastepacks>Desactivar generación de paquetes de residuos (wastepacks)</Tolgrim_SettingsDisableWastepacks>
+  <Tolgrim_SettingsDisableWastepacksTip>Evita que los mecanoides de la colonia generen paquetes de residuos tóxicos al recargarse.</Tolgrim_SettingsDisableWastepacksTip>
 </LanguageData>

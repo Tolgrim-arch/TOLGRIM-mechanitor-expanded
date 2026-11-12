@@ -10,7 +10,8 @@ namespace Tolgrim_MechanitorExpanded
         {
             Interface,
             Bandwidth,
-            Mechanoids
+            Mechanoids,
+            Balance
         }
 
         public static MechanitorExpandedSettings Settings { get; private set; } = null!;
@@ -37,7 +38,8 @@ namespace Tolgrim_MechanitorExpanded
             {
                 new TabRecord("Tolgrim_SettingsTabInterface".Translate(), () => { currentTab = SettingsTab.Interface; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Interface),
                 new TabRecord("Tolgrim_SettingsTabBandwidth".Translate(), () => { currentTab = SettingsTab.Bandwidth; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Bandwidth),
-                new TabRecord("Tolgrim_SettingsTabMechanoids".Translate(), () => { currentTab = SettingsTab.Mechanoids; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Mechanoids)
+                new TabRecord("Tolgrim_SettingsTabMechanoids".Translate(), () => { currentTab = SettingsTab.Mechanoids; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Mechanoids),
+                new TabRecord("Tolgrim_SettingsTabBalance".Translate(), () => { currentTab = SettingsTab.Balance; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Balance)
             };
 
             Widgets.DrawMenuSection(tabRect);
@@ -62,6 +64,9 @@ namespace Tolgrim_MechanitorExpanded
                     break;
                 case SettingsTab.Mechanoids:
                     DrawMechanoidsTab(listing);
+                    break;
+                case SettingsTab.Balance:
+                    DrawBalanceTab(listing);
                     break;
             }
 
@@ -167,6 +172,28 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_SettingsEnableApocritonGestation".Translate(), ref Settings.enableApocritonGestation, "Tolgrim_SettingsEnableApocritonGestationTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsSuppressHateAura".Translate(), ref Settings.suppressFriendlyApocritonHateAura, "Tolgrim_SettingsSuppressHateAuraTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsEnableApocritonRecharge".Translate(), ref Settings.enableApocritonRecharge, "Tolgrim_SettingsEnableApocritonRechargeTip".Translate());
+        }
+
+        private static void DrawBalanceTab(Listing_Standard listing)
+        {
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsBalanceSection".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(6f);
+
+            listing.Label($"{"Tolgrim_SettingsCommandRange".Translate()}: {Settings.baseCommandRange:F1} {"Tolgrim_TilesUnit".Translate()} (24.9 - 999)");
+            Settings.baseCommandRange = Mathf.Round(listing.Slider(Settings.baseCommandRange, 24.9f, 999f) * 10f) / 10f;
+
+            listing.Label($"{"Tolgrim_SettingsMechWorkSpeed".Translate()}: {Settings.mechWorkSpeedMultiplier * 100f:F0}% (100% - 3000%)");
+            Settings.mechWorkSpeedMultiplier = Mathf.Round(listing.Slider(Settings.mechWorkSpeedMultiplier, 1.0f, 30.0f) * 2f) / 2f;
+
+            listing.Label($"{"Tolgrim_SettingsGestationSpeed".Translate()}: {Settings.mechGestationSpeedMultiplier * 100f:F0}% (100% - 3000%)");
+            Settings.mechGestationSpeedMultiplier = Mathf.Round(listing.Slider(Settings.mechGestationSpeedMultiplier, 1.0f, 30.0f) * 2f) / 2f;
+            listing.Gap(6f);
+
+            listing.CheckboxLabeled("Tolgrim_SettingsInstantGestation".Translate(), ref Settings.instantMechGestation, "Tolgrim_SettingsInstantGestationTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsInfiniteEnergy".Translate(), ref Settings.infiniteMechEnergy, "Tolgrim_SettingsInfiniteEnergyTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsDisableWastepacks".Translate(), ref Settings.disableMechWastepacks, "Tolgrim_SettingsDisableWastepacksTip".Translate());
         }
     }
 }

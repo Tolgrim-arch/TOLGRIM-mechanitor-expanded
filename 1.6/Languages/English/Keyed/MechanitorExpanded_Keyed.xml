@@ -110,4 +110,16 @@
   <Tolgrim_SettingsSuppressHateAuraTip>Prevents colony-aligned or friendly Apocritons from causing Hate Aura mood debuffs to colonists.</Tolgrim_SettingsSuppressHateAuraTip>
   <Tolgrim_SettingsEnableApocritonRecharge>Enable friendly Apocriton resurrection recharge</Tolgrim_SettingsEnableApocritonRecharge>
   <Tolgrim_SettingsEnableApocritonRechargeTip>Allows colony Apocritons to gradually regenerate their mech resurrection ability charges over time.</Tolgrim_SettingsEnableApocritonRechargeTip>
+
+  <Tolgrim_SettingsTabBalance>Mechanitor &amp; Mech Balance</Tolgrim_SettingsTabBalance>
+  <Tolgrim_SettingsBalanceSection>Mechanitor &amp; Mechanoid Parameters</Tolgrim_SettingsBalanceSection>
+  <Tolgrim_SettingsCommandRange>Base mechanoid command range</Tolgrim_SettingsCommandRange>
+  <Tolgrim_SettingsMechWorkSpeed>General mechanoid work speed</Tolgrim_SettingsMechWorkSpeed>
+  <Tolgrim_SettingsGestationSpeed>Mechanoid gestation speed</Tolgrim_SettingsGestationSpeed>
+  <Tolgrim_SettingsInstantGestation>Instant mechanoid gestation</Tolgrim_SettingsInstantGestation>
+  <Tolgrim_SettingsInstantGestationTip>Sets mechanoid forming speed to maximum so gestation cycles complete almost instantaneously.</Tolgrim_SettingsInstantGestationTip>
+  <Tolgrim_SettingsInfiniteEnergy>Infinite mechanoid energy (no drain)</Tolgrim_SettingsInfiniteEnergy>
+  <Tolgrim_SettingsInfiniteEnergyTip>Keeps colony mechanoid energy permanently full without draining over time.</Tolgrim_SettingsInfiniteEnergyTip>
+  <Tolgrim_SettingsDisableWastepacks>Disable mechanoid wastepack generation</Tolgrim_SettingsDisableWastepacks>
+  <Tolgrim_SettingsDisableWastepacksTip>Prevents colony mechanoids from generating toxic wastepacks when recharging.</Tolgrim_SettingsDisableWastepacksTip>
 </LanguageData>

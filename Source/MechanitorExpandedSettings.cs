@@ -36,6 +36,14 @@ namespace Tolgrim_MechanitorExpanded
         public bool enableApocritonRecharge = true;
         public bool enableApocritonGestation = true;
 
+        // Fase 4: Ajustes generales del mecanizador y mecanoides
+        public float baseCommandRange = 24.9f;
+        public float mechWorkSpeedMultiplier = 1.0f;
+        public float mechGestationSpeedMultiplier = 1.0f;
+        public bool instantMechGestation = false;
+        public bool infiniteMechEnergy = false;
+        public bool disableMechWastepacks = false;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -64,6 +72,13 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref suppressFriendlyApocritonHateAura, "suppressFriendlyApocritonHateAura", true);
             Scribe_Values.Look(ref enableApocritonRecharge, "enableApocritonRecharge", true);
             Scribe_Values.Look(ref enableApocritonGestation, "enableApocritonGestation", true);
+
+            Scribe_Values.Look(ref baseCommandRange, "baseCommandRange", 24.9f);
+            Scribe_Values.Look(ref mechWorkSpeedMultiplier, "mechWorkSpeedMultiplier", 1.0f);
+            Scribe_Values.Look(ref mechGestationSpeedMultiplier, "mechGestationSpeedMultiplier", 1.0f);
+            Scribe_Values.Look(ref instantMechGestation, "instantMechGestation", false);
+            Scribe_Values.Look(ref infiniteMechEnergy, "infiniteMechEnergy", false);
+            Scribe_Values.Look(ref disableMechWastepacks, "disableMechWastepacks", false);
         }
 
         public void ResetToDefaults()
@@ -88,6 +103,12 @@ namespace Tolgrim_MechanitorExpanded
             suppressFriendlyApocritonHateAura = true;
             enableApocritonRecharge = true;
             enableApocritonGestation = true;
+            baseCommandRange = 24.9f;
+            mechWorkSpeedMultiplier = 1.0f;
+            mechGestationSpeedMultiplier = 1.0f;
+            instantMechGestation = false;
+            infiniteMechEnergy = false;
+            disableMechWastepacks = false;
         }
     }
 }
