@@ -122,4 +122,9 @@
   <Tolgrim_SettingsInfiniteEnergyTip>Keeps colony mechanoid energy permanently full without draining over time.</Tolgrim_SettingsInfiniteEnergyTip>
   <Tolgrim_SettingsDisableWastepacks>Disable mechanoid wastepack generation</Tolgrim_SettingsDisableWastepacks>
   <Tolgrim_SettingsDisableWastepacksTip>Prevents colony mechanoids from generating toxic wastepacks when recharging.</Tolgrim_SettingsDisableWastepacksTip>
+
+  <!-- QoL: Control Group Renaming -->
+  <Tolgrim_RenameControlGroup>Rename control group</Tolgrim_RenameControlGroup>
+  <Tolgrim_RenameControlGroupTip>Change the label of this mechanoid control group.</Tolgrim_RenameControlGroupTip>
+  <Tolgrim_ControlGroupRenamed>Control group renamed to '{0}'.</Tolgrim_ControlGroupRenamed>
 </LanguageData>

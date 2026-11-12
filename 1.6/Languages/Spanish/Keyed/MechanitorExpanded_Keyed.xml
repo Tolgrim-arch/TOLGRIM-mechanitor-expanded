@@ -122,4 +122,9 @@
   <Tolgrim_SettingsInfiniteEnergyTip>Mantiene la energía de los mecanoides de la colonia siempre al máximo sin consumirse.</Tolgrim_SettingsInfiniteEnergyTip>
   <Tolgrim_SettingsDisableWastepacks>Desactivar generación de paquetes de residuos (wastepacks)</Tolgrim_SettingsDisableWastepacks>
   <Tolgrim_SettingsDisableWastepacksTip>Evita que los mecanoides de la colonia generen paquetes de residuos tóxicos al recargarse.</Tolgrim_SettingsDisableWastepacksTip>
+
+  <!-- QoL: Renombrar Grupos de Control -->
+  <Tolgrim_RenameControlGroup>Renombrar grupo de control</Tolgrim_RenameControlGroup>
+  <Tolgrim_RenameControlGroupTip>Cambiar el nombre de este grupo de control de mecanoides.</Tolgrim_RenameControlGroupTip>
+  <Tolgrim_ControlGroupRenamed>Grupo de control renombrado a '{0}'.</Tolgrim_ControlGroupRenamed>
 </LanguageData>

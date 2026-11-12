@@ -242,7 +242,21 @@ namespace Tolgrim_MechanitorExpanded
                 int totalControlGroups = tracker.TotalAvailableControlGroups;
                 int activeControlGroups = tracker.controlGroups.Count;
                 string groupsDisplay = $"{activeControlGroups} / {totalControlGroups}";
-                DrawKeyValueRow("Tolgrim_ControlGroups".Translate(), groupsDisplay, ref curY, width, "Tolgrim_ControlGroupsTip".Translate(), rowIdx++);
+                string groupsTip = "Tolgrim_ControlGroupsTip".Translate();
+
+                if (activeControlGroups > 0)
+                {
+                    groupsTip += "\n";
+                    for (int i = 0; i < activeControlGroups; i++)
+                    {
+                        MechanitorControlGroup g = tracker.controlGroups[i];
+                        string? custom = WorldComponent_ControlGroupNames.GetCustomName(g);
+                        string gLabel = !string.IsNullOrWhiteSpace(custom) ? custom! : ("Group".Translate() + " " + g.Index);
+                        groupsTip += $"\n• {gLabel}: {g.WorkMode.LabelCap} ({g.MechsForReading.Count} {"MechsLower".Translate()})";
+                    }
+                }
+
+                DrawKeyValueRow("Tolgrim_ControlGroups".Translate(), groupsDisplay, ref curY, width, groupsTip, rowIdx++);
             }
 
             curY += 6f;
