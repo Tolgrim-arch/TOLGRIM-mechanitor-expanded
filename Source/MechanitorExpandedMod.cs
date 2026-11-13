@@ -18,6 +18,7 @@ namespace Tolgrim_MechanitorExpanded
         public static MechanitorExpandedSettings Settings { get; private set; } = null!;
         private SettingsTab currentTab = SettingsTab.Interface;
         private Vector2 scrollPosition = Vector2.zero;
+        private float lastViewHeight = 600f;
 
         // Buffers de edición para campos numéricos
         private static string bufSubcoreRegSteel = "";
@@ -48,16 +49,17 @@ namespace Tolgrim_MechanitorExpanded
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            // Barra de pestañas nativa de RimWorld
+            // Barra de pestañas nativa de RimWorld + footer fijo para Reset
             const float tabHeight = 32f;
-            Rect tabRect = new Rect(inRect.x, inRect.y + tabHeight, inRect.width, inRect.height - tabHeight);
+            const float footerHeight = 40f;
+            Rect tabRect = new Rect(inRect.x, inRect.y + tabHeight, inRect.width, inRect.height - tabHeight - footerHeight);
 
             List<TabRecord> tabs = new List<TabRecord>
             {
                 new TabRecord("Tolgrim_SettingsTabInterface".Translate(), () => { currentTab = SettingsTab.Interface; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Interface),
-                new TabRecord("Tolgrim_SettingsTabCrafting".Translate(), () => { currentTab = SettingsTab.Crafting; scrollPosition = Vector2.zero; SyncCraftingBuffers(); }, currentTab == SettingsTab.Crafting),
                 new TabRecord("Tolgrim_SettingsTabBandwidth".Translate(), () => { currentTab = SettingsTab.Bandwidth; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Bandwidth),
                 new TabRecord("Tolgrim_SettingsTabMechanoids".Translate(), () => { currentTab = SettingsTab.Mechanoids; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Mechanoids),
+                new TabRecord("Tolgrim_SettingsTabCrafting".Translate(), () => { currentTab = SettingsTab.Crafting; scrollPosition = Vector2.zero; SyncCraftingBuffers(); }, currentTab == SettingsTab.Crafting),
                 new TabRecord("Tolgrim_SettingsTabBalance".Translate(), () => { currentTab = SettingsTab.Balance; scrollPosition = Vector2.zero; }, currentTab == SettingsTab.Balance)
             };
 
@@ -65,8 +67,7 @@ namespace Tolgrim_MechanitorExpanded
             TabDrawer.DrawTabs(tabRect, tabs);
 
             Rect contentRect = tabRect.ContractedBy(14f);
-            float viewHeight = currentTab == SettingsTab.Crafting ? 820f : (currentTab == SettingsTab.Interface ? 560f : (currentTab == SettingsTab.Balance ? 420f : 460f));
-            Rect viewRect = new Rect(0f, 0f, contentRect.width - 20f, viewHeight);
+            Rect viewRect = new Rect(0f, 0f, contentRect.width - 20f, lastViewHeight);
 
             Widgets.BeginScrollView(contentRect, ref scrollPosition, viewRect);
 
@@ -78,23 +79,26 @@ namespace Tolgrim_MechanitorExpanded
                 case SettingsTab.Interface:
                     DrawInterfaceTab(listing);
                     break;
-                case SettingsTab.Crafting:
-                    DrawCraftingTab(listing);
-                    break;
                 case SettingsTab.Bandwidth:
                     DrawBandwidthTab(listing);
                     break;
                 case SettingsTab.Mechanoids:
                     DrawMechanoidsTab(listing);
                     break;
+                case SettingsTab.Crafting:
+                    DrawCraftingTab(listing);
+                    break;
                 case SettingsTab.Balance:
                     DrawBalanceTab(listing);
                     break;
             }
 
-            listing.Gap(14f);
-            Rect resetRect = listing.GetRect(30f);
-            resetRect.width = 240f;
+            float measuredHeight = listing.CurHeight + 16f;
+            listing.End();
+            lastViewHeight = Mathf.Max(measuredHeight, contentRect.height);
+            Widgets.EndScrollView();
+
+            Rect resetRect = new Rect(inRect.x, tabRect.yMax + 8f, 240f, 30f);
             if (Widgets.ButtonText(resetRect, "Tolgrim_SettingsResetDefaults".Translate()))
             {
                 Settings.ResetToDefaults();
@@ -105,8 +109,6 @@ namespace Tolgrim_MechanitorExpanded
                 SyncCraftingBuffers();
             }
 
-            listing.End();
-            Widgets.EndScrollView();
             base.DoSettingsWindowContents(inRect);
         }
 
@@ -271,22 +273,71 @@ namespace Tolgrim_MechanitorExpanded
             Text.Font = GameFont.Small;
             listing.Gap(4f);
 
+            listing.Label($"{"Tolgrim_SettingsBaseBandwidthBonus".Translate()}: +{Settings.baseBandwidthBonus} (0 - 100)");
+            Settings.baseBandwidthBonus = Mathf.RoundToInt(listing.Slider(Settings.baseBandwidthBonus, 0f, 100f));
+            listing.Gap(6f);
+
             listing.CheckboxLabeled("Tolgrim_SettingsEnableNeurofibre".Translate(), ref Settings.enableNeurofibre, "Tolgrim_SettingsEnableNeurofibreTip".Translate());
+            if (Settings.enableNeurofibre)
+            {
+                listing.Label($"{"Tolgrim_SettingsNeurofibreMult".Translate()}: {Settings.neurofibreMultiplier:0.0}x");
+                Settings.neurofibreMultiplier = Mathf.Round(listing.Slider(Settings.neurofibreMultiplier, 0.5f, 3.0f) * 2f) / 2f;
+            }
+            listing.Gap(6f);
+
             listing.CheckboxLabeled("Tolgrim_SettingsEnableBandnodeSera".Translate(), ref Settings.enableBandnodeSera, "Tolgrim_SettingsEnableBandnodeSeraTip".Translate());
-            listing.Gap(8f);
+            if (Settings.enableBandnodeSera)
+            {
+                listing.Label($"{"Tolgrim_SettingsMaxBandnodeDoses".Translate()}: {Settings.maxBandnodeSeraDoses}");
+                Settings.maxBandnodeSeraDoses = Mathf.RoundToInt(listing.Slider(Settings.maxBandnodeSeraDoses, 1f, 100f));
 
-            listing.Label($"{"Tolgrim_SettingsMaxBandnodeDoses".Translate()}: {Settings.maxBandnodeSeraDoses}");
-            Settings.maxBandnodeSeraDoses = Mathf.RoundToInt(listing.Slider(Settings.maxBandnodeSeraDoses, 1f, 100f));
-
-            listing.Label($"{"Tolgrim_SettingsNeurofibreMult".Translate()}: {Settings.neurofibreMultiplier:0.0}x");
-            Settings.neurofibreMultiplier = Mathf.Round(listing.Slider(Settings.neurofibreMultiplier, 0.5f, 3.0f) * 2f) / 2f;
-
-            listing.Label($"{"Tolgrim_SettingsSerumMult".Translate()}: {Settings.serumMultiplier:0.0}x");
-            Settings.serumMultiplier = Mathf.Round(listing.Slider(Settings.serumMultiplier, 0.5f, 3.0f) * 2f) / 2f;
+                listing.Label($"{"Tolgrim_SettingsSerumMult".Translate()}: {Settings.serumMultiplier:0.0}x");
+                Settings.serumMultiplier = Mathf.Round(listing.Slider(Settings.serumMultiplier, 0.5f, 3.0f) * 2f) / 2f;
+            }
         }
 
         private static void DrawMechanoidsTab(Listing_Standard listing)
         {
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsForcedMechOrdersSection".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(4f);
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableForcedMechOrders".Translate(), ref Settings.enableForcedMechOrders, "Tolgrim_SettingsEnableForcedMechOrdersTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsEnablePreventMechsLaydown".Translate(), ref Settings.enablePreventMechsLaydown, "Tolgrim_SettingsEnablePreventMechsLaydownTip".Translate());
+            listing.Gap(10f);
+
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsHaulToChargerSection".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(4f);
+
+            bool prevMechsHaul = Settings.enableMechsHaulToCharger;
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableMechsHaulToCharger".Translate(), ref Settings.enableMechsHaulToCharger, "Tolgrim_SettingsEnableMechsHaulToChargerTip".Translate());
+            if (prevMechsHaul != Settings.enableMechsHaulToCharger)
+            {
+                MechHaulToChargerManager.ApplySettings();
+            }
+            if (Settings.enableMechsHaulToCharger)
+            {
+                listing.CheckboxLabeled("Tolgrim_SettingsHaulInjuredMechsToCharger".Translate(), ref Settings.haulInjuredMechsToCharger, "Tolgrim_SettingsHaulInjuredMechsToChargerTip".Translate());
+            }
+            listing.Gap(8f);
+
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsChargerRepairHeader".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(4f);
+
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableChargerRepair".Translate(), ref Settings.enableChargerRepair, "Tolgrim_SettingsEnableChargerRepairTip".Translate());
+            if (Settings.enableChargerRepair)
+            {
+                listing.CheckboxLabeled("Tolgrim_SettingsRestoreMissingPartsInCharger".Translate(), ref Settings.restoreMissingPartsInCharger, "Tolgrim_SettingsRestoreMissingPartsInChargerTip".Translate());
+                listing.Gap(4f);
+                listing.Label($"{"Tolgrim_SettingsChargerRepairSpeed".Translate()}: {Settings.chargerRepairSpeedMultiplier * 100f:F0}% (50% - 500%)");
+                Settings.chargerRepairSpeedMultiplier = Mathf.Round(listing.Slider(Settings.chargerRepairSpeedMultiplier, 0.5f, 5.0f) * 10f) / 10f;
+            }
+            listing.Gap(10f);
+
             Text.Font = GameFont.Medium;
             listing.Label("Tolgrim_SettingsEnemyMechsSection".Translate());
             Text.Font = GameFont.Small;
@@ -304,28 +355,6 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_SettingsEnableApocritonGestation".Translate(), ref Settings.enableApocritonGestation, "Tolgrim_SettingsEnableApocritonGestationTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsSuppressHateAura".Translate(), ref Settings.suppressFriendlyApocritonHateAura, "Tolgrim_SettingsSuppressHateAuraTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsEnableApocritonRecharge".Translate(), ref Settings.enableApocritonRecharge, "Tolgrim_SettingsEnableApocritonRechargeTip".Translate());
-            listing.Gap(10f);
-
-            Text.Font = GameFont.Medium;
-            listing.Label("Tolgrim_SettingsHaulToChargerSection".Translate());
-            Text.Font = GameFont.Small;
-            listing.Gap(4f);
-
-            bool prevMechsHaul = Settings.enableMechsHaulToCharger;
-            listing.CheckboxLabeled("Tolgrim_SettingsEnableMechsHaulToCharger".Translate(), ref Settings.enableMechsHaulToCharger, "Tolgrim_SettingsEnableMechsHaulToChargerTip".Translate());
-            if (prevMechsHaul != Settings.enableMechsHaulToCharger)
-            {
-                MechHaulToChargerManager.ApplySettings();
-            }
-            listing.CheckboxLabeled("Tolgrim_SettingsHaulInjuredMechsToCharger".Translate(), ref Settings.haulInjuredMechsToCharger, "Tolgrim_SettingsHaulInjuredMechsToChargerTip".Translate());
-            listing.Gap(10f);
-
-            Text.Font = GameFont.Medium;
-            listing.Label("Tolgrim_SettingsForcedMechOrdersSection".Translate());
-            Text.Font = GameFont.Small;
-            listing.Gap(4f);
-            listing.CheckboxLabeled("Tolgrim_SettingsEnableForcedMechOrders".Translate(), ref Settings.enableForcedMechOrders, "Tolgrim_SettingsEnableForcedMechOrdersTip".Translate());
-            listing.CheckboxLabeled("Tolgrim_SettingsEnablePreventMechsLaydown".Translate(), ref Settings.enablePreventMechsLaydown, "Tolgrim_SettingsEnablePreventMechsLaydownTip".Translate());
         }
 
         private static void DrawBalanceTab(Listing_Standard listing)
@@ -337,9 +366,6 @@ namespace Tolgrim_MechanitorExpanded
 
             listing.Label($"{"Tolgrim_SettingsCommandRange".Translate()}: {Settings.baseCommandRange:F1} {"Tolgrim_TilesUnit".Translate()} (24.9 - 999)");
             Settings.baseCommandRange = Mathf.Round(listing.Slider(Settings.baseCommandRange, 24.9f, 999f) * 10f) / 10f;
-
-            listing.Label($"{"Tolgrim_SettingsBaseBandwidthBonus".Translate()}: +{Settings.baseBandwidthBonus} (0 - 100)");
-            Settings.baseBandwidthBonus = Mathf.RoundToInt(listing.Slider(Settings.baseBandwidthBonus, 0f, 100f));
 
             listing.Label($"{"Tolgrim_SettingsMechWorkSpeed".Translate()}: {Settings.mechWorkSpeedMultiplier * 100f:F0}% (100% - 3000%)");
             Settings.mechWorkSpeedMultiplier = Mathf.Round(listing.Slider(Settings.mechWorkSpeedMultiplier, 1.0f, 30.0f) * 2f) / 2f;
@@ -362,8 +388,8 @@ namespace Tolgrim_MechanitorExpanded
             }
             listing.Gap(6f);
 
-            listing.CheckboxLabeled("Tolgrim_SettingsInstantGestation".Translate(), ref Settings.instantMechGestation, "Tolgrim_SettingsInstantGestationTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsAutoCycleGestation".Translate(), ref Settings.autoCycleMechGestation, "Tolgrim_SettingsAutoCycleGestationTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsInstantGestation".Translate(), ref Settings.instantMechGestation, "Tolgrim_SettingsInstantGestationTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsInfiniteEnergy".Translate(), ref Settings.infiniteMechEnergy, "Tolgrim_SettingsInfiniteEnergyTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsDisableWastepacks".Translate(), ref Settings.disableMechWastepacks, "Tolgrim_SettingsDisableWastepacksTip".Translate());
 
@@ -372,22 +398,6 @@ namespace Tolgrim_MechanitorExpanded
             if (prevUnbreakable != Settings.unbreakableMechChips)
             {
                 UnbreakableChipsManager.ApplySetting(Settings.unbreakableMechChips);
-            }
-            listing.Gap(10f);
-
-            // Fase 6: Reparación en cargadores (Mech Chargers Repair Mechs)
-            Text.Font = GameFont.Medium;
-            listing.Label("Tolgrim_SettingsChargerRepairHeader".Translate());
-            Text.Font = GameFont.Small;
-            listing.Gap(4f);
-
-            listing.CheckboxLabeled("Tolgrim_SettingsEnableChargerRepair".Translate(), ref Settings.enableChargerRepair, "Tolgrim_SettingsEnableChargerRepairTip".Translate());
-            if (Settings.enableChargerRepair)
-            {
-                listing.CheckboxLabeled("Tolgrim_SettingsRestoreMissingPartsInCharger".Translate(), ref Settings.restoreMissingPartsInCharger, "Tolgrim_SettingsRestoreMissingPartsInChargerTip".Translate());
-                listing.Gap(4f);
-                listing.Label($"{"Tolgrim_SettingsChargerRepairSpeed".Translate()}: {Settings.chargerRepairSpeedMultiplier * 100f:F0}% (50% - 500%)");
-                Settings.chargerRepairSpeedMultiplier = Mathf.Round(listing.Slider(Settings.chargerRepairSpeedMultiplier, 0.5f, 5.0f) * 10f) / 10f;
             }
         }
     }
