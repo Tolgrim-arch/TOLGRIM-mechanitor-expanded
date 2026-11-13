@@ -5,7 +5,7 @@ using HarmonyLib;
 using RimWorld;
 using Verse;
 
-namespace TolgrimMechanitorExpanded
+namespace Tolgrim_MechanitorExpanded
 {
     [HarmonyPatch]
     public static class Patch_FloatMenuOptionProvider_ForcedMechOrders
