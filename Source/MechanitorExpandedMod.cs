@@ -318,6 +318,13 @@ namespace Tolgrim_MechanitorExpanded
                 MechHaulToChargerManager.ApplySettings();
             }
             listing.CheckboxLabeled("Tolgrim_SettingsHaulInjuredMechsToCharger".Translate(), ref Settings.haulInjuredMechsToCharger, "Tolgrim_SettingsHaulInjuredMechsToChargerTip".Translate());
+            listing.Gap(10f);
+
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsForcedMechOrdersSection".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(4f);
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableForcedMechOrders".Translate(), ref Settings.enableForcedMechOrders, "Tolgrim_SettingsEnableForcedMechOrdersTip".Translate());
         }
 
         private static void DrawBalanceTab(Listing_Standard listing)

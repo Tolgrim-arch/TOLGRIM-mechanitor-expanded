@@ -194,6 +194,9 @@
   <Tolgrim_SettingsEnableMechsHaulToChargerTip>Allows colony mechanoids capable of hauling (such as Lifters) to transport downed, low-energy, or injured mechanoids to compatible rechargers.</Tolgrim_SettingsEnableMechsHaulToChargerTip>
   <Tolgrim_SettingsHaulInjuredMechsToCharger>Haul injured mechanoids to chargers for repair</Tolgrim_SettingsHaulInjuredMechsToCharger>
   <Tolgrim_SettingsHaulInjuredMechsToChargerTip>When charger repair is active and unlocked, colonists and worker mechanoids will haul damaged mechanoids or those missing parts to a charger so they can automatically regenerate and repair.</Tolgrim_SettingsHaulInjuredMechsToChargerTip>
+  <Tolgrim_SettingsForcedMechOrdersSection>Manual Mechanoid Orders</Tolgrim_SettingsForcedMechOrdersSection>
+  <Tolgrim_SettingsEnableForcedMechOrders>Allow forcing any right-click order on mechanoids</Tolgrim_SettingsEnableForcedMechOrders>
+  <Tolgrim_SettingsEnableForcedMechOrdersTip>Removes vanilla contextual menu restrictions so mechanoids can receive direct right-click priority orders for any compatible action.</Tolgrim_SettingsEnableForcedMechOrdersTip>
   <Tolgrim_BandwidthCost>Bandwidth cost</Tolgrim_BandwidthCost>
   <Tolgrim_SettingsHideSummonThreatGizmo>Hide mech boss summoning button</Tolgrim_SettingsHideSummonThreatGizmo>
   <Tolgrim_SettingsHideSummonThreatGizmoTip>Hides the 'Call mech threat' action button from the mechanitor's gizmo bar (boss threats can still be summoned from the comms console).</Tolgrim_SettingsHideSummonThreatGizmoTip>

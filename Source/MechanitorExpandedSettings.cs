@@ -45,6 +45,7 @@ namespace Tolgrim_MechanitorExpanded
         public bool instantMechGestation = false;
         public bool infiniteMechEnergy = false;
         public bool disableMechWastepacks = false;
+        public bool enableForcedMechOrders = false;
 
         // Fase 5: Fabricación en el Subcore Encoder (Subnúcleos, Chips y Mechlink)
         public bool craftSubcoreRegular = true;
@@ -123,6 +124,7 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref instantMechGestation, "instantMechGestation", false);
             Scribe_Values.Look(ref infiniteMechEnergy, "infiniteMechEnergy", false);
             Scribe_Values.Look(ref disableMechWastepacks, "disableMechWastepacks", false);
+            Scribe_Values.Look(ref enableForcedMechOrders, "enableForcedMechOrders", false);
 
             Scribe_Values.Look(ref craftSubcoreRegular, "craftSubcoreRegular", true);
             Scribe_Values.Look(ref costSubcoreRegularSteel, "costSubcoreRegularSteel", 50);
@@ -190,6 +192,7 @@ namespace Tolgrim_MechanitorExpanded
             instantMechGestation = false;
             infiniteMechEnergy = false;
             disableMechWastepacks = false;
+            enableForcedMechOrders = false;
 
             craftSubcoreRegular = true;
             costSubcoreRegularSteel = 50;
