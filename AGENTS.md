@@ -87,12 +87,10 @@ After each task, briefly summarize changes, affected files, tests performed, and
 
 ### Git & GitHub Workflow
 
-The user (TOLGRIM) is actively working toward the **Pull Shark** and **Pair Extraordinaire** GitHub achievements. While developing the mod:
+While developing the mod "https://github.com/Tolgrim-arch/TOLGRIM-mechanitor-expanded":
 
 - **Use branches and PRs:** Create feature/fix branches, push meaningful changes, open Pull Requests, and merge them rather than committing directly to the default branch.
-- **Include co-authors:** Add the following trailers to every commit message:
+- **Include co-authors:** Add the following trailers to every commit message, ALWAYS:
 
-```text
 Co-Authored-By: Claude <noreply@anthropic.com>
 Co-authored-by: Codex <noreply@openai.com>
-```
