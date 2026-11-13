@@ -30,8 +30,8 @@ namespace Tolgrim_MechanitorExpanded
             string? customName = WorldComponent_ControlGroupNames.GetCustomName(controlGroup);
             if (customName != null && (merged == null || merged.Count == 0))
             {
-                // Draw background box over vanilla label to cleanly replace text
-                Rect labelArea = new Rect(rect2.x, rect2.y, rect2.width - 56f, 24f);
+                // Draw background box over vanilla label to cleanly replace text avoiding buttons
+                Rect labelArea = new Rect(rect2.x, rect2.y, rect2.width - 78f, 22f);
                 
                 // Redraw standard background texture portion or simple clear/label
                 Text.Font = GameFont.Small;
@@ -41,7 +41,7 @@ namespace Tolgrim_MechanitorExpanded
                 Rect textRect = new Rect(labelArea.x, labelArea.y, textSize.x, textSize.y);
 
                 // Draw overlay backing and custom text
-                Widgets.DrawRectFast(new Rect(labelArea.x, labelArea.y, labelArea.width, textSize.y), new Color(0.12f, 0.14f, 0.16f, 0.95f));
+                Widgets.DrawRectFast(new Rect(labelArea.x, labelArea.y, labelArea.width, textSize.y), new Color(0.14f, 0.16f, 0.18f, 1f));
                 Widgets.Label(textRect, displayLabel);
 
                 if (Mouse.IsOver(textRect))
@@ -147,6 +147,18 @@ namespace Tolgrim_MechanitorExpanded
             {
                 __result = $"{customName} ({__instance.WorkMode.LabelCap})";
             }
+        }
+    }
+
+    /// <summary>
+    /// Amplía el ancho del gizmo de grupo de control para dar espacio suficiente al nombre, iconos y retratos.
+    /// </summary>
+    [HarmonyPatch(typeof(MechanitorControlGroupGizmo), nameof(MechanitorControlGroupGizmo.GetWidth))]
+    public static class Patch_MechanitorControlGroupGizmo_GetWidth
+    {
+        public static void Postfix(ref float __result)
+        {
+            __result = 150f;
         }
     }
 }
