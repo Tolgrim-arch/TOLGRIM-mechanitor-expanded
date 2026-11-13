@@ -81,6 +81,10 @@ namespace Tolgrim_MechanitorExpanded
         public bool restoreMissingPartsInCharger = true;
         public float chargerRepairSpeedMultiplier = 1.0f;
 
+        // Fase 7: Transporte de mecanoides al cargador (Mechs Can Haul To Charger)
+        public bool enableMechsHaulToCharger = true;
+        public bool haulInjuredMechsToCharger = true;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -149,6 +153,9 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref enableChargerRepair, "enableChargerRepair", true);
             Scribe_Values.Look(ref restoreMissingPartsInCharger, "restoreMissingPartsInCharger", true);
             Scribe_Values.Look(ref chargerRepairSpeedMultiplier, "chargerRepairSpeedMultiplier", 1.0f);
+
+            Scribe_Values.Look(ref enableMechsHaulToCharger, "enableMechsHaulToCharger", true);
+            Scribe_Values.Look(ref haulInjuredMechsToCharger, "haulInjuredMechsToCharger", true);
         }
 
         public void ResetToDefaults()
@@ -212,6 +219,8 @@ namespace Tolgrim_MechanitorExpanded
             enableChargerRepair = true;
             restoreMissingPartsInCharger = true;
             chargerRepairSpeedMultiplier = 1.0f;
+            enableMechsHaulToCharger = true;
+            haulInjuredMechsToCharger = true;
         }
     }
 }

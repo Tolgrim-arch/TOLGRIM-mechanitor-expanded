@@ -5,6 +5,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.9.1] — 2026-11-12
+
+### Feature: Native Mechs Hauling to Charger, Injured Mech Transport & Workshop Incompatibility
+
+#### Added
+- **Native Haul Mechs to Charger Integration (`MechHaulToChargerManager.cs`):**
+  - Dynamically altered vanilla `HaulMechsToCharger` WorkGiverDef (`canBeDoneByMechs`), enabling colony worker mechanoids capable of hauling (such as Lifters) to transport downed, unpowered, or injured mechanoids to compatible rechargers.
+  - Runtime toggle in ModSettings under *Mecanoides y Apocriton* (`enableMechsHaulToCharger`), allowing instant enablement or disabling without game restarts.
+- **Injured Mechanoid Transport for Charger Repair (`Patch_WorkGiver_HaulMechToCharger_HasJobOnThing`):**
+  - Extended `WorkGiver_HaulMechToCharger` to detect damaged or mutilated mechanoids when the Charger Repair system is unlocked (`BasicMechtech+`). Colonists and worker mechanoids automatically transport wounded mechs to available chargers even if battery levels are full.
+  - Dedicated ModSettings toggle (`haulInjuredMechsToCharger`) with save persistence.
+- **Charger Hold Extension during Repair (`Patch_JobGiver_GetEnergy_GetMaxRechargeLimit`):**
+  - Postfixed `JobGiver_GetEnergy.GetMaxRechargeLimit` to prevent mechanoids from prematurely ending `JobDefOf.MechCharge` upon hitting 100% battery if they still have injuries or missing parts awaiting repair at a powered charger.
+- **Mod Incompatibility Declaration (`About.xml`):**
+  - Added native `<incompatibleWith><li>Witek.MechsCanHaulToCharger</li></incompatibleWith>` tag.
+- **Localization:**
+  - Added full keyed strings for hauling to chargers across `English`, `Spanish`, and `SpanishLatin`.
+
+---
+
 ## [0.9.0] — 2026-11-12
 
 ### Feature: Native Charger Maintenance & Repair, Extended Incompatibilities & System Hardening

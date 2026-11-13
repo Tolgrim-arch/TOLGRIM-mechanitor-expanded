@@ -187,4 +187,11 @@
   <Tolgrim_MCRM_Paused>Repair paused: no power</Tolgrim_MCRM_Paused>
   <Tolgrim_MCRM_RepairProgress>Repair progress: {0}%</Tolgrim_MCRM_RepairProgress>
   <Tolgrim_MCRM_Complete>Repair complete</Tolgrim_MCRM_Complete>
+
+  <!-- Haul Mechs To Charger -->
+  <Tolgrim_SettingsHaulToChargerSection>Transport to Recharger</Tolgrim_SettingsHaulToChargerSection>
+  <Tolgrim_SettingsEnableMechsHaulToCharger>Allow worker mechanoids to haul to rechargers</Tolgrim_SettingsEnableMechsHaulToCharger>
+  <Tolgrim_SettingsEnableMechsHaulToChargerTip>Allows colony mechanoids capable of hauling (such as Lifters) to transport downed, low-energy, or injured mechanoids to compatible rechargers.</Tolgrim_SettingsEnableMechsHaulToChargerTip>
+  <Tolgrim_SettingsHaulInjuredMechsToCharger>Haul injured mechanoids to chargers for repair</Tolgrim_SettingsHaulInjuredMechsToCharger>
+  <Tolgrim_SettingsHaulInjuredMechsToChargerTip>When charger repair is active and unlocked, colonists and worker mechanoids will haul damaged mechanoids or those missing parts to a charger so they can automatically regenerate and repair.</Tolgrim_SettingsHaulInjuredMechsToChargerTip>
 </LanguageData>

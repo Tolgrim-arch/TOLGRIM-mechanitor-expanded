@@ -187,4 +187,11 @@
   <Tolgrim_MCRM_Paused>Reparación en pausa: sin electricidad</Tolgrim_MCRM_Paused>
   <Tolgrim_MCRM_RepairProgress>Progreso de reparación: {0} %</Tolgrim_MCRM_RepairProgress>
   <Tolgrim_MCRM_Complete>Reparación completada</Tolgrim_MCRM_Complete>
+
+  <!-- Haul Mechs To Charger -->
+  <Tolgrim_SettingsHaulToChargerSection>Transporte hacia cargadores</Tolgrim_SettingsHaulToChargerSection>
+  <Tolgrim_SettingsEnableMechsHaulToCharger>Permitir a mecanoides transportar hacia cargadores</Tolgrim_SettingsEnableMechsHaulToCharger>
+  <Tolgrim_SettingsEnableMechsHaulToChargerTip>Permite que los mecanoides de la colonia con capacidad de transporte (como los Transportadores/Lifters) lleven mecanoides caídos, agotados o heridos hacia un cargador compatible.</Tolgrim_SettingsEnableMechsHaulToChargerTip>
+  <Tolgrim_SettingsHaulInjuredMechsToCharger>Transportar mecanoides heridos para reparación</Tolgrim_SettingsHaulInjuredMechsToCharger>
+  <Tolgrim_SettingsHaulInjuredMechsToChargerTip>Cuando la reparación en cargadores está activa y desbloqueada, los colonos y mecanoides transportarán los mecanoides dañados o mutilados hacia un cargador para que se regeneren y reparen.</Tolgrim_SettingsHaulInjuredMechsToChargerTip>
 </LanguageData>

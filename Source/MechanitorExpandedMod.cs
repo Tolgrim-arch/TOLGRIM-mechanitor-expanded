@@ -65,7 +65,7 @@ namespace Tolgrim_MechanitorExpanded
             TabDrawer.DrawTabs(tabRect, tabs);
 
             Rect contentRect = tabRect.ContractedBy(14f);
-            float viewHeight = currentTab == SettingsTab.Crafting ? 820f : (currentTab == SettingsTab.Interface ? 560f : (currentTab == SettingsTab.Balance ? 420f : 380f));
+            float viewHeight = currentTab == SettingsTab.Crafting ? 820f : (currentTab == SettingsTab.Interface ? 560f : (currentTab == SettingsTab.Balance ? 420f : 460f));
             Rect viewRect = new Rect(0f, 0f, contentRect.width - 20f, viewHeight);
 
             Widgets.BeginScrollView(contentRect, ref scrollPosition, viewRect);
@@ -101,6 +101,7 @@ namespace Tolgrim_MechanitorExpanded
                 SubcoreEncoderRecipeManager.ApplyRecipeRouting(Settings.moveRecipesToSubcoreEncoder);
                 SubcoreEncoderCraftingManager.ApplyAllIngredientCosts();
                 UnbreakableChipsManager.ApplySetting(Settings.unbreakableMechChips);
+                MechHaulToChargerManager.ApplySettings();
                 SyncCraftingBuffers();
             }
 
@@ -302,6 +303,20 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_SettingsEnableApocritonGestation".Translate(), ref Settings.enableApocritonGestation, "Tolgrim_SettingsEnableApocritonGestationTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsSuppressHateAura".Translate(), ref Settings.suppressFriendlyApocritonHateAura, "Tolgrim_SettingsSuppressHateAuraTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsEnableApocritonRecharge".Translate(), ref Settings.enableApocritonRecharge, "Tolgrim_SettingsEnableApocritonRechargeTip".Translate());
+            listing.Gap(10f);
+
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsHaulToChargerSection".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(4f);
+
+            bool prevMechsHaul = Settings.enableMechsHaulToCharger;
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableMechsHaulToCharger".Translate(), ref Settings.enableMechsHaulToCharger, "Tolgrim_SettingsEnableMechsHaulToChargerTip".Translate());
+            if (prevMechsHaul != Settings.enableMechsHaulToCharger)
+            {
+                MechHaulToChargerManager.ApplySettings();
+            }
+            listing.CheckboxLabeled("Tolgrim_SettingsHaulInjuredMechsToCharger".Translate(), ref Settings.haulInjuredMechsToCharger, "Tolgrim_SettingsHaulInjuredMechsToChargerTip".Translate());
         }
 
         private static void DrawBalanceTab(Listing_Standard listing)
