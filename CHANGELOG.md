@@ -5,6 +5,42 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.10.0] — 2026-11-13
+
+### Feature: Extended Mechanitor & Mech Balance Controls, Summon Gizmo Toggle & Incompatibilities
+
+#### Added
+- **Extended ModSettings Balance Sliders (`MechanitorBalancePatches.cs` & `MechanitorExpandedMod.cs`):**
+  - **Bonus Mechanitor Bandwidth (`baseBandwidthBonus`):** Slider (`0` to `+100`) adding flat bonus bandwidth to all player mechanitors.
+  - **Gestation Cycles Multiplier (`gestationCyclesMultiplier`):** Slider (`10%` to `100%`) dynamically scaling `RecipeDef.gestationCycles` via `MechGestationCyclesManager` without requiring a restart.
+  - **Mechanoid Bandwidth Cost Multiplier (`mechBandwidthCostMultiplier`):** Slider (`25%` to `100%`) reducing bandwidth consumption for colony mechanoids.
+  - **Mechanoid Movement Speed Multiplier (`mechMoveSpeedMultiplier`):** Slider (`100%` to `300%`) increasing movement speed for colony mechanoids.
+- **No Summon Mech Threat Gizmo Integration:**
+  - Added `hideSummonThreatGizmo` toggle in ModSettings (Interface tab) to hide `Command_CallBossgroup` from the mechanitor gizmo bar while keeping boss summoning available at the comms console.
+- **Mod Incompatibilities (`About.xml`):**
+  - Added `Canon.NoMechSummonerGizmo` and `AzzyH.ForceMechToDoAnything` to `<incompatibleWith>`.
+
+---
+
+## [0.9.2] — 2026-11-13
+
+### Feature: Forced Manual Mechanoid Orders & UI/Apocriton Polish
+
+#### Added
+- **Forced Right-Click Orders for Mechanoids (`ForcedMechOrdersPatches.cs`):**
+  - Integrated configurable override for `FloatMenuOptionProvider.MechanoidCanDo` via Harmony `Postfix`, allowing mechanoids to receive direct right-click priority orders when enabled.
+  - Added QoL equipment handling for colony mechanoids (`ForcedMechOrdersPatches.cs`): preserves native `destroyOnDrop` weapons in inventory when equipping external weapons, auto-restores them when unequipped, and drops external equipped weapons on death so they are not lost upon gestator resurrection.
+  - Added `enableForcedMechOrders` toggle (default `false`) in ModSettings under *Mecanoides y Apocriton* with save persistence and localization (`English`, `Spanish`, `SpanishLatin`).
+
+#### Changed & Fixed
+- **Control Group Gizmo UI (`ControlGroupRenamePatches.cs`):**
+  - Removed the redundant inline rename icon from the control group gizmo (still accessible via the right-click protocol menu) and expanded the custom group name area.
+  - Replaced the flat-color label backing with a seamless slice of `Command.BGTex` / `Command.BGTexShrunk` to match the gizmo's native gradient.
+- **Friendly Apocriton Inspect Card (`EnemyMechResurrectionPatches.cs`):**
+  - Added `Patch_CompExplosive_CompInspectStringExtra_Apocriton` to hide the EMP death-pulse warning text on player-owned Apocritons, matching the already suppressed death-pulse behavior.
+
+---
+
 ## [0.9.1] — 2026-11-12
 
 ### Feature: Native Mechs Hauling to Charger, Injured Mech Transport & Workshop Incompatibility

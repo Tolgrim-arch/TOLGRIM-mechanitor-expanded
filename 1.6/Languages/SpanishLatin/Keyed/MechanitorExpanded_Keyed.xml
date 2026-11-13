@@ -200,4 +200,10 @@
   <Tolgrim_BandwidthCost>Costo de ancho de banda</Tolgrim_BandwidthCost>
   <Tolgrim_SettingsHideSummonThreatGizmo>Ocultar botón de invocar amenaza meca</Tolgrim_SettingsHideSummonThreatGizmo>
   <Tolgrim_SettingsHideSummonThreatGizmoTip>Oculta el botón de invocar amenazas de jefes mecanoides de la barra de acciones del mecanizador (las amenazas aún se pueden solicitar desde la consola de comunicaciones).</Tolgrim_SettingsHideSummonThreatGizmoTip>
+  <Tolgrim_SettingsBaseBandwidthBonus>Ancho de banda adicional del mecanizador</Tolgrim_SettingsBaseBandwidthBonus>
+  <Tolgrim_SettingsMechMoveSpeed>Velocidad de movimiento de mecanoides</Tolgrim_SettingsMechMoveSpeed>
+  <Tolgrim_SettingsMechBandwidthCost>Costo de ancho de banda de mecanoides</Tolgrim_SettingsMechBandwidthCost>
+  <Tolgrim_SettingsGestationCycles>Multiplicador de ciclos de gestación</Tolgrim_SettingsGestationCycles>
+  <Tolgrim_SettingsAutoCycleGestation>Avanzar ciclos de gestación automáticamente</Tolgrim_SettingsAutoCycleGestation>
+  <Tolgrim_SettingsAutoCycleGestationTip>Avanza automáticamente al siguiente ciclo de gestación en los gestadores de mecanoides sin esperar a que un mecanizador interactúe manualmente.</Tolgrim_SettingsAutoCycleGestationTip>
 </LanguageData>

@@ -30,18 +30,23 @@ namespace Tolgrim_MechanitorExpanded
             string? customName = WorldComponent_ControlGroupNames.GetCustomName(controlGroup);
             if (customName != null && (merged == null || merged.Count == 0))
             {
-                // Draw background box over vanilla label to cleanly replace text avoiding buttons
-                Rect labelArea = new Rect(rect2.x, rect2.y, rect2.width - 78f, 22f);
+                // Draw background box over vanilla label to cleanly replace text avoiding buttons (now wider without rename icon)
+                Rect labelArea = new Rect(rect2.x, rect2.y, rect2.width - 56f, 22f);
                 
-                // Redraw standard background texture portion or simple clear/label
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.UpperLeft;
                 string displayLabel = customName.Truncate(labelArea.width);
                 Vector2 textSize = Text.CalcSize(displayLabel);
                 Rect textRect = new Rect(labelArea.x, labelArea.y, textSize.x, textSize.y);
 
-                // Draw overlay backing and custom text
-                Widgets.DrawRectFast(new Rect(labelArea.x, labelArea.y, labelArea.width, textSize.y), new Color(0.14f, 0.16f, 0.18f, 1f));
+                // Redraw the gizmo's own background texture slice over the vanilla label so the gradient matches seamlessly
+                Texture2D bgTex = parms.shrunk ? Command.BGTexShrunk : Command.BGTex;
+                Rect texCoords = new Rect(
+                    (labelArea.x - rect.x) / rect.width,
+                    1f - ((labelArea.y - rect.y + textSize.y) / rect.height),
+                    labelArea.width / rect.width,
+                    textSize.y / rect.height);
+                GUI.DrawTextureWithTexCoords(new Rect(labelArea.x, labelArea.y, labelArea.width, textSize.y), bgTex, texCoords);
                 Widgets.Label(textRect, displayLabel);
 
                 if (Mouse.IsOver(textRect))
@@ -57,22 +62,6 @@ namespace Tolgrim_MechanitorExpanded
                         }
                     }
                 }
-            }
-
-            // Draw Rename Button in top right between icon buttons if single group
-            if (merged == null || merged.Count == 0)
-            {
-                float btnSize = 18f;
-                // Position rename icon right next to work mode icon
-                Rect renameRect = new Rect(rect.x + rect.width - 52f - 6f - btnSize - 2f, rect.y + 6f + 4f, btnSize, btnSize);
-
-                GUI.color = Color.white;
-                if (Widgets.ButtonImage(renameRect, TexButton.Rename, Color.white, GenUI.MouseoverColor))
-                {
-                    Event.current.Use();
-                    Find.WindowStack.Add(new Dialog_RenameControlGroup(controlGroup));
-                }
-                TooltipHandler.TipRegion(renameRect, "Tolgrim_RenameControlGroupTip".Translate());
             }
 
             // Clic derecho en el gizmo abre menú contextual de Tolgrim (Renombrar grupo, Cambiar color, etc.)

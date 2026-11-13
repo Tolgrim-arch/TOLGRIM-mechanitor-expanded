@@ -40,9 +40,14 @@ namespace Tolgrim_MechanitorExpanded
 
         // Fase 4: Ajustes generales del mecanizador y mecanoides
         public float baseCommandRange = 24.9f;
+        public int baseBandwidthBonus = 0;
         public float mechWorkSpeedMultiplier = 1.0f;
+        public float mechMoveSpeedMultiplier = 1.0f;
+        public float mechBandwidthCostMultiplier = 1.0f;
         public float mechGestationSpeedMultiplier = 1.0f;
+        public float gestationCyclesMultiplier = 1.0f;
         public bool instantMechGestation = false;
+        public bool autoCycleMechGestation = false;
         public bool infiniteMechEnergy = false;
         public bool disableMechWastepacks = false;
         public bool enableForcedMechOrders = false;
@@ -119,9 +124,14 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref enableForgetfulMechResurrection, "enableForgetfulMechResurrection", true);
 
             Scribe_Values.Look(ref baseCommandRange, "baseCommandRange", 24.9f);
+            Scribe_Values.Look(ref baseBandwidthBonus, "baseBandwidthBonus", 0);
             Scribe_Values.Look(ref mechWorkSpeedMultiplier, "mechWorkSpeedMultiplier", 1.0f);
+            Scribe_Values.Look(ref mechMoveSpeedMultiplier, "mechMoveSpeedMultiplier", 1.0f);
+            Scribe_Values.Look(ref mechBandwidthCostMultiplier, "mechBandwidthCostMultiplier", 1.0f);
             Scribe_Values.Look(ref mechGestationSpeedMultiplier, "mechGestationSpeedMultiplier", 1.0f);
+            Scribe_Values.Look(ref gestationCyclesMultiplier, "gestationCyclesMultiplier", 1.0f);
             Scribe_Values.Look(ref instantMechGestation, "instantMechGestation", false);
+            Scribe_Values.Look(ref autoCycleMechGestation, "autoCycleMechGestation", false);
             Scribe_Values.Look(ref infiniteMechEnergy, "infiniteMechEnergy", false);
             Scribe_Values.Look(ref disableMechWastepacks, "disableMechWastepacks", false);
             Scribe_Values.Look(ref enableForcedMechOrders, "enableForcedMechOrders", false);
@@ -187,9 +197,14 @@ namespace Tolgrim_MechanitorExpanded
             enableApocritonGestation = true;
             enableForgetfulMechResurrection = true;
             baseCommandRange = 24.9f;
+            baseBandwidthBonus = 0;
             mechWorkSpeedMultiplier = 1.0f;
+            mechMoveSpeedMultiplier = 1.0f;
+            mechBandwidthCostMultiplier = 1.0f;
             mechGestationSpeedMultiplier = 1.0f;
+            gestationCyclesMultiplier = 1.0f;
             instantMechGestation = false;
+            autoCycleMechGestation = false;
             infiniteMechEnergy = false;
             disableMechWastepacks = false;
             enableForcedMechOrders = false;

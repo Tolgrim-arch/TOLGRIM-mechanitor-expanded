@@ -200,4 +200,10 @@
   <Tolgrim_BandwidthCost>Bandwidth cost</Tolgrim_BandwidthCost>
   <Tolgrim_SettingsHideSummonThreatGizmo>Hide mech boss summoning button</Tolgrim_SettingsHideSummonThreatGizmo>
   <Tolgrim_SettingsHideSummonThreatGizmoTip>Hides the 'Call mech threat' action button from the mechanitor's gizmo bar (boss threats can still be summoned from the comms console).</Tolgrim_SettingsHideSummonThreatGizmoTip>
+  <Tolgrim_SettingsBaseBandwidthBonus>Bonus mechanitor bandwidth</Tolgrim_SettingsBaseBandwidthBonus>
+  <Tolgrim_SettingsMechMoveSpeed>Mechanoid movement speed</Tolgrim_SettingsMechMoveSpeed>
+  <Tolgrim_SettingsMechBandwidthCost>Mechanoid bandwidth cost</Tolgrim_SettingsMechBandwidthCost>
+  <Tolgrim_SettingsGestationCycles>Gestation cycles multiplier</Tolgrim_SettingsGestationCycles>
+  <Tolgrim_SettingsAutoCycleGestation>Auto-cycle mech gestation</Tolgrim_SettingsAutoCycleGestation>
+  <Tolgrim_SettingsAutoCycleGestationTip>Automatically advances mech gestation to the next forming cycle without waiting for a mechanitor to interact with the gestator.</Tolgrim_SettingsAutoCycleGestationTip>
 </LanguageData>

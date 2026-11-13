@@ -106,9 +106,12 @@ namespace Tolgrim_MechanitorExpanded
             // 2. Filtro ultrarrápido: descartar inmediatamente cualquier otra estadística sin comprobaciones de Pawn
             StatDef? formingSpeed = MechFormingSpeedDef;
             bool isWorkSpeed = ___stat == StatDefOf.WorkSpeedGlobal && settings.mechWorkSpeedMultiplier > 1.001f;
+            bool isMoveSpeed = ___stat == StatDefOf.MoveSpeed && settings.mechMoveSpeedMultiplier > 1.001f;
+            bool isBandwidthCost = ___stat == StatDefOf.BandwidthCost && settings.mechBandwidthCostMultiplier < 0.999f;
+            bool isMechBandwidth = ___stat == StatDefOf.MechBandwidth && settings.baseBandwidthBonus > 0;
             bool isFormingSpeed = formingSpeed != null && ___stat == formingSpeed && (settings.instantMechGestation || settings.mechGestationSpeedMultiplier > 1.001f);
 
-            if (!isWorkSpeed && !isFormingSpeed)
+            if (!isWorkSpeed && !isMoveSpeed && !isBandwidthCost && !isMechBandwidth && !isFormingSpeed)
             {
                 return;
             }
@@ -121,9 +124,9 @@ namespace Tolgrim_MechanitorExpanded
             // 3. Procesar solo para peones pertenecientes al jugador
             if (req.Thing is Pawn pawn && pawn.Faction != null && pawn.Faction.IsPlayer)
             {
-                if (isWorkSpeed && pawn.RaceProps != null && pawn.RaceProps.IsMechanoid)
+                if (isMechBandwidth && MechanitorUtility.IsMechanitor(pawn))
                 {
-                    __result *= settings.mechWorkSpeedMultiplier;
+                    __result += settings.baseBandwidthBonus;
                 }
                 else if (isFormingSpeed)
                 {
@@ -134,6 +137,21 @@ namespace Tolgrim_MechanitorExpanded
                     else
                     {
                         __result *= settings.mechGestationSpeedMultiplier;
+                    }
+                }
+                else if (pawn.RaceProps != null && pawn.RaceProps.IsMechanoid)
+                {
+                    if (isWorkSpeed)
+                    {
+                        __result *= settings.mechWorkSpeedMultiplier;
+                    }
+                    else if (isMoveSpeed)
+                    {
+                        __result *= settings.mechMoveSpeedMultiplier;
+                    }
+                    else if (isBandwidthCost)
+                    {
+                        __result *= settings.mechBandwidthCostMultiplier;
                     }
                 }
             }
@@ -186,6 +204,73 @@ namespace Tolgrim_MechanitorExpanded
                 {
                     yield return gizmo;
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Ajusta dinámicamente la cantidad de ciclos de gestación de las recetas de mecanoides según ModSettings.
+    /// </summary>
+    [StaticConstructorOnStartup]
+    public static class MechGestationCyclesManager
+    {
+        private static readonly Dictionary<RecipeDef, int> OriginalCycles = new Dictionary<RecipeDef, int>();
+
+        static MechGestationCyclesManager()
+        {
+            List<RecipeDef> allRecipes = DefDatabase<RecipeDef>.AllDefsListForReading;
+            for (int i = 0; i < allRecipes.Count; i++)
+            {
+                RecipeDef r = allRecipes[i];
+                if (r.gestationCycles > 0)
+                {
+                    OriginalCycles[r] = r.gestationCycles;
+                }
+            }
+            ApplySettings();
+        }
+
+        public static void ApplySettings()
+        {
+            float mult = MechanitorExpandedMod.Settings?.gestationCyclesMultiplier ?? 1.0f;
+            foreach (KeyValuePair<RecipeDef, int> kvp in OriginalCycles)
+            {
+                kvp.Key.gestationCycles = UnityEngine.Mathf.Max(1, UnityEngine.Mathf.RoundToInt(kvp.Value * mult));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Permite que la gestación de mecanoides avance automáticamente al siguiente ciclo sin esperar al mecanizador.
+    /// </summary>
+    [HarmonyPatch(typeof(Bill_Mech), nameof(Bill_Mech.BillTick))]
+    public static class Patch_Bill_Mech_BillTick_AutoCycle
+    {
+        private static readonly AccessTools.FieldRef<Bill_Autonomous, FormingState> StateField =
+            AccessTools.FieldRefAccess<Bill_Autonomous, FormingState>("state");
+
+        public static void Postfix(Bill_Mech __instance)
+        {
+            if (!MechanitorExpandedMod.Settings.autoCycleMechGestation || __instance == null)
+            {
+                return;
+            }
+
+            if (__instance.State != FormingState.Preparing || __instance.recipe == null)
+            {
+                return;
+            }
+
+            if (__instance.GestationCyclesCompleted >= __instance.recipe.gestationCycles)
+            {
+                return;
+            }
+
+            StateField(__instance) = FormingState.Forming;
+
+            if (__instance.BoundPawn != null)
+            {
+                __instance.Gestator?.Notify_StartForming(__instance.BoundPawn);
             }
         }
     }

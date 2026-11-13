@@ -34,5 +34,7 @@ Fase 1: Implementación de la pestaña nativa «Mecanizador» en el panel de ins
     <li>notherkiller.mechchargersrepairmechs</li>
     <li>Witek.MechsCanHaulToCharger</li>
     <li>Canon.NoMechSummonerGizmo</li>
+    <li>AzzyH.ForceMechToDoAnything</li>
+    <li>xyzf.AutoCycleMechGestation</li>
   </incompatibleWith>
 </ModMetaData>
