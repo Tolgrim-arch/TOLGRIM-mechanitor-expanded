@@ -386,6 +386,29 @@ namespace Tolgrim_MechanitorExpanded
     }
 
     /// <summary>
+    /// Oculta el texto de advertencia del pulso PEM al morir en la tarjeta de inspección de Apocriton aliados.
+    /// </summary>
+    [HarmonyPatch(typeof(CompExplosive), nameof(CompExplosive.CompInspectStringExtra))]
+    public static class Patch_CompExplosive_CompInspectStringExtra_Apocriton
+    {
+        public static void Postfix(CompExplosive __instance, ref string __result)
+        {
+            if (string.IsNullOrEmpty(__result))
+            {
+                return;
+            }
+
+            if (__instance.parent is Pawn pawn
+                && pawn.def == ThingDefOf.Mech_Apocriton
+                && pawn.Faction != null
+                && pawn.Faction.IsPlayer)
+            {
+                __result = string.Empty;
+            }
+        }
+    }
+
+    /// <summary>
     /// Amplia el ancho del gizmo de cargas de resurreccion para que el texto no se trunque feamente.
     /// </summary>
     [HarmonyPatch(typeof(Gizmo_MechResurrectionCharges), nameof(Gizmo_MechResurrectionCharges.GetWidth))]

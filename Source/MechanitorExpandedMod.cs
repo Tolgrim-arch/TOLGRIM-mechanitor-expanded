@@ -337,14 +337,32 @@ namespace Tolgrim_MechanitorExpanded
             listing.Label($"{"Tolgrim_SettingsCommandRange".Translate()}: {Settings.baseCommandRange:F1} {"Tolgrim_TilesUnit".Translate()} (24.9 - 999)");
             Settings.baseCommandRange = Mathf.Round(listing.Slider(Settings.baseCommandRange, 24.9f, 999f) * 10f) / 10f;
 
+            listing.Label($"{"Tolgrim_SettingsBaseBandwidthBonus".Translate()}: +{Settings.baseBandwidthBonus} (0 - 100)");
+            Settings.baseBandwidthBonus = Mathf.RoundToInt(listing.Slider(Settings.baseBandwidthBonus, 0f, 100f));
+
             listing.Label($"{"Tolgrim_SettingsMechWorkSpeed".Translate()}: {Settings.mechWorkSpeedMultiplier * 100f:F0}% (100% - 3000%)");
             Settings.mechWorkSpeedMultiplier = Mathf.Round(listing.Slider(Settings.mechWorkSpeedMultiplier, 1.0f, 30.0f) * 2f) / 2f;
 
+            listing.Label($"{"Tolgrim_SettingsMechMoveSpeed".Translate()}: {Settings.mechMoveSpeedMultiplier * 100f:F0}% (100% - 300%)");
+            Settings.mechMoveSpeedMultiplier = Mathf.Round(listing.Slider(Settings.mechMoveSpeedMultiplier, 1.0f, 3.0f) * 10f) / 10f;
+
+            listing.Label($"{"Tolgrim_SettingsMechBandwidthCost".Translate()}: {Settings.mechBandwidthCostMultiplier * 100f:F0}% (25% - 100%)");
+            Settings.mechBandwidthCostMultiplier = Mathf.Round(listing.Slider(Settings.mechBandwidthCostMultiplier, 0.25f, 1.0f) * 20f) / 20f;
+
             listing.Label($"{"Tolgrim_SettingsGestationSpeed".Translate()}: {Settings.mechGestationSpeedMultiplier * 100f:F0}% (100% - 3000%)");
             Settings.mechGestationSpeedMultiplier = Mathf.Round(listing.Slider(Settings.mechGestationSpeedMultiplier, 1.0f, 30.0f) * 2f) / 2f;
+
+            float prevCyclesMult = Settings.gestationCyclesMultiplier;
+            listing.Label($"{"Tolgrim_SettingsGestationCycles".Translate()}: {Settings.gestationCyclesMultiplier * 100f:F0}% (10% - 100%)");
+            Settings.gestationCyclesMultiplier = Mathf.Round(listing.Slider(Settings.gestationCyclesMultiplier, 0.1f, 1.0f) * 20f) / 20f;
+            if (!Mathf.Approximately(prevCyclesMult, Settings.gestationCyclesMultiplier))
+            {
+                MechGestationCyclesManager.ApplySettings();
+            }
             listing.Gap(6f);
 
             listing.CheckboxLabeled("Tolgrim_SettingsInstantGestation".Translate(), ref Settings.instantMechGestation, "Tolgrim_SettingsInstantGestationTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsAutoCycleGestation".Translate(), ref Settings.autoCycleMechGestation, "Tolgrim_SettingsAutoCycleGestationTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsInfiniteEnergy".Translate(), ref Settings.infiniteMechEnergy, "Tolgrim_SettingsInfiniteEnergyTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsDisableWastepacks".Translate(), ref Settings.disableMechWastepacks, "Tolgrim_SettingsDisableWastepacksTip".Translate());
 
