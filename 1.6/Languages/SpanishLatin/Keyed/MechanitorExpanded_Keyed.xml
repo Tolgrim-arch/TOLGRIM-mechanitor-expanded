@@ -197,6 +197,8 @@
   <Tolgrim_SettingsForcedMechOrdersSection>Órdenes Manuales de Mecanoides</Tolgrim_SettingsForcedMechOrdersSection>
   <Tolgrim_SettingsEnableForcedMechOrders>Permitir forzar cualquier orden con clic derecho a mecanoides</Tolgrim_SettingsEnableForcedMechOrders>
   <Tolgrim_SettingsEnableForcedMechOrdersTip>Elimina las restricciones vanilla del menú contextual para que los mecanoides puedan recibir órdenes prioritarias directas con clic derecho en cualquier acción compatible.</Tolgrim_SettingsEnableForcedMechOrdersTip>
+  <Tolgrim_SettingsEnablePreventMechsLaydown>Mantener mecanoides de pie durante el autoapagado</Tolgrim_SettingsEnablePreventMechsLaydown>
+  <Tolgrim_SettingsEnablePreventMechsLaydownTip>Evita que los mecanoides se acuesten en el suelo al entrar en autoapagado y permite transportarlos al cargador si se quedan sin energía.</Tolgrim_SettingsEnablePreventMechsLaydownTip>
   <Tolgrim_BandwidthCost>Costo de ancho de banda</Tolgrim_BandwidthCost>
   <Tolgrim_SettingsHideSummonThreatGizmo>Ocultar botón de invocar amenaza meca</Tolgrim_SettingsHideSummonThreatGizmo>
   <Tolgrim_SettingsHideSummonThreatGizmoTip>Oculta el botón de invocar amenazas de jefes mecanoides de la barra de acciones del mecanizador (las amenazas aún se pueden solicitar desde la consola de comunicaciones).</Tolgrim_SettingsHideSummonThreatGizmoTip>

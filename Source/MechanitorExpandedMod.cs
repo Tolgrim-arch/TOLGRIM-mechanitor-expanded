@@ -325,6 +325,7 @@ namespace Tolgrim_MechanitorExpanded
             Text.Font = GameFont.Small;
             listing.Gap(4f);
             listing.CheckboxLabeled("Tolgrim_SettingsEnableForcedMechOrders".Translate(), ref Settings.enableForcedMechOrders, "Tolgrim_SettingsEnableForcedMechOrdersTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsEnablePreventMechsLaydown".Translate(), ref Settings.enablePreventMechsLaydown, "Tolgrim_SettingsEnablePreventMechsLaydownTip".Translate());
         }
 
         private static void DrawBalanceTab(Listing_Standard listing)
