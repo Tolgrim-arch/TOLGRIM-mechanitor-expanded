@@ -331,6 +331,22 @@ namespace Tolgrim_MechanitorExpanded
             {
                 UnbreakableChipsManager.ApplySetting(Settings.unbreakableMechChips);
             }
+            listing.Gap(10f);
+
+            // Fase 6: Reparación en cargadores (Mech Chargers Repair Mechs)
+            Text.Font = GameFont.Medium;
+            listing.Label("Tolgrim_SettingsChargerRepairHeader".Translate());
+            Text.Font = GameFont.Small;
+            listing.Gap(4f);
+
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableChargerRepair".Translate(), ref Settings.enableChargerRepair, "Tolgrim_SettingsEnableChargerRepairTip".Translate());
+            if (Settings.enableChargerRepair)
+            {
+                listing.CheckboxLabeled("Tolgrim_SettingsRestoreMissingPartsInCharger".Translate(), ref Settings.restoreMissingPartsInCharger, "Tolgrim_SettingsRestoreMissingPartsInChargerTip".Translate());
+                listing.Gap(4f);
+                listing.Label($"{"Tolgrim_SettingsChargerRepairSpeed".Translate()}: {Settings.chargerRepairSpeedMultiplier * 100f:F0}% (50% - 500%)");
+                Settings.chargerRepairSpeedMultiplier = Mathf.Round(listing.Slider(Settings.chargerRepairSpeedMultiplier, 0.5f, 5.0f) * 10f) / 10f;
+            }
         }
     }
 }

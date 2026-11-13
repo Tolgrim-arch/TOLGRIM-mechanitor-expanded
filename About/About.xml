@@ -18,5 +18,20 @@ Fase 1: Implementación de la pestaña nativa «Mecanizador» en el panel de ins
   <loadAfter>
     <li>Ludeon.RimWorld</li>
     <li>Ludeon.RimWorld.Biotech</li>
+    <li>brrainz.harmony</li>
   </loadAfter>
+  <incompatibleWith>
+    <li>DanceNinja.UnbreakableMechChips</li>
+    <li>MrHydralisk.ForgetfulMechResurrection</li>
+    <li>kathanon.MechColors</li>
+    <li>hyaukyuu.mechlinkreinforcement</li>
+    <li>nikidigi.ResurrectEnemyMechanoids</li>
+    <li>ShepirotGamer.FasterMechGestator</li>
+    <li>Slashandz.MechNoWastePack.1.5</li>
+    <li>GG.craftablemechchips</li>
+    <li>swwu.MechanitorCommandRange</li>
+    <li>forza.fasterWorkMechs</li>
+    <li>notherkiller.mechchargersrepairmechs</li>
+    <li>Witek.MechsCanHaulToCharger</li>
+  </incompatibleWith>
 </ModMetaData>

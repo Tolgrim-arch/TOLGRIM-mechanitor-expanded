@@ -76,6 +76,11 @@ namespace Tolgrim_MechanitorExpanded
         // Parche integrado: Chips mecanoides indestructibles (Unbreakable Mech Chips)
         public bool unbreakableMechChips = false;
 
+        // Fase 6: Reparación en cargadores mecanoides (Mech Chargers Repair Mechs)
+        public bool enableChargerRepair = true;
+        public bool restoreMissingPartsInCharger = true;
+        public float chargerRepairSpeedMultiplier = 1.0f;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -140,6 +145,10 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref costMechlinkNanostructuringChips, "costMechlinkNanostructuringChips", 2);
             Scribe_Values.Look(ref costMechlinkSpacerComponents, "costMechlinkSpacerComponents", 10);
             Scribe_Values.Look(ref unbreakableMechChips, "unbreakableMechChips", false);
+
+            Scribe_Values.Look(ref enableChargerRepair, "enableChargerRepair", true);
+            Scribe_Values.Look(ref restoreMissingPartsInCharger, "restoreMissingPartsInCharger", true);
+            Scribe_Values.Look(ref chargerRepairSpeedMultiplier, "chargerRepairSpeedMultiplier", 1.0f);
         }
 
         public void ResetToDefaults()
@@ -199,6 +208,10 @@ namespace Tolgrim_MechanitorExpanded
             costMechlinkNanostructuringChips = 2;
             costMechlinkSpacerComponents = 10;
             unbreakableMechChips = false;
+
+            enableChargerRepair = true;
+            restoreMissingPartsInCharger = true;
+            chargerRepairSpeedMultiplier = 1.0f;
         }
     }
 }

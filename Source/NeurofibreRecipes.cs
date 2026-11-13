@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace Tolgrim_MechanitorExpanded
@@ -19,27 +21,50 @@ namespace Tolgrim_MechanitorExpanded
             return base.AvailableOnNow(thing, part);
         }
 
+        public override IEnumerable<BodyPartRecord> GetPartsToApplyOn(Pawn pawn, RecipeDef recipe)
+        {
+            return MedicalRecipesUtility.GetFixedPartsToApplyOn(recipe, pawn, delegate(BodyPartRecord record)
+            {
+                if (!pawn.health.hediffSet.GetNotMissingParts().Contains(record))
+                {
+                    return false;
+                }
+                if (pawn.health.hediffSet.PartOrAnyAncestorHasDirectlyAddedParts(record))
+                {
+                    return false;
+                }
+
+                Hediff? existing = pawn.health.hediffSet.hediffs.FirstOrDefault(x => x.Part == record && x.def == recipe.addsHediff);
+                if (existing is Hediff_Level lvl && lvl.level >= (int)recipe.addsHediff.maxSeverity)
+                {
+                    return false;
+                }
+                return true;
+            });
+        }
+
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
-            // Remove any existing Neurofibre tier so levels are mutually exclusive
-            if (pawn.health?.hediffSet != null)
+            if (billDoer != null)
             {
-                List<Hediff> toRemove = new List<Hediff>();
-                List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
-                for (int i = 0; i < hediffs.Count; i++)
+                if (CheckSurgeryFail(billDoer, pawn, ingredients, part, bill))
                 {
-                    if (NeurofibreBonusProvider.GetNeurofibreTier(hediffs[i].def.defName, out _) > 0)
-                    {
-                        toRemove.Add(hediffs[i]);
-                    }
+                    return;
                 }
-                for (int i = 0; i < toRemove.Count; i++)
-                {
-                    pawn.health.RemoveHediff(toRemove[i]);
-                }
+                TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
             }
 
-            base.ApplyOnPawn(pawn, part, billDoer, ingredients, bill);
+            Hediff_Level? existing = pawn.health.hediffSet.hediffs.FirstOrDefault(x => x.Part == part && x.def == recipe.addsHediff) as Hediff_Level;
+            if (existing != null)
+            {
+                existing.ChangeLevel(1);
+                existing.Severity = existing.level;
+            }
+            else
+            {
+                pawn.health.AddHediff(recipe.addsHediff, part);
+            }
+
             pawn.mechanitor?.Notify_BandwidthChanged();
         }
     }

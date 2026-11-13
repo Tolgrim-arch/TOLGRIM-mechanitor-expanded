@@ -31,9 +31,9 @@ namespace Tolgrim_MechanitorExpanded
                 return;
             }
 
-            if (!__result && thing is Corpse corpse && corpse.InnerPawn != null && corpse.InnerPawn.RaceProps.IsMechanoid)
+            if (!__result && thing is Corpse corpse && corpse.InnerPawn?.RaceProps != null && corpse.InnerPawn.RaceProps.IsMechanoid)
             {
-                if (__instance.recipe.fixedIngredientFilter.Allows(thing))
+                if (__instance?.recipe?.fixedIngredientFilter != null && __instance.recipe.fixedIngredientFilter.Allows(thing))
                 {
                     __result = true;
                 }
@@ -74,6 +74,8 @@ namespace Tolgrim_MechanitorExpanded
     [HarmonyPatch(typeof(CompAbilityEffect_ResurrectMech), nameof(CompAbilityEffect_ResurrectMech.Apply))]
     public static class Patch_CompAbilityEffect_ResurrectMech_Apply
     {
+        private static readonly FieldInfo? AbilityChargesField = AccessTools.Field(typeof(Ability), "charges");
+
         public static void Prefix(LocalTargetInfo target, out Pawn? __state)
         {
             if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs)
@@ -94,7 +96,7 @@ namespace Tolgrim_MechanitorExpanded
 
         public static void Postfix(CompAbilityEffect_ResurrectMech __instance, Pawn? __state)
         {
-            if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs || __state == null)
+            if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs || __state == null || __instance?.parent?.pawn == null)
             {
                 return;
             }
@@ -102,16 +104,12 @@ namespace Tolgrim_MechanitorExpanded
             Pawn caster = __instance.parent.pawn;
             Pawn overseer = caster.GetOverseer();
 
-            if (overseer != null && MechanitorUtility.CanControlMech(overseer, __state))
+            if (overseer?.relations != null && MechanitorUtility.CanControlMech(overseer, __state))
             {
                 overseer.relations.AddDirectRelation(PawnRelationDefOf.Overseer, __state);
             }
 
-            FieldInfo? chargesField = __instance.parent.GetType().GetField("charges", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (chargesField != null)
-            {
-                chargesField.SetValue(__instance.parent, __instance.ChargesRemaining);
-            }
+            AbilityChargesField?.SetValue(__instance.parent, __instance.ChargesRemaining);
         }
     }
 
@@ -122,28 +120,53 @@ namespace Tolgrim_MechanitorExpanded
     public static class Patch_Pawn_TickRare
     {
         private static readonly Dictionary<string, int> ApocritonTicks = new Dictionary<string, int>();
+        private static readonly FieldInfo? ResurrectChargesField = AccessTools.Field(typeof(CompAbilityEffect_ResurrectMech), "resurrectCharges");
+        private static readonly FieldInfo? AbilityChargesField = AccessTools.Field(typeof(Ability), "charges");
         private const int MaxCharges = 30;
         private const int RechargeCooldownTicks = GenDate.TicksPerDay / 5;
 
         public static void Postfix(Pawn __instance)
         {
-            if (!MechanitorExpandedMod.Settings.enableApocritonRecharge)
+            if (!MechanitorExpandedMod.Settings.enableApocritonRecharge || __instance == null)
             {
                 return;
             }
 
-            if (__instance.def != ThingDefOf.Mech_Apocriton || __instance.Faction != Faction.OfPlayer || __instance.Dead)
+            // Limpieza preventiva de memoria ante muerte, destrucción o despawn
+            if (__instance.Dead || __instance.Destroyed || !__instance.Spawned)
+            {
+                string? id = __instance.ThingID;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    ApocritonTicks.Remove(id);
+                }
+                return;
+            }
+
+            if (__instance.def != ThingDefOf.Mech_Apocriton || __instance.Faction != Faction.OfPlayer)
             {
                 return;
             }
 
-            if (!ApocritonTicks.TryGetValue(__instance.ThingID, out int lastTick))
+            if (Find.TickManager == null)
             {
-                lastTick = Find.TickManager.TicksGame;
-                ApocritonTicks[__instance.ThingID] = lastTick;
+                return;
             }
 
-            int elapsed = Find.TickManager.TicksGame - lastTick;
+            int currentTick = Find.TickManager.TicksGame;
+            string thingId = __instance.ThingID;
+            if (string.IsNullOrEmpty(thingId))
+            {
+                return;
+            }
+
+            if (!ApocritonTicks.TryGetValue(thingId, out int lastTick))
+            {
+                lastTick = currentTick;
+                ApocritonTicks[thingId] = lastTick;
+            }
+
+            int elapsed = currentTick - lastTick;
             if (elapsed < 0)
             {
                 ApocritonTicks.Clear();
@@ -168,13 +191,10 @@ namespace Tolgrim_MechanitorExpanded
                     if (comp.ChargesRemaining < MaxCharges)
                     {
                         int newCharges = comp.ChargesRemaining + 1;
-                        FieldInfo? resChargesField = comp.GetType().GetField("resurrectCharges", BindingFlags.NonPublic | BindingFlags.Instance);
-                        resChargesField?.SetValue(comp, newCharges);
+                        ResurrectChargesField?.SetValue(comp, newCharges);
+                        AbilityChargesField?.SetValue(resurrection, newCharges);
 
-                        FieldInfo? chargesField = resurrection.GetType().GetField("charges", BindingFlags.NonPublic | BindingFlags.Instance);
-                        chargesField?.SetValue(resurrection, newCharges);
-
-                        ApocritonTicks[__instance.ThingID] = Find.TickManager.TicksGame;
+                        ApocritonTicks[thingId] = currentTick;
                         break;
                     }
                 }
@@ -195,7 +215,7 @@ namespace Tolgrim_MechanitorExpanded
                 return true;
             }
 
-            if (p.Map == null)
+            if (p == null || p.Map == null || p.Faction == null || p.Map.listerThings == null)
             {
                 __result = ThoughtState.Inactive;
                 return false;
@@ -215,7 +235,7 @@ namespace Tolgrim_MechanitorExpanded
             for (int i = 0; i < apocritons.Count; i++)
             {
                 Thing apocriton = apocritons[i];
-                if (apocriton.HostileTo(p.Faction))
+                if (apocriton != null && apocriton.HostileTo(p.Faction))
                 {
                     foundHostile = true;
                     float dist = apocriton.Position.DistanceTo(p.Position);
@@ -257,7 +277,7 @@ namespace Tolgrim_MechanitorExpanded
     {
         public static bool Prefix(Verb_CastAbility __instance, LocalTargetInfo target)
         {
-            if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs || __instance.ability.def != AbilityDefOf.ResurrectionMech)
+            if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs || __instance?.ability?.def != AbilityDefOf.ResurrectionMech || __instance.ability.verb?.verbProps == null)
             {
                 return true;
             }
@@ -284,7 +304,7 @@ namespace Tolgrim_MechanitorExpanded
     {
         public static bool Prefix(Verb_CastAbility __instance, ref bool __result, LocalTargetInfo target)
         {
-            if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs || __instance.ability.def != AbilityDefOf.ResurrectionMech)
+            if (!MechanitorExpandedMod.Settings.enableResurrectEnemyMechs || __instance?.ability?.def != AbilityDefOf.ResurrectionMech)
             {
                 return true;
             }

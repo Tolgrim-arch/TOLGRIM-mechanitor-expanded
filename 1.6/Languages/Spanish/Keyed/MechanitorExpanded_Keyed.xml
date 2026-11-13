@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
   <!-- Tab Header (Compacto para encajar en el botón nativo de 72px) -->
   <Tolgrim_TabMechanitor>Mecanit.</Tolgrim_TabMechanitor>
@@ -169,4 +169,22 @@
   <!-- Chips Mecanoides Indestructibles -->
   <Tolgrim_SettingsUnbreakableMechChips>Chips mecanoides indestructibles</Tolgrim_SettingsUnbreakableMechChips>
   <Tolgrim_SettingsUnbreakableMechChipsTip>Hace que los chips de jefes mecanoides (Chip de señal, Chip de enfoque y Chip de nanoestructuración, además de chips de Dead Man's Switch y Alpha Mechs si están cargados) sean inmunes al deterioro, fuego y daño de puntos de impacto, evitando que se destruyan.</Tolgrim_SettingsUnbreakableMechChipsTip>
+
+  <!-- Mech Chargers Repair Mechs -->
+  <Tolgrim_SettingsChargerRepairHeader>Mantenimiento y reparación en cargadores</Tolgrim_SettingsChargerRepairHeader>
+  <Tolgrim_SettingsEnableChargerRepair>Reparar mecanoides mientras recargan</Tolgrim_SettingsEnableChargerRepair>
+  <Tolgrim_SettingsEnableChargerRepairTip>Mientras se recargan en cargadores de mecanoides con energía eléctrica, los mecanoides se reparan gradualmente en función del nivel tecnológico investigado (Mecatécnica básica hasta ultratecnológica).</Tolgrim_SettingsEnableChargerRepairTip>
+  <Tolgrim_SettingsRestoreMissingPartsInCharger>Restaurar partes destruidas o perdidas</Tolgrim_SettingsRestoreMissingPartsInCharger>
+  <Tolgrim_SettingsRestoreMissingPartsInChargerTip>Permite regenerar extremidades mutiladas, órganos sensoriales destruidos o componentes internos perdidos mientras el mecanoide recarga energía.</Tolgrim_SettingsRestoreMissingPartsInChargerTip>
+  <Tolgrim_SettingsChargerRepairSpeed>Multiplicador de velocidad de reparación</Tolgrim_SettingsChargerRepairSpeed>
+  <Tolgrim_MCRM_NotUnlocked>Sin desbloquear</Tolgrim_MCRM_NotUnlocked>
+  <Tolgrim_MCRM_RepairTier>Nivel de reparación: {0}/4 ({1})</Tolgrim_MCRM_RepairTier>
+  <Tolgrim_MCRM_RepairSpeed>Velocidad de reparación: {0} PV/hora</Tolgrim_MCRM_RepairSpeed>
+  <Tolgrim_MCRM_NextTier>Siguiente mejora: {0}</Tolgrim_MCRM_NextTier>
+  <Tolgrim_MCRM_NoMech>No hay ningún mecanoide cargando</Tolgrim_MCRM_NoMech>
+  <Tolgrim_MCRM_Mech>Mecanoide: {0}</Tolgrim_MCRM_Mech>
+  <Tolgrim_MCRM_Locked>Completa Mecatécnica básica para desbloquear la reparación</Tolgrim_MCRM_Locked>
+  <Tolgrim_MCRM_Paused>Reparación en pausa: sin electricidad</Tolgrim_MCRM_Paused>
+  <Tolgrim_MCRM_RepairProgress>Progreso de reparación: {0} %</Tolgrim_MCRM_RepairProgress>
+  <Tolgrim_MCRM_Complete>Reparación completada</Tolgrim_MCRM_Complete>
 </LanguageData>

@@ -96,22 +96,52 @@ namespace Tolgrim_MechanitorExpanded
             onlyTargetFactions = new List<Faction>(1) { Find.FactionManager.OfPlayer }
         };
 
-        public static MechColorState? For(Pawn? p)
+        public static MechColorState? For(Pawn? p, bool createIfMissing = true)
         {
             if (p == null || !HasState(p)) return null;
+            if (pawnTable.TryGetValue(p, out MechColorState state))
+            {
+                return state;
+            }
+            if (!createIfMissing)
+            {
+                // Verificar si hereda de su grupo de control o supervisor sin instanciar objetos
+                MechanitorControlGroup? g = MechanitorUtility.GetMechControlGroup(p);
+                if (g != null && groupTable.TryGetValue(g, out MechColorState groupState) && groupState.color.HasValue)
+                {
+                    return groupState;
+                }
+                Pawn overseer = p.GetOverseer();
+                if (overseer != null && pawnTable.TryGetValue(overseer, out MechColorState overseerState) && overseerState.color.HasValue)
+                {
+                    return overseerState;
+                }
+                return null;
+            }
             return pawnTable.GetValue(p, Create);
         }
 
-        public static MechColorState? For(MechanitorControlGroup? g)
+        public static MechColorState? For(MechanitorControlGroup? g, bool createIfMissing = true)
         {
             if (g == null) return null;
+            if (groupTable.TryGetValue(g, out MechColorState state))
+            {
+                return state;
+            }
+            if (!createIfMissing) return null;
             return groupTable.GetValue(g, Create);
         }
 
         private static bool HasState(Pawn p)
         {
+            if (p == null || p.RaceProps == null) return false;
+            if (Scribe.mode == LoadSaveMode.LoadingVars || Scribe.mode == LoadSaveMode.ResolvingCrossRefs || Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                return p.RaceProps.IsMechanoid || p.RaceProps.Humanlike;
+            }
             if (p.IsColonyMech) return true;
             if (MechanitorUtility.IsMechanitor(p) && p.IsColonist) return true;
+            if (pawnTable.TryGetValue(p, out MechColorState st) && (st.color.HasValue || st.opacity.HasValue)) return true;
             return false;
         }
 
@@ -135,6 +165,11 @@ namespace Tolgrim_MechanitorExpanded
 
         public void ExposeData()
         {
+            if (Scribe.mode == LoadSaveMode.Saving && !color.HasValue && !opacity.HasValue)
+            {
+                return;
+            }
+
             if (Scribe.EnterNode("tolgrim_mechColor"))
             {
                 Scribe_Values.Look(ref color, "color");

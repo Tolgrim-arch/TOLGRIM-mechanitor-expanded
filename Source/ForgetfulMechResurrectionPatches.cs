@@ -15,41 +15,63 @@ namespace Tolgrim_MechanitorExpanded
     {
         private static readonly CachedTexture SelectOverseerIcon = new CachedTexture("UI/Icons/SelectOverseer");
 
-        private static readonly MethodInfo? TryFindBestIngredientsHelperMethod = AccessTools.Method(
-            typeof(WorkGiver_DoBill),
-            "TryFindBestIngredientsHelper",
-            new[]
-            {
-                typeof(Predicate<Thing>),
-                typeof(Predicate<List<Thing>>),
-                typeof(List<IngredientCount>),
-                typeof(Pawn),
-                typeof(Thing),
-                typeof(List<ThingCount>),
-                typeof(float)
-            });
+        private delegate bool TryFindBestIngredientsHelperDelegate(
+            Predicate<Thing> validator,
+            Predicate<List<Thing>> billGiverIsPawn,
+            List<IngredientCount> ingredients,
+            Pawn pawn,
+            Thing billGiver,
+            List<ThingCount> chosen,
+            float maxDist);
 
-        private static readonly MethodInfo? TryFindBestBillIngredientsInSetMethod = AccessTools.Method(
-            typeof(WorkGiver_DoBill),
-            "TryFindBestBillIngredientsInSet",
-            new[]
-            {
-                typeof(List<Thing>),
-                typeof(Bill),
-                typeof(List<ThingCount>),
-                typeof(IntVec3),
-                typeof(bool),
-                typeof(List<IngredientCount>)
-            });
+        private delegate bool TryFindBestBillIngredientsInSetDelegate(
+            List<Thing> availableThings,
+            Bill bill,
+            List<ThingCount> chosen,
+            IntVec3 rootCell,
+            bool alreadySorted,
+            List<IngredientCount> missingIngredients);
 
-        private static readonly MethodInfo? GetBillGiverRootCellMethod = AccessTools.Method(
-            typeof(WorkGiver_DoBill),
-            "GetBillGiverRootCell",
-            new[]
-            {
-                typeof(Thing),
-                typeof(Pawn)
-            });
+        private delegate IntVec3 GetBillGiverRootCellDelegate(Thing billGiver, Pawn pawn);
+
+        private static readonly TryFindBestIngredientsHelperDelegate? TryFindBestIngredientsHelper =
+            AccessTools.MethodDelegate<TryFindBestIngredientsHelperDelegate>(AccessTools.Method(
+                typeof(WorkGiver_DoBill),
+                "TryFindBestIngredientsHelper",
+                new[]
+                {
+                    typeof(Predicate<Thing>),
+                    typeof(Predicate<List<Thing>>),
+                    typeof(List<IngredientCount>),
+                    typeof(Pawn),
+                    typeof(Thing),
+                    typeof(List<ThingCount>),
+                    typeof(float)
+                }));
+
+        private static readonly TryFindBestBillIngredientsInSetDelegate? TryFindBestBillIngredientsInSet =
+            AccessTools.MethodDelegate<TryFindBestBillIngredientsInSetDelegate>(AccessTools.Method(
+                typeof(WorkGiver_DoBill),
+                "TryFindBestBillIngredientsInSet",
+                new[]
+                {
+                    typeof(List<Thing>),
+                    typeof(Bill),
+                    typeof(List<ThingCount>),
+                    typeof(IntVec3),
+                    typeof(bool),
+                    typeof(List<IngredientCount>)
+                }));
+
+        private static readonly GetBillGiverRootCellDelegate? GetBillGiverRootCell =
+            AccessTools.MethodDelegate<GetBillGiverRootCellDelegate>(AccessTools.Method(
+                typeof(WorkGiver_DoBill),
+                "GetBillGiverRootCell",
+                new[]
+                {
+                    typeof(Thing),
+                    typeof(Pawn)
+                }));
         // 1. Al morir un mecanoide, guardar el vínculo con su supervisor y su grupo de control
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Pawn_RelationsTracker), "RemoveRelationsOnDeath")]
@@ -86,9 +108,14 @@ namespace Tolgrim_MechanitorExpanded
                 return true;
             }
 
-            if (__instance.State == FormingState.Gathering && __instance.Gestator?.ResurrectingMechCorpse == null)
+            if (__instance.State == FormingState.Gathering && __instance.Gestator?.ResurrectingMechCorpse == null && __instance.Map?.listerThings != null)
             {
                 List<Thing> corpses = __instance.Map.listerThings.ThingsInGroup(ThingRequestGroup.Corpse);
+                if (corpses == null || corpses.Count == 0)
+                {
+                    return true;
+                }
+
                 bool foundAnyUsable = false;
                 bool foundAnyWithBandwidth = false;
                 bool hadAnyCorpsesForRecipe = false;
@@ -97,7 +124,7 @@ namespace Tolgrim_MechanitorExpanded
 
                 for (int i = 0; i < corpses.Count; i++)
                 {
-                    if (corpses[i] is Corpse c && __instance.recipe.fixedIngredientFilter.Allows(c) && !c.IsForbidden(p) && p.CanReach(c, PathEndMode.Touch, Danger.Deadly))
+                    if (corpses[i] is Corpse c && c.InnerPawn != null && __instance.recipe?.fixedIngredientFilter != null && __instance.recipe.fixedIngredientFilter.Allows(c) && !c.IsForbidden(p) && p.CanReach(c, PathEndMode.Touch, Danger.Deadly))
                     {
                         hadAnyCorpsesForRecipe = true;
                         if (comp == null || comp.CanMechanitorReviveMech(p, c.InnerPawn))
@@ -140,15 +167,14 @@ namespace Tolgrim_MechanitorExpanded
                 return true;
             }
 
-            if (bill is Bill_ResurrectMech billResurrect && TryFindBestIngredientsHelperMethod != null && TryFindBestBillIngredientsInSetMethod != null && GetBillGiverRootCellMethod != null)
+            if (bill is Bill_ResurrectMech billResurrect && TryFindBestIngredientsHelper != null && TryFindBestBillIngredientsInSet != null && GetBillGiverRootCell != null)
             {
-                IntVec3 rootCell = (IntVec3)GetBillGiverRootCellMethod.Invoke(null, new object[] { billGiver, pawn });
+                IntVec3 rootCell = GetBillGiverRootCell(billGiver, pawn);
 
                 Predicate<Thing> validator = t => IsUsableMechCorpseForResurrection(t, pawn, billResurrect);
-                Predicate<List<Thing>> foundChooser = foundThings => (bool)TryFindBestBillIngredientsInSetMethod.Invoke(null, new object[] { foundThings, bill, chosen, rootCell, billGiver is Pawn, missingIngredients });
+                Predicate<List<Thing>> foundChooser = foundThings => TryFindBestBillIngredientsInSet(foundThings, bill, chosen, rootCell, billGiver is Pawn, missingIngredients);
 
-                __result = (bool)TryFindBestIngredientsHelperMethod.Invoke(null, new object[]
-                {
+                __result = TryFindBestIngredientsHelper(
                     validator,
                     foundChooser,
                     bill.recipe.ingredients,
@@ -156,7 +182,7 @@ namespace Tolgrim_MechanitorExpanded
                     billGiver,
                     chosen,
                     bill.ingredientSearchRadius
-                });
+                );
                 return false;
             }
 

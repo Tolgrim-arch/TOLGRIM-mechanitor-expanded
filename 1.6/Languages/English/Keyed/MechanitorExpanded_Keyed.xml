@@ -169,4 +169,22 @@
   <!-- Unbreakable Mech Chips -->
   <Tolgrim_SettingsUnbreakableMechChips>Indestructible Mech Chips</Tolgrim_SettingsUnbreakableMechChips>
   <Tolgrim_SettingsUnbreakableMechChipsTip>Makes mechanoid boss chips (Signal, Powerfocus, and Nanostructuring chips, plus Dead Man's Switch and Alpha Mechs chips if loaded) immune to deterioration, flammability, and hit points damage so they can never be destroyed.</Tolgrim_SettingsUnbreakableMechChipsTip>
+
+  <!-- Mech Chargers Repair Mechs -->
+  <Tolgrim_SettingsChargerRepairHeader>Charger Maintenance &amp; Repair</Tolgrim_SettingsChargerRepairHeader>
+  <Tolgrim_SettingsEnableChargerRepair>Enable mechanoid repair in chargers</Tolgrim_SettingsEnableChargerRepair>
+  <Tolgrim_SettingsEnableChargerRepairTip>While recharging in powered regular or large mech chargers, mechanoids gradually recover from injuries based on Biotech research progression (Basic to Ultra Mechtech).</Tolgrim_SettingsEnableChargerRepairTip>
+  <Tolgrim_SettingsRestoreMissingPartsInCharger>Restore destroyed or missing parts</Tolgrim_SettingsRestoreMissingPartsInCharger>
+  <Tolgrim_SettingsRestoreMissingPartsInChargerTip>Allows chargers to regenerate destroyed limbs, sensory organs, and missing internal components over time while charging.</Tolgrim_SettingsRestoreMissingPartsInChargerTip>
+  <Tolgrim_SettingsChargerRepairSpeed>Repair speed multiplier</Tolgrim_SettingsChargerRepairSpeed>
+  <Tolgrim_MCRM_NotUnlocked>Not unlocked</Tolgrim_MCRM_NotUnlocked>
+  <Tolgrim_MCRM_RepairTier>Repair tier: {0}/4 ({1})</Tolgrim_MCRM_RepairTier>
+  <Tolgrim_MCRM_RepairSpeed>Repair speed: {0} HP/hour</Tolgrim_MCRM_RepairSpeed>
+  <Tolgrim_MCRM_NextTier>Next upgrade: {0}</Tolgrim_MCRM_NextTier>
+  <Tolgrim_MCRM_NoMech>No mechanoid charging</Tolgrim_MCRM_NoMech>
+  <Tolgrim_MCRM_Mech>Mechanoid: {0}</Tolgrim_MCRM_Mech>
+  <Tolgrim_MCRM_Locked>Complete Basic Mechtech to unlock repairs</Tolgrim_MCRM_Locked>
+  <Tolgrim_MCRM_Paused>Repair paused: no power</Tolgrim_MCRM_Paused>
+  <Tolgrim_MCRM_RepairProgress>Repair progress: {0}%</Tolgrim_MCRM_RepairProgress>
+  <Tolgrim_MCRM_Complete>Repair complete</Tolgrim_MCRM_Complete>
 </LanguageData>

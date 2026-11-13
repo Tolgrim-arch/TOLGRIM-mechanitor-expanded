@@ -6,6 +6,7 @@
     <driverClass>JobDriver_CastAbilityGoTo</driverClass>
     <neverShowWeapon>true</neverShowWeapon>
     <playerInterruptible>true</playerInterruptible>
+    <reportString>resurrecting TargetA.</reportString>
   </JobDef>
 
   <RecipeDef Name="Tolgrim_BaseHostileMechanoidRecipe" ParentName="BaseMechanoidRecipe" Abstract="True">

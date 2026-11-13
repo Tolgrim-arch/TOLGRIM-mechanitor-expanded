@@ -80,6 +80,7 @@
     <defName>Tolgrim_InstallMechNeurofibre</defName>
     <label>install mech neurofibre</label>
     <description>Install a mech neurofibre implant to expand bandwidth capacity.</description>
+    <workerClass>Tolgrim_MechanitorExpanded.Recipe_InstallNeurofibre</workerClass>
     <descriptionHyperlinks>
       <ThingDef>Tolgrim_MechNeurofibre</ThingDef>
       <HediffDef>Tolgrim_MechNeurofibre</HediffDef>

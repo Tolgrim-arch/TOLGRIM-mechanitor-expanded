@@ -1,10 +1,66 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
+  <!-- Implantes y sueros -->
   <Tolgrim_InstallMechNeurofibre.label>instalar neurofibra mecanizada</Tolgrim_InstallMechNeurofibre.label>
   <Tolgrim_InstallMechNeurofibre.description>Instala un implante de neurofibra mecanizada para ampliar la capacidad de ancho de banda.</Tolgrim_InstallMechNeurofibre.description>
   <Tolgrim_InstallMechNeurofibre.jobString>Instalando neurofibra mecanizada.</Tolgrim_InstallMechNeurofibre.jobString>
 
+  <Tolgrim_AdministerBandnodeSerum.label>administrar suero de nodo de banda</Tolgrim_AdministerBandnodeSerum.label>
+  <Tolgrim_AdministerBandnodeSerum.description>Administra una dosis de suero de nodo de banda para aumentar permanentemente el ancho de banda del mecanizador en +1.</Tolgrim_AdministerBandnodeSerum.description>
+  <Tolgrim_AdministerBandnodeSerum.jobString>Administrando suero de nodo de banda.</Tolgrim_AdministerBandnodeSerum.jobString>
+
+  <!-- Gestación de Apocriton -->
   <Tolgrim_GestateApocriton.label>gestar apocriton</Tolgrim_GestateApocriton.label>
   <Tolgrim_GestateApocriton.description>Gesta un mecanoide comandante apocriton ultrapesado.</Tolgrim_GestateApocriton.description>
   <Tolgrim_GestateApocriton.jobString>Gestando apocriton.</Tolgrim_GestateApocriton.jobString>
+
+  <!-- Fabricación en Codificador de Subnúcleos -->
+  <Tolgrim_CraftSubcoreRegular.label>fabricar subnúcleo estándar</Tolgrim_CraftSubcoreRegular.label>
+  <Tolgrim_CraftSubcoreRegular.description>Fabrica un cerebro mecanoide de nivel estándar, una unidad de sustrato psicodinámico que aloja una subpersonalidad pensante.</Tolgrim_CraftSubcoreRegular.description>
+  <Tolgrim_CraftSubcoreRegular.jobString>Fabricando subnúcleo estándar.</Tolgrim_CraftSubcoreRegular.jobString>
+
+  <Tolgrim_CraftSubcoreHigh.label>fabricar subnúcleo avanzado</Tolgrim_CraftSubcoreHigh.label>
+  <Tolgrim_CraftSubcoreHigh.description>Fabrica un cerebro mecanoide de alto nivel, una unidad de sustrato psicodinámico que aloja una subpersonalidad sofisticada.</Tolgrim_CraftSubcoreHigh.description>
+  <Tolgrim_CraftSubcoreHigh.jobString>Fabricando subnúcleo avanzado.</Tolgrim_CraftSubcoreHigh.jobString>
+
+  <Tolgrim_CraftSignalChip.label>fabricar chip de señal</Tolgrim_CraftSignalChip.label>
+  <Tolgrim_CraftSignalChip.description>Fabrica un microórgano mecanoide de sincronización de banda, o chip de señal. Es necesario para producir ciertos tipos avanzados de mecanoides y equipo.</Tolgrim_CraftSignalChip.description>
+  <Tolgrim_CraftSignalChip.jobString>Fabricando chip de señal.</Tolgrim_CraftSignalChip.jobString>
+
+  <Tolgrim_CraftPowerfocusChip.label>fabricar chip de enfoque</Tolgrim_CraftPowerfocusChip.label>
+  <Tolgrim_CraftPowerfocusChip.description>Fabrica un microórgano mecanoide focalizador de energía, o chip de enfoque. Es necesario para producir ciertos tipos avanzados de mecanoides y equipo.</Tolgrim_CraftPowerfocusChip.description>
+  <Tolgrim_CraftPowerfocusChip.jobString>Fabricando chip de enfoque.</Tolgrim_CraftPowerfocusChip.jobString>
+
+  <Tolgrim_CraftNanostructuringChip.label>fabricar chip de nanoestructuración</Tolgrim_CraftNanostructuringChip.label>
+  <Tolgrim_CraftNanostructuringChip.description>Fabrica un microórgano mecanoide de reestructuración molecular, o chip de nanoestructuración. Es necesario para producir ciertos tipos avanzados de mecanoides y equipo.</Tolgrim_CraftNanostructuringChip.description>
+  <Tolgrim_CraftNanostructuringChip.jobString>Fabricando chip de nanoestructuración.</Tolgrim_CraftNanostructuringChip.jobString>
+
+  <Tolgrim_CraftMechlink.label>fabricar mecaenlace</Tolgrim_CraftMechlink.label>
+  <Tolgrim_CraftMechlink.description>Fabrica un implante biónico que permite el control directo de mecanoides. Los mecaenlaces son utilizados por soldados para controlar mecas de guerra, y por trabajadores para controlar mecas de trabajo. Una persona con un mecaenlace se conoce como mecanizador.</Tolgrim_CraftMechlink.description>
+  <Tolgrim_CraftMechlink.jobString>Fabricando mecaenlace.</Tolgrim_CraftMechlink.jobString>
+
+  <!-- Resurrección y reprogramación de mecanoides hostiles -->
+  <Tolgrim_ResurrectHostileLightMech.label>resucitar mecanoide ligero hostil</Tolgrim_ResurrectHostileLightMech.label>
+  <Tolgrim_ResurrectHostileLightMech.description>Resucita un mecanoide ligero hostil. Su núcleo debe reinicializarse para aceptar nuevas directivas. Requiere un subnúcleo básico para su reprogramación.</Tolgrim_ResurrectHostileLightMech.description>
+  <Tolgrim_ResurrectHostileLightMech.jobString>Resucitando mecanoide ligero.</Tolgrim_ResurrectHostileLightMech.jobString>
+
+  <Tolgrim_ResurrectHostileLightHMech.label>resucitar mecanoide ligero hostil (avanzado)</Tolgrim_ResurrectHostileLightHMech.label>
+  <Tolgrim_ResurrectHostileLightHMech.description>Resucita un mecanoide ligero hostil. Su núcleo debe reinicializarse para aceptar nuevas directivas. Requiere un subnúcleo avanzado para su reprogramación.</Tolgrim_ResurrectHostileLightHMech.description>
+  <Tolgrim_ResurrectHostileLightHMech.jobString>Resucitando mecanoide ligero.</Tolgrim_ResurrectHostileLightHMech.jobString>
+
+  <Tolgrim_ResurrectHostileMediumMech.label>resucitar mecanoide mediano hostil</Tolgrim_ResurrectHostileMediumMech.label>
+  <Tolgrim_ResurrectHostileMediumMech.description>Resucita un mecanoide mediano hostil. Su núcleo debe reinicializarse para aceptar nuevas directivas. Requiere un subnúcleo estándar para su reprogramación.</Tolgrim_ResurrectHostileMediumMech.description>
+  <Tolgrim_ResurrectHostileMediumMech.jobString>Resucitando mecanoide mediano.</Tolgrim_ResurrectHostileMediumMech.jobString>
+
+  <Tolgrim_ResurrectHostileMediumHMech.label>resucitar mecanoide mediano hostil (avanzado)</Tolgrim_ResurrectHostileMediumHMech.label>
+  <Tolgrim_ResurrectHostileMediumHMech.description>Resucita un mecanoide mediano hostil. Su núcleo debe reinicializarse para aceptar nuevas directivas. Requiere un subnúcleo avanzado para su reprogramación.</Tolgrim_ResurrectHostileMediumHMech.description>
+  <Tolgrim_ResurrectHostileMediumHMech.jobString>Resucitando mecanoide mediano.</Tolgrim_ResurrectHostileMediumHMech.jobString>
+
+  <Tolgrim_ResurrectHostileHeavyMech.label>resucitar mecanoide pesado hostil</Tolgrim_ResurrectHostileHeavyMech.label>
+  <Tolgrim_ResurrectHostileHeavyMech.description>Resucita un mecanoide pesado hostil. Su núcleo debe reinicializarse para aceptar nuevas directivas. Requiere un subnúcleo avanzado para su reprogramación.</Tolgrim_ResurrectHostileHeavyMech.description>
+  <Tolgrim_ResurrectHostileHeavyMech.jobString>Resucitando mecanoide pesado.</Tolgrim_ResurrectHostileHeavyMech.jobString>
+
+  <Tolgrim_ResurrectHostileUltraHeavyMech.label>resucitar mecanoide ultrapesado hostil</Tolgrim_ResurrectHostileUltraHeavyMech.label>
+  <Tolgrim_ResurrectHostileUltraHeavyMech.description>Resucita un mecanoide ultrapesado hostil. Su núcleo debe reinicializarse por completo para aceptar nuevas directivas. Sus sistemas avanzados requieren componentes espaciales adicionales y un subnúcleo avanzado.</Tolgrim_ResurrectHostileUltraHeavyMech.description>
+  <Tolgrim_ResurrectHostileUltraHeavyMech.jobString>Resucitando mecanoide ultrapesado.</Tolgrim_ResurrectHostileUltraHeavyMech.jobString>
 </LanguageData>

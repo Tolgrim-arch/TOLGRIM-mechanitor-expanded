@@ -436,6 +436,7 @@ namespace Tolgrim_MechanitorExpanded
         private bool IsMechanitorRelatedHediff(Hediff h)
         {
             if (h.def == HediffDefOf.MechlinkImplant) return true;
+            if (h.def.defName == "Tolgrim_MechNeurofibre") return true;
             if (NeurofibreBonusProvider.GetNeurofibreTier(h.def.defName, out _) > 0) return true;
             if (h.def.defName.Contains("Sublink") || h.def.defName.Contains("RemoteRepairer") || 
                 h.def.defName.Contains("RemoteShielder") || h.def.defName.Contains("RepairProbe") ||
@@ -620,6 +621,13 @@ namespace Tolgrim_MechanitorExpanded
 
         private string GetHediffBonusSummary(Hediff hediff)
         {
+            if (hediff.def.defName == "Tolgrim_MechNeurofibre")
+            {
+                int lvl = (hediff as Hediff_Level)?.level ?? (int)System.Math.Round(hediff.Severity);
+                float mult = MechanitorExpandedMod.Settings?.neurofibreMultiplier ?? 1f;
+                return $"+{lvl * 3f * mult:0.##} {"Tolgrim_ShortBandwidth".Translate()}";
+            }
+
             if (NeurofibreBonusProvider.GetNeurofibreTier(hediff.def.defName, out float baseVal) > 0)
             {
                 float mult = MechanitorExpandedMod.Settings?.neurofibreMultiplier ?? 1f;

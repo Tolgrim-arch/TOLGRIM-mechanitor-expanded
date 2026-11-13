@@ -52,7 +52,7 @@ namespace Tolgrim_MechanitorExpanded
         {
             if (inGetMaterialPropertyBlock && currentRenderingMech != null)
             {
-                MechColorState? state = MechColorState.For(currentRenderingMech);
+                MechColorState? state = MechColorState.For(currentRenderingMech, createIfMissing: false);
                 if (state != null)
                 {
                     Color? customCol = state.SetColor;
@@ -69,24 +69,12 @@ namespace Tolgrim_MechanitorExpanded
             }
         }
 
-        // 2. Gizmos en mecanoides y mecanizadores (desactivados en favor de la pestaña Mecanoide y menús contextuales)
-        // Se mantiene vacío para evitar contaminar la barra de comandos con accesos rápidos innecesarios.
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(Pawn), nameof(Pawn.GetGizmos))]
-        public static IEnumerable<Gizmo> Pawn_GetGizmos_Postfix(IEnumerable<Gizmo> result, Pawn __instance)
-        {
-            foreach (Gizmo g in result)
-            {
-                yield return g;
-            }
-        }
-
-        // 3. Indicador de color y menú en el gizmo del grupo de control
+        // 2. Indicador de color y menú en el gizmo del grupo de control
         [HarmonyPrefix]
         [HarmonyPatch(typeof(MechanitorControlGroupGizmo), nameof(MechanitorControlGroupGizmo.GizmoOnGUI))]
         public static void MechanitorControlGroupGizmo_Prefix(MechanitorControlGroup ___controlGroup)
         {
-            controlGroupState = MechColorState.For(___controlGroup);
+            controlGroupState = MechColorState.For(___controlGroup, createIfMissing: false);
         }
 
         [HarmonyPostfix]
@@ -108,19 +96,19 @@ namespace Tolgrim_MechanitorExpanded
             // El menú contextual completo (Renombrar, Color, etc.) se gestiona en Patch_MechanitorControlGroupGizmo_GizmoOnGUI
         }
 
-        // 4. Guardado y carga (ExposeData)
+        // 3. Guardado y carga (ExposeData)
         [HarmonyPostfix]
         [HarmonyPatch(typeof(Pawn), nameof(Pawn.ExposeData))]
         public static void Pawn_ExposeData_Postfix(Pawn __instance)
         {
-            MechColorState.For(__instance)?.ExposeData();
+            MechColorState.For(__instance, createIfMissing: Scribe.mode == LoadSaveMode.LoadingVars)?.ExposeData();
         }
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(MechanitorControlGroup), nameof(MechanitorControlGroup.ExposeData))]
         public static void MechanitorControlGroup_ExposeData_Postfix(MechanitorControlGroup __instance)
         {
-            MechColorState.For(__instance)?.ExposeData();
+            MechColorState.For(__instance, createIfMissing: Scribe.mode == LoadSaveMode.LoadingVars)?.ExposeData();
         }
     }
 }

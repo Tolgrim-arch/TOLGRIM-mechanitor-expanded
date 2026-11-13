@@ -17,6 +17,7 @@ namespace Tolgrim_MechanitorExpanded
 
         public static void Postfix(MechanitorControlGroupGizmo __instance, Vector2 topLeft, float maxWidth, GizmoRenderParms parms, GizmoResult __result)
         {
+            if (__instance == null) return;
             MechanitorControlGroup controlGroup = ControlGroupField(__instance);
             if (controlGroup == null) return;
 
@@ -114,18 +115,24 @@ namespace Tolgrim_MechanitorExpanded
 
         public static IEnumerable<FloatMenuOption> Postfix(IEnumerable<FloatMenuOption> __result, MechanitorControlGroupGizmo __instance)
         {
-            foreach (FloatMenuOption opt in __result)
+            if (__result != null)
             {
-                yield return opt;
+                foreach (FloatMenuOption opt in __result)
+                {
+                    yield return opt;
+                }
             }
 
-            MechanitorControlGroup controlGroup = ControlGroupField(__instance);
-            if (controlGroup != null)
+            if (__instance != null)
             {
-                yield return new FloatMenuOption("Tolgrim_RenameControlGroup".Translate(), () =>
+                MechanitorControlGroup controlGroup = ControlGroupField(__instance);
+                if (controlGroup != null)
                 {
-                    Find.WindowStack.Add(new Dialog_RenameControlGroup(controlGroup));
-                }, TexButton.Rename, Color.white);
+                    yield return new FloatMenuOption("Tolgrim_RenameControlGroup".Translate(), () =>
+                    {
+                        Find.WindowStack.Add(new Dialog_RenameControlGroup(controlGroup));
+                    }, TexButton.Rename, Color.white);
+                }
             }
         }
     }

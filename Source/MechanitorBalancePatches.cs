@@ -24,7 +24,7 @@ namespace Tolgrim_MechanitorExpanded
                 return false;
             }
 
-            if (___pawn.Position.DistanceTo(target.Cell) <= customRange)
+            if (___pawn.Position.InHorDistOf(target.Cell, customRange))
             {
                 __result = true;
                 return false;
@@ -42,11 +42,14 @@ namespace Tolgrim_MechanitorExpanded
     {
         public static bool Prefix(Pawn_MechanitorTracker __instance, Pawn ___pawn)
         {
+            float customRange = MechanitorExpandedMod.Settings.baseCommandRange;
+            if (customRange <= 24.91f)
+            {
+                return true;
+            }
+
             if (___pawn != null && ___pawn.Spawned && __instance.AnySelectedDraftedMechs)
             {
-                float customRange = MechanitorExpandedMod.Settings.baseCommandRange;
-                if (customRange <= 0f) customRange = 24.9f;
-
                 // Limitar a MaxRadialPatternRadius para evitar desbordar el búfer de círculos radiales de GenDraw
                 float maxSafeRadius = GenRadial.MaxRadialPatternRadius - 1f;
                 float drawRadius = UnityEngine.Mathf.Min(customRange, maxSafeRadius);
@@ -58,11 +61,27 @@ namespace Tolgrim_MechanitorExpanded
     }
 
     /// <summary>
-    /// Ajusta WorkSpeedGlobal de mecanoides aliados, MechFormingSpeed y WastepacksPerRecharge según ModSettings.
+    /// Ajusta WorkSpeedGlobal de mecanoides aliados, MechFormingSpeed y WastepacksPerRecharge según ModSettings con costo O(1).
     /// </summary>
     [HarmonyPatch(typeof(StatWorker), nameof(StatWorker.GetValueUnfinalized))]
     public static class Patch_StatWorker_GetValueUnfinalized_Balance
     {
+        private static StatDef? mechFormingSpeedDef;
+        private static bool initializedMechFormingSpeed;
+
+        private static StatDef? MechFormingSpeedDef
+        {
+            get
+            {
+                if (!initializedMechFormingSpeed)
+                {
+                    mechFormingSpeedDef = DefDatabase<StatDef>.GetNamedSilentFail("MechFormingSpeed");
+                    initializedMechFormingSpeed = true;
+                }
+                return mechFormingSpeedDef;
+            }
+        }
+
         public static void Postfix(StatDef ___stat, StatRequest req, ref float __result)
         {
             if (___stat == null)
@@ -70,40 +89,50 @@ namespace Tolgrim_MechanitorExpanded
                 return;
             }
 
-            if (___stat == StatDefOf.WastepacksPerRecharge && MechanitorExpandedMod.Settings.disableMechWastepacks)
+            MechanitorExpandedSettings settings = MechanitorExpandedMod.Settings;
+            if (settings == null)
+            {
+                return;
+            }
+
+            // 1. Desechos tóxicos por ciclo de recarga
+            if (settings.disableMechWastepacks && ___stat == StatDefOf.WastepacksPerRecharge)
             {
                 __result = 0f;
                 return;
             }
 
-            if (Current.ProgramState != ProgramState.Playing || Find.FactionManager?.OfPlayer == null)
+            // 2. Filtro ultrarrápido: descartar inmediatamente cualquier otra estadística sin comprobaciones de Pawn
+            StatDef? formingSpeed = MechFormingSpeedDef;
+            bool isWorkSpeed = ___stat == StatDefOf.WorkSpeedGlobal && settings.mechWorkSpeedMultiplier > 1.001f;
+            bool isFormingSpeed = formingSpeed != null && ___stat == formingSpeed && (settings.instantMechGestation || settings.mechGestationSpeedMultiplier > 1.001f);
+
+            if (!isWorkSpeed && !isFormingSpeed)
             {
                 return;
             }
 
+            if (Current.ProgramState != ProgramState.Playing)
+            {
+                return;
+            }
+
+            // 3. Procesar solo para peones pertenecientes al jugador
             if (req.Thing is Pawn pawn && pawn.Faction != null && pawn.Faction.IsPlayer)
             {
-                if (___stat == StatDefOf.WorkSpeedGlobal && pawn.RaceProps.IsMechanoid)
+                if (isWorkSpeed && pawn.RaceProps != null && pawn.RaceProps.IsMechanoid)
                 {
-                    float mult = MechanitorExpandedMod.Settings.mechWorkSpeedMultiplier;
-                    if (mult > 1.001f)
-                    {
-                        __result *= mult;
-                    }
+                    __result *= settings.mechWorkSpeedMultiplier;
                 }
-                else if (___stat.defName == "MechFormingSpeed")
+                else if (isFormingSpeed)
                 {
-                    if (MechanitorExpandedMod.Settings.instantMechGestation)
+                    if (settings.instantMechGestation)
                     {
                         __result = 99999f;
                     }
                     else
                     {
-                        float mult = MechanitorExpandedMod.Settings.mechGestationSpeedMultiplier;
-                        if (mult > 1.001f)
-                        {
-                            __result *= mult;
-                        }
+                        __result *= settings.mechGestationSpeedMultiplier;
                     }
                 }
             }

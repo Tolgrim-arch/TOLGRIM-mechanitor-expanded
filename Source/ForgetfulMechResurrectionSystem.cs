@@ -54,9 +54,24 @@ namespace Tolgrim_MechanitorExpanded
         public void ExposeData()
         {
             Scribe_Collections.Look(ref mechs, "mechs", LookMode.Reference, LookMode.Value, ref tmpMech, ref tmpGroupIndex);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit && mechs == null)
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                mechs = new Dictionary<Pawn, int>();
+                if (mechs == null)
+                {
+                    mechs = new Dictionary<Pawn, int>();
+                }
+                else if (mechs.ContainsKey(null!))
+                {
+                    Dictionary<Pawn, int> clean = new Dictionary<Pawn, int>();
+                    foreach (KeyValuePair<Pawn, int> kvp in mechs)
+                    {
+                        if (kvp.Key != null)
+                        {
+                            clean[kvp.Key] = kvp.Value;
+                        }
+                    }
+                    mechs = clean;
+                }
             }
         }
     }
@@ -111,6 +126,11 @@ namespace Tolgrim_MechanitorExpanded
         {
             if (mech != null && mechRefs.TryGetValue(mech, out Pawn overseer))
             {
+                if (overseer == null || overseer.Destroyed)
+                {
+                    RemoveMech(mech);
+                    return null;
+                }
                 return overseer;
             }
             return null;
@@ -164,7 +184,7 @@ namespace Tolgrim_MechanitorExpanded
                 for (int i = 0; i < deadMechs.Count; i++)
                 {
                     Pawn m = deadMechs[i];
-                    if (m == null || (m.Destroyed && !m.SpawnedOrAnyParentSpawned))
+                    if (m == null || m.Discarded || (m.Destroyed && !m.SpawnedOrAnyParentSpawned))
                     {
                         if (m != null)
                         {
@@ -177,7 +197,7 @@ namespace Tolgrim_MechanitorExpanded
                 for (int i = 0; i < overseers.Count; i++)
                 {
                     Pawn ov = overseers[i];
-                    if (ov == null || ov.Destroyed)
+                    if (ov == null || ov.Discarded || ov.Destroyed)
                     {
                         if (ov != null)
                         {
@@ -195,10 +215,23 @@ namespace Tolgrim_MechanitorExpanded
                 {
                     mechanitorMechs = new Dictionary<Pawn, MechanitorMechsRecord>();
                 }
+                else
+                {
+                    Dictionary<Pawn, MechanitorMechsRecord> clean = new Dictionary<Pawn, MechanitorMechsRecord>();
+                    foreach (KeyValuePair<Pawn, MechanitorMechsRecord> kvp in mechanitorMechs)
+                    {
+                        if (kvp.Key != null && kvp.Value != null && !kvp.Value.IsEmpty)
+                        {
+                            clean[kvp.Key] = kvp.Value;
+                        }
+                    }
+                    mechanitorMechs = clean;
+                }
+
                 mechRefs.Clear();
                 foreach (KeyValuePair<Pawn, MechanitorMechsRecord> kvp in mechanitorMechs)
                 {
-                    if (kvp.Value?.mechs != null)
+                    if (kvp.Key != null && kvp.Value?.mechs != null)
                     {
                         foreach (Pawn mech in kvp.Value.mechs.Keys)
                         {

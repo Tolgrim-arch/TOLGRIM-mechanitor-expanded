@@ -100,12 +100,77 @@ namespace Tolgrim_MechanitorExpanded
 
         public static float GetTotalBonus(Pawn pawn)
         {
-            float total = 0f;
-            List<BandwidthBonusEntry> entries = GetAllBonuses(pawn);
-            for (int i = 0; i < entries.Count; i++)
+            if (pawn == null || !MechanitorUtility.IsMechanitor(pawn))
             {
-                total += entries[i].Value;
+                return 0f;
             }
+
+            MechanitorExpandedSettings settings = MechanitorExpandedMod.Settings;
+            if (settings == null)
+            {
+                return 0f;
+            }
+
+            float total = 0f;
+
+            // 1. Neurofibre (tier más alto sin asignaciones de heap)
+            if (settings.enableNeurofibre && pawn.health?.hediffSet?.hediffs != null)
+            {
+                List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
+                int bestTier = 0;
+                float baseVal = 0f;
+
+                for (int i = 0; i < hediffs.Count; i++)
+                {
+                    Hediff h = hediffs[i];
+                    if (h.def.defName == "Tolgrim_MechNeurofibre")
+                    {
+                        int lvl = (h as Hediff_Level)?.level ?? (int)System.Math.Round(h.Severity);
+                        if (lvl > 0 && lvl > bestTier)
+                        {
+                            bestTier = lvl;
+                            baseVal = lvl * 3f;
+                        }
+                        continue;
+                    }
+
+                    int tier = NeurofibreBonusProvider.GetNeurofibreTier(h.def.defName, out float val);
+                    if (tier > bestTier)
+                    {
+                        bestTier = tier;
+                        baseVal = val;
+                    }
+                }
+
+                if (bestTier > 0)
+                {
+                    total += baseVal * settings.neurofibreMultiplier;
+                }
+            }
+
+            // 2. Bandnode Sera
+            if (settings.enableBandnodeSera)
+            {
+                CompMechanitorBandwidth? comp = pawn.TryGetComp<CompMechanitorBandwidth>();
+                if (comp != null && comp.bandnodeSerumDoses > 0)
+                {
+                    int effectiveDoses = Math.Min(comp.bandnodeSerumDoses, settings.maxBandnodeSeraDoses);
+                    total += effectiveDoses * 1f * settings.serumMultiplier;
+                }
+            }
+
+            // 3. Proveedores de terceros adicionales
+            if (Providers.Count > 2)
+            {
+                for (int i = 2; i < Providers.Count; i++)
+                {
+                    foreach (BandwidthBonusEntry entry in Providers[i].GetBonuses(pawn))
+                    {
+                        if (entry != null) total += entry.Value;
+                    }
+                }
+            }
+
             return total;
         }
 

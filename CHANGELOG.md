@@ -5,6 +5,56 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.9.0] — 2026-11-12
+
+### Feature: Native Charger Maintenance & Repair, Extended Incompatibilities & System Hardening
+
+#### Added
+- **Native Mech Charger Maintenance & Repair (`MechChargerRepairSystem.cs`):**
+  - Integrated mechanoid maintenance and progressive repair mechanics directly into `Building_MechCharger`.
+  - Research-based repair progression tied to Biotech tech tiers:
+    - *Basic Mechtech* (Tier 1): 12.5 HP/hour.
+    - *Standard Mechtech* (Tier 2): 25.0 HP/hour.
+    - *High Mechtech* (Tier 3): 37.5 HP/hour.
+    - *Ultra Mechtech* (Tier 4): 50.0 HP/hour.
+  - Periodic injury healing hook on charger tick (250 ticks / 0.1 game hours).
+  - Configurable missing and destroyed limb/component regeneration (2500 ticks / 1.0 game hours).
+  - Real-time inspector component (`CompMechChargerRepairProgress`) dynamically attached to all mech chargers, displaying current tech tier, repair speed, target mechanoid name, and repair progress percentage.
+  - ModSettings controls: Master toggle, restore missing parts toggle, and repair speed multiplier slider (50% to 500%).
+- **Formal Mod Incompatibility Declarations (`About.xml`):**
+  - Declared native `<incompatibleWith>` tags preventing concurrent loading with redundant or conflicting workshop mods:
+    - `DanceNinja.UnbreakableMechChips` (Unbreakable Mech Chips)
+    - `MrHydralisk.ForgetfulMechResurrection` (Forgetful Mech Resurrection)
+    - `kathanon.MechColors` (Mech Colors)
+    - `hyaukyuu.mechlinkreinforcement` (Mechlink Reinforcement)
+    - `nikidigi.ResurrectEnemyMechanoids` (Resurrect Enemy Mechanoids)
+    - `ShepirotGamer.FasterMechGestator` (Faster Mech Gestator)
+    - `Slashandz.MechNoWastePack.1.5` (Mechs Don't Create Wastepacks)
+    - `GG.craftablemechchips` (Craftable Mechtech Chips and Cores)
+    - `swwu.MechanitorCommandRange` (Unlimited Mechanitor Command Range)
+    - `forza.fasterWorkMechs` (Faster Workspeed for Mechs)
+    - `notherkiller.mechchargersrepairmechs` (Mech Chargers Repair Mechs)
+
+#### Fixed
+- **Performance & Harmony Optimization:**
+  - Replaced $O(N)$ global scans across `AllPawnsSpawned` with direct $O(1)$ lookups using `charger.CurrentlyChargingMech` and interaction cell inspection.
+  - Added immediate tick hash short-circuiting in `Patch_Building_MechCharger_Tick` preventing per-tick evaluation when intervals are not met.
+  - Replaced LINQ heap allocations in injury lookups with fast indexed iteration.
+  - Fixed static dictionary memory leak in `Patch_Pawn_TickRare` (`ApocritonTicks`) by pruning destroyed, dead, or unspawned pawns.
+  - Replaced dynamic reflection invocation in `WorkGiver_DoBill` with compiled `AccessTools.MethodDelegate` instances, removing per-call heap array allocations.
+  - Optimized critical path in `StatWorker.GetValueUnfinalized` with early exit and cached `MechFormingSpeed` Def lookup.
+  - Eliminated intermediate allocations in `BandwidthBonusRegistry.GetTotalBonus`.
+- **Architecture, Surgery & Save Persistence:**
+  - Implemented `Recipe_InstallNeurofibre` in `Source/NeurofibreRecipes.cs` with custom `GetPartsToApplyOn` and level-up logic (`ChangeLevel`), resolving surgery blockage where levels 2 through 6 could not be installed over level 1.
+  - Fixed save-game color loss in `MechColorSystem` by ensuring `HasState` correctly handles pawns during `LoadingVars` before factions are resolved.
+  - Added explicit detection and display for `Tolgrim_MechNeurofibre` in `ITab_Pawn_Mechanitor` so dynamic level bonuses appear accurately in the mechanitor inspect tab.
+  - Hardened `ForgetfulMechResurrectionSystem` against world garbage collection, automatically sanitizing discarded or null pawn references during `ExposeData`.
+- **Localization:**
+  - Achieved strict 1:1 key parity (144 keys) across English, Spanish, and SpanishLatin in `MechanitorExpanded_Keyed.xml`.
+  - Added missing `DefInjected` entries for 13 crafting and resurrection recipes and added localized job report strings (`reportString`) for `Tolgrim_JobResurrectMech`.
+
+---
+
 ## [0.8.0] — 2026-11-12
 
 ### Feature: Native Mechanoid Inspect Tab (`ITab_Pawn_Mechanoid`) & Cleaned Color Dialog
