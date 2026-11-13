@@ -22,6 +22,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.9.3] — 2026-11-13
+
+### Feature: Prevent Mechs Laydown Integration
+
+#### Added
+- **Keep Mechanoids Standing During Self-Shutdown (`PreventMechsLaydownPatches.cs`):**
+  - Integrated configurable `PreventMechsLaydown` mechanics: keeps mechanoids standing (`PawnPosture.Standing`) during `SelfShutdown`, ensures `Need_MechEnergy.IsSelfShutdown` returns `true` while executing `JobDefOf.SelfShutdown`, and allows hauling depleted (`0%` energy) mechanoids to available chargers when not in `SelfShutdown` work mode.
+  - Added `enablePreventMechsLaydown` toggle (default `false`) in ModSettings under *Mecanoides y Apocriton* with save persistence and localization (`English`, `Spanish`, `SpanishLatin`).
+
+---
+
 ## [0.9.2] — 2026-11-13
 
 ### Feature: Forced Manual Mechanoid Orders & UI/Apocriton Polish
