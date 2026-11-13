@@ -152,4 +152,12 @@
   <Tolgrim_DefaultColorCheck>Por defecto</Tolgrim_DefaultColorCheck>
   <Tolgrim_FromDefaultColor>heredado</Tolgrim_FromDefaultColor>
   <Tolgrim_MechColorOpacity>Opacidad:</Tolgrim_MechColorOpacity>
+
+  <!-- Resurrección Exclusiva de Mecanoides -->
+  <Tolgrim_SettingsEnableForgetfulResurrection>Resurrección exclusiva por mecanizador</Tolgrim_SettingsEnableForgetfulResurrection>
+  <Tolgrim_SettingsEnableForgetfulResurrectionTip>Cuando está activo, los mecanizadores solo pueden resucitar a sus propios mecanoides caídos, y al resucitar recuerdan automáticamente su grupo de control anterior. Otros mecanizadores no podrán resucitarlos salvo que se les ordene olvidar a su supervisor.</Tolgrim_SettingsEnableForgetfulResurrectionTip>
+  <Tolgrim_GizmoForgetOverseerLabel>Olvidar supervisor</Tolgrim_GizmoForgetOverseerLabel>
+  <Tolgrim_GizmoForgetOverseerDesc>Hace que el cadáver de este mecanoide olvide a su antiguo supervisor ({0}) para permitir que cualquier mecanizador pueda resucitarlo.</Tolgrim_GizmoForgetOverseerDesc>
+  <Tolgrim_ResurrectJobFailReasonOtherMechanitor>Todos los cadáveres disponibles pertenecen a otros mecanizadores.</Tolgrim_ResurrectJobFailReasonOtherMechanitor>
+  <Tolgrim_MechForgotOverseer>{0} olvidó a su supervisor {1}. Ahora cualquier mecanizador puede resucitarlo.</Tolgrim_MechForgotOverseer>
 </LanguageData>

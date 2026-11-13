@@ -152,4 +152,12 @@
   <Tolgrim_DefaultColorCheck>Default</Tolgrim_DefaultColorCheck>
   <Tolgrim_FromDefaultColor>from default</Tolgrim_FromDefaultColor>
   <Tolgrim_MechColorOpacity>Opacity:</Tolgrim_MechColorOpacity>
+
+  <!-- Forgetful Mech Resurrection -->
+  <Tolgrim_SettingsEnableForgetfulResurrection>Mechanitor Exclusive Resurrection</Tolgrim_SettingsEnableForgetfulResurrection>
+  <Tolgrim_SettingsEnableForgetfulResurrectionTip>When active, mechanitors can only resurrect their own deceased mechanoids, and revived mechs automatically remember their previous control group assignment. Other mechanitors cannot resurrect them unless ordered to forget.</Tolgrim_SettingsEnableForgetfulResurrectionTip>
+  <Tolgrim_GizmoForgetOverseerLabel>Forget overseer</Tolgrim_GizmoForgetOverseerLabel>
+  <Tolgrim_GizmoForgetOverseerDesc>Will make this mechanoid corpse forget its former overseer ({0}) so that any mechanitor can resurrect it.</Tolgrim_GizmoForgetOverseerDesc>
+  <Tolgrim_ResurrectJobFailReasonOtherMechanitor>All available mech corpses belong to other mechanitors.</Tolgrim_ResurrectJobFailReasonOtherMechanitor>
+  <Tolgrim_MechForgotOverseer>{0} forgot overseer {1}. Any mechanitor can now resurrect it.</Tolgrim_MechForgotOverseer>
 </LanguageData>

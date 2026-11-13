@@ -287,6 +287,7 @@ namespace Tolgrim_MechanitorExpanded
             listing.Gap(4f);
 
             listing.CheckboxLabeled("Tolgrim_SettingsEnableEnemyMechs".Translate(), ref Settings.enableResurrectEnemyMechs, "Tolgrim_SettingsEnableEnemyMechsTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsEnableForgetfulResurrection".Translate(), ref Settings.enableForgetfulMechResurrection, "Tolgrim_SettingsEnableForgetfulResurrectionTip".Translate());
             listing.Gap(10f);
 
             Text.Font = GameFont.Medium;

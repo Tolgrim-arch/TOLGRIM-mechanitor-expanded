@@ -5,6 +5,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.7.0] — 2026-11-12
+
+### Feature: Mechanitor Exclusive Resurrection & Memory (Forgetful Mech Resurrection Integration)
+
+#### Added
+- **Mechanitor Exclusive Resurrection Architecture (`ForgetfulMechResurrectionSystem.cs` & `ForgetfulMechResurrectionPatches.cs`):**
+  - Integrated native memory tracking so mechanitors can only resurrect their own deceased mechanoids unless manually ordered to forget.
+  - On mechanoid death (`Pawn_RelationsTracker.RemoveRelationsOnDeath`), the relation with the overseer mechanitor and the exact control group index are preserved in `WorldComponent_ForgetfulMechResurrection`.
+  - When resurrected in a gestator (`Bill_ResurrectMech.CreateProducts`), mechs automatically rejoin their former control group instead of going into group 1 or unassigned.
+  - Job validation checks (`Bill_ResurrectMech.PawnAllowedToStartAnew` & `WorkGiver_DoBill.TryFindBestBillIngredients`) ensure mechanitors will not pick up or attempt to resurrect mechanoid corpses assigned to another colonist mechanitor.
+- **Corpse Interaction & Commands:**
+  - Added "Forget overseer" command (`Tolgrim_GizmoForgetOverseerLabel`) to mechanoid corpses with the `UI/Buttons/MakeDefault` icon, allowing players to unbind deceased mechs so any other mechanitor can resurrect them.
+  - Added "Select overseer" command to corpses to quickly highlight and inspect the mechanitor who previously owned the mech.
+- **Configurability & Localization:**
+  - Runtime toggle `enableForgetfulMechResurrection` in ModSettings under the Mechanoids tab.
+  - Full translations in English, Spanish, and SpanishLatin.
+
+---
+
 ## [0.6.0] — 2026-11-12
 
 ### Feature: Native Mechanoid Accent Color Customization (Mech Colors Integration)

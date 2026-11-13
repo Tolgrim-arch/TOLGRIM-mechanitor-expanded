@@ -30,11 +30,12 @@ namespace Tolgrim_MechanitorExpanded
         public float neurofibreMultiplier = 1.0f;
         public float serumMultiplier = 1.0f;
 
-        // Fase 3: Resurrección y hackeo de mecanoides enemigos
+        // Fase 3: Resurrección y hackeo de mecanoides enemigos / Resurrección selectiva
         public bool enableResurrectEnemyMechs = true;
         public bool suppressFriendlyApocritonHateAura = true;
         public bool enableApocritonRecharge = true;
         public bool enableApocritonGestation = true;
+        public bool enableForgetfulMechResurrection = true;
 
         // Fase 4: Ajustes generales del mecanizador y mecanoides
         public float baseCommandRange = 24.9f;
@@ -100,6 +101,7 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref suppressFriendlyApocritonHateAura, "suppressFriendlyApocritonHateAura", true);
             Scribe_Values.Look(ref enableApocritonRecharge, "enableApocritonRecharge", true);
             Scribe_Values.Look(ref enableApocritonGestation, "enableApocritonGestation", true);
+            Scribe_Values.Look(ref enableForgetfulMechResurrection, "enableForgetfulMechResurrection", true);
 
             Scribe_Values.Look(ref baseCommandRange, "baseCommandRange", 24.9f);
             Scribe_Values.Look(ref mechWorkSpeedMultiplier, "mechWorkSpeedMultiplier", 1.0f);
@@ -158,6 +160,7 @@ namespace Tolgrim_MechanitorExpanded
             suppressFriendlyApocritonHateAura = true;
             enableApocritonRecharge = true;
             enableApocritonGestation = true;
+            enableForgetfulMechResurrection = true;
             baseCommandRange = 24.9f;
             mechWorkSpeedMultiplier = 1.0f;
             mechGestationSpeedMultiplier = 1.0f;
