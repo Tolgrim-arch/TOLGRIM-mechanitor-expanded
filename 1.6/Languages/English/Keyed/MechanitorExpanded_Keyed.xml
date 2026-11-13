@@ -197,6 +197,8 @@
   <Tolgrim_SettingsForcedMechOrdersSection>Manual Mechanoid Orders</Tolgrim_SettingsForcedMechOrdersSection>
   <Tolgrim_SettingsEnableForcedMechOrders>Allow forcing any right-click order on mechanoids</Tolgrim_SettingsEnableForcedMechOrders>
   <Tolgrim_SettingsEnableForcedMechOrdersTip>Removes vanilla contextual menu restrictions so mechanoids can receive direct right-click priority orders for any compatible action.</Tolgrim_SettingsEnableForcedMechOrdersTip>
+  <Tolgrim_SettingsEnablePreventMechsLaydown>Keep mechanoids standing during Self-Shutdown</Tolgrim_SettingsEnablePreventMechsLaydown>
+  <Tolgrim_SettingsEnablePreventMechsLaydownTip>Prevents mechanoids from laying down when entering self-shutdown and allows hauling depleted mechanoids to available chargers.</Tolgrim_SettingsEnablePreventMechsLaydownTip>
   <Tolgrim_BandwidthCost>Bandwidth cost</Tolgrim_BandwidthCost>
   <Tolgrim_SettingsHideSummonThreatGizmo>Hide mech boss summoning button</Tolgrim_SettingsHideSummonThreatGizmo>
   <Tolgrim_SettingsHideSummonThreatGizmoTip>Hides the 'Call mech threat' action button from the mechanitor's gizmo bar (boss threats can still be summoned from the comms console).</Tolgrim_SettingsHideSummonThreatGizmoTip>

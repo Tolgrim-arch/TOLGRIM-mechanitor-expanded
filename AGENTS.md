@@ -84,3 +84,15 @@ Before deploying, confirm that paths exist and the build succeeded. Do not delet
 **Inspect → Implement → Verify → Report.**
 
 After each task, briefly summarize changes, affected files, tests performed, and remaining limitations. Always prioritize **native integration, stability, compatibility, and simplicity**.
+
+### Git & GitHub Workflow
+
+The user (TOLGRIM) is actively working toward the **Pull Shark** and **Pair Extraordinaire** GitHub achievements. While developing the mod:
+
+- **Use branches and PRs:** Create feature/fix branches, push meaningful changes, open Pull Requests, and merge them rather than committing directly to the default branch.
+- **Include co-authors:** Add the following trailers to every commit message:
+
+```text
+Co-Authored-By: Claude <noreply@anthropic.com>
+Co-authored-by: Codex <noreply@openai.com>
+```
