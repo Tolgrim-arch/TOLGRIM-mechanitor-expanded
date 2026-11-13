@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
@@ -43,7 +43,7 @@ namespace Tolgrim_MechanitorExpanded
 
         public ITab_Pawn_Mechanoid()
         {
-            size = new Vector2(460f, 430f);
+            size = new Vector2(480f, 460f);
             labelKey = "Tolgrim_TabMechanoid";
         }
 
@@ -101,7 +101,8 @@ namespace Tolgrim_MechanitorExpanded
 
             // Costo de ancho de banda
             float bwCost = pawn.GetStatValue(StatDefOf.BandwidthCost);
-            DrawKeyValueRow("BandwidthCost".Translate(), bwCost.ToString("0"), ref curY, width, "Bandwidth".Translate(), rowIdx++);
+            string bwLabel = "Tolgrim_BandwidthCost".Translate();
+            DrawKeyValueRow(bwLabel, bwCost.ToString("0"), ref curY, width, "Bandwidth".Translate(), rowIdx++);
 
             // Nivel de energía actual
             if (pawn.needs?.energy != null)
@@ -140,16 +141,20 @@ namespace Tolgrim_MechanitorExpanded
             Widgets.DrawBox(colorSwatch);
 
             // Etiqueta del estado de color
-            Rect labelRect = new Rect(boxRect.x + 42f, boxRect.y, 220f, boxRect.height);
+            // Boton de personalizacion
+            float btnW = 160f;
+            float btnH = 28f;
+            Rect btnRect = new Rect(boxRect.x + boxRect.width - btnW - 6f, boxRect.y + 6f, btnW, btnH);
+
+            // Etiqueta del estado de color calculada dinamicamente
+            float labelStartX = boxRect.x + 42f;
+            float labelWidth = Mathf.Max(60f, btnRect.x - labelStartX - 8f);
+            Rect labelRect = new Rect(labelStartX, boxRect.y, labelWidth, boxRect.height);
             string status = state.color.HasValue ? "Tolgrim_CustomColorActive".Translate() : "Tolgrim_InheritedColorActive".Translate();
             Text.Anchor = TextAnchor.MiddleLeft;
             Widgets.Label(labelRect, status);
             Text.Anchor = TextAnchor.UpperLeft;
 
-            // Botón de personalización
-            float btnW = 140f;
-            float btnH = 28f;
-            Rect btnRect = new Rect(boxRect.x + boxRect.width - btnW - 6f, boxRect.y + 6f, btnW, btnH);
             if (Widgets.ButtonText(btnRect, "Tolgrim_SetMechColorLabel".Translate()))
             {
                 state.DoDialog();

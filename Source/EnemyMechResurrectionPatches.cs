@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using RimWorld;
@@ -361,6 +361,18 @@ namespace Tolgrim_MechanitorExpanded
             }
 
             return true;
+        }
+    }
+
+    /// <summary>
+    /// Amplia el ancho del gizmo de cargas de resurreccion para que el texto no se trunque feamente.
+    /// </summary>
+    [HarmonyPatch(typeof(Gizmo_MechResurrectionCharges), nameof(Gizmo_MechResurrectionCharges.GetWidth))]
+    public static class Patch_Gizmo_MechResurrectionCharges_GetWidth
+    {
+        public static void Postfix(ref float __result)
+        {
+            __result = 135f;
         }
     }
 }

@@ -194,4 +194,5 @@
   <Tolgrim_SettingsEnableMechsHaulToChargerTip>Permite que los mecanoides de la colonia con capacidad de transporte (como los Transportadores/Lifters) lleven mecanoides caídos, agotados o heridos hacia un cargador compatible.</Tolgrim_SettingsEnableMechsHaulToChargerTip>
   <Tolgrim_SettingsHaulInjuredMechsToCharger>Transportar mecanoides heridos para reparación</Tolgrim_SettingsHaulInjuredMechsToCharger>
   <Tolgrim_SettingsHaulInjuredMechsToChargerTip>Cuando la reparación en cargadores está activa y desbloqueada, los colonos y mecanoides transportarán los mecanoides dañados o mutilados hacia un cargador para que se regeneren y reparen.</Tolgrim_SettingsHaulInjuredMechsToChargerTip>
+  <Tolgrim_BandwidthCost>Costo de ancho de banda</Tolgrim_BandwidthCost>
 </LanguageData>
