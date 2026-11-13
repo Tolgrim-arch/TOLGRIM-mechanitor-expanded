@@ -9,6 +9,7 @@ namespace Tolgrim_MechanitorExpanded
         public float tabHeight = 480f;
         public bool showCommandRange = true;
         public bool showControlGroups = true;
+        public bool hideSummonThreatGizmo = false;
 
         // Secciones activas / visibles
         public bool showImplantsSection = true;
@@ -92,6 +93,7 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref tabHeight, "tabHeight", 480f);
             Scribe_Values.Look(ref showCommandRange, "showCommandRange", true);
             Scribe_Values.Look(ref showControlGroups, "showControlGroups", true);
+            Scribe_Values.Look(ref hideSummonThreatGizmo, "hideSummonThreatGizmo", false);
 
             Scribe_Values.Look(ref showImplantsSection, "showImplantsSection", true);
             Scribe_Values.Look(ref showEquipmentSection, "showEquipmentSection", true);
@@ -164,6 +166,7 @@ namespace Tolgrim_MechanitorExpanded
             tabHeight = 480f;
             showCommandRange = true;
             showControlGroups = true;
+            hideSummonThreatGizmo = false;
             showImplantsSection = true;
             showEquipmentSection = true;
             defaultExpandGeneral = true;

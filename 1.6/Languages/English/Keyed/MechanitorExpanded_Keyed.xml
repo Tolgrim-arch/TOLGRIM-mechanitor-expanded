@@ -195,4 +195,6 @@
   <Tolgrim_SettingsHaulInjuredMechsToCharger>Haul injured mechanoids to chargers for repair</Tolgrim_SettingsHaulInjuredMechsToCharger>
   <Tolgrim_SettingsHaulInjuredMechsToChargerTip>When charger repair is active and unlocked, colonists and worker mechanoids will haul damaged mechanoids or those missing parts to a charger so they can automatically regenerate and repair.</Tolgrim_SettingsHaulInjuredMechsToChargerTip>
   <Tolgrim_BandwidthCost>Bandwidth cost</Tolgrim_BandwidthCost>
+  <Tolgrim_SettingsHideSummonThreatGizmo>Hide mech boss summoning button</Tolgrim_SettingsHideSummonThreatGizmo>
+  <Tolgrim_SettingsHideSummonThreatGizmoTip>Hides the 'Call mech threat' action button from the mechanitor's gizmo bar (boss threats can still be summoned from the comms console).</Tolgrim_SettingsHideSummonThreatGizmoTip>
 </LanguageData>

@@ -33,5 +33,6 @@ Fase 1: Implementación de la pestaña nativa «Mecanizador» en el panel de ins
     <li>forza.fasterWorkMechs</li>
     <li>notherkiller.mechchargersrepairmechs</li>
     <li>Witek.MechsCanHaulToCharger</li>
+    <li>Canon.NoMechSummonerGizmo</li>
   </incompatibleWith>
 </ModMetaData>

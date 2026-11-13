@@ -250,6 +250,7 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_SettingsShowControlGroups".Translate(), ref Settings.showControlGroups, "Tolgrim_SettingsShowControlGroupsTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsShowImplants".Translate(), ref Settings.showImplantsSection, "Tolgrim_SettingsShowImplantsTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsShowEquipment".Translate(), ref Settings.showEquipmentSection, "Tolgrim_SettingsShowEquipmentTip".Translate());
+            listing.CheckboxLabeled("Tolgrim_SettingsHideSummonThreatGizmo".Translate(), ref Settings.hideSummonThreatGizmo, "Tolgrim_SettingsHideSummonThreatGizmoTip".Translate());
             listing.Gap(10f);
 
             Text.Font = GameFont.Medium;

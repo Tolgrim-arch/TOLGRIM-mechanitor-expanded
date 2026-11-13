@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -159,6 +160,33 @@ namespace Tolgrim_MechanitorExpanded
             }
 
             return true;
+        }
+    }
+
+    /// <summary>
+    /// Oculta el comando de invocar amenazas de jefes mecanoides (Command_CallBossgroup) en el mecanizador según ModSettings.
+    /// </summary>
+    [HarmonyPatch(typeof(Pawn_MechanitorTracker), nameof(Pawn_MechanitorTracker.GetGizmos))]
+    public static class Patch_Pawn_MechanitorTracker_GetGizmos_HideBossCall
+    {
+        public static IEnumerable<Gizmo> Postfix(IEnumerable<Gizmo> __result)
+        {
+            if (!MechanitorExpandedMod.Settings.hideSummonThreatGizmo)
+            {
+                foreach (Gizmo gizmo in __result)
+                {
+                    yield return gizmo;
+                }
+                yield break;
+            }
+
+            foreach (Gizmo gizmo in __result)
+            {
+                if (gizmo is not Command_CallBossgroup)
+                {
+                    yield return gizmo;
+                }
+            }
         }
     }
 }

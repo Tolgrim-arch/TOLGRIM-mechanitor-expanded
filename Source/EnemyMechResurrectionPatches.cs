@@ -365,6 +365,27 @@ namespace Tolgrim_MechanitorExpanded
     }
 
     /// <summary>
+    /// Evita que un Apocriton perteneciente al jugador detone su pulso PEM (MechBandShockwave) al morir.
+    /// </summary>
+    [HarmonyPatch(typeof(CompExplosive), nameof(CompExplosive.PostDestroy))]
+    public static class Patch_CompExplosive_PostDestroy_Apocriton
+    {
+        public static bool Prefix(CompExplosive __instance, DestroyMode mode)
+        {
+            if (mode == DestroyMode.KillFinalize
+                && __instance.parent is Pawn pawn
+                && pawn.def == ThingDefOf.Mech_Apocriton
+                && pawn.Faction != null
+                && pawn.Faction.IsPlayer)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    /// <summary>
     /// Amplia el ancho del gizmo de cargas de resurreccion para que el texto no se trunque feamente.
     /// </summary>
     [HarmonyPatch(typeof(Gizmo_MechResurrectionCharges), nameof(Gizmo_MechResurrectionCharges.GetWidth))]
