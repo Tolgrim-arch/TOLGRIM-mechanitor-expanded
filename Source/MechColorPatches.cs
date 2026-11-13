@@ -69,7 +69,8 @@ namespace Tolgrim_MechanitorExpanded
             }
         }
 
-        // 2. Gizmos en mecanoides y mecanizadores
+        // 2. Gizmos en mecanoides y mecanizadores (desactivados en favor de la pestaña Mecanoide y menús contextuales)
+        // Se mantiene vacío para evitar contaminar la barra de comandos con accesos rápidos innecesarios.
         [HarmonyPostfix]
         [HarmonyPatch(typeof(Pawn), nameof(Pawn.GetGizmos))]
         public static IEnumerable<Gizmo> Pawn_GetGizmos_Postfix(IEnumerable<Gizmo> result, Pawn __instance)
@@ -77,12 +78,6 @@ namespace Tolgrim_MechanitorExpanded
             foreach (Gizmo g in result)
             {
                 yield return g;
-            }
-
-            MechColorState? state = MechColorState.For(__instance);
-            if (state != null)
-            {
-                yield return state.Gizmo();
             }
         }
 

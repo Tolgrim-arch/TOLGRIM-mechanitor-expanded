@@ -152,6 +152,11 @@
   <Tolgrim_DefaultColorCheck>Por defecto</Tolgrim_DefaultColorCheck>
   <Tolgrim_FromDefaultColor>heredado</Tolgrim_FromDefaultColor>
   <Tolgrim_MechColorOpacity>Opacidad:</Tolgrim_MechColorOpacity>
+  <Tolgrim_TabMechanoid>Mecanoide</Tolgrim_TabMechanoid>
+  <Tolgrim_MechOverseerLabel>Supervisor</Tolgrim_MechOverseerLabel>
+  <Tolgrim_MechColorCustomizationHeader>Color de acento</Tolgrim_MechColorCustomizationHeader>
+  <Tolgrim_CustomColorActive>Color personalizado</Tolgrim_CustomColorActive>
+  <Tolgrim_InheritedColorActive>Por defecto (heredado)</Tolgrim_InheritedColorActive>
 
   <!-- Resurrección Exclusiva de Mecanoides -->
   <Tolgrim_SettingsEnableForgetfulResurrection>Resurrección exclusiva por mecanizador</Tolgrim_SettingsEnableForgetfulResurrection>
@@ -160,4 +165,8 @@
   <Tolgrim_GizmoForgetOverseerDesc>Hace que el cadáver de este mecanoide olvide a su antiguo supervisor ({0}) para permitir que cualquier mecanizador pueda resucitarlo.</Tolgrim_GizmoForgetOverseerDesc>
   <Tolgrim_ResurrectJobFailReasonOtherMechanitor>Todos los cadáveres disponibles pertenecen a otros mecanizadores.</Tolgrim_ResurrectJobFailReasonOtherMechanitor>
   <Tolgrim_MechForgotOverseer>{0} olvidó a su supervisor {1}. Ahora cualquier mecanizador puede resucitarlo.</Tolgrim_MechForgotOverseer>
+
+  <!-- Chips Mecanoides Indestructibles -->
+  <Tolgrim_SettingsUnbreakableMechChips>Chips mecanoides indestructibles</Tolgrim_SettingsUnbreakableMechChips>
+  <Tolgrim_SettingsUnbreakableMechChipsTip>Hace que los chips de jefes mecanoides (Chip de señal, Chip de enfoque y Chip de nanoestructuración, además de chips de Dead Man's Switch y Alpha Mechs si están cargados) sean inmunes al deterioro, fuego y daño de puntos de impacto, evitando que se destruyan.</Tolgrim_SettingsUnbreakableMechChipsTip>
 </LanguageData>

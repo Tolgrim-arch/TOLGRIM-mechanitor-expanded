@@ -7,6 +7,7 @@ using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace Tolgrim_MechanitorExpanded
 {
@@ -276,32 +277,31 @@ namespace Tolgrim_MechanitorExpanded
         }
     }
 
-    public class Dialog_ChooseMechColor : Dialog_ChooseColor
+    public class Dialog_ChooseMechColor : Window
     {
-        private class CallbackHolder
-        {
-            public Dialog_ChooseMechColor? dialog;
-            public void Select(Color col) => dialog?.OnColorSelected(col);
-        }
-
         private static readonly List<Color> cachedColors = DefDatabase<ColorDef>.AllDefsListForReading.Select(c => c.color).ToList();
         private readonly MechColorState state;
+        private readonly string title;
+        private Color curColor;
+        private readonly Color defaultColor;
         private bool useDefault;
-        private readonly Color curDefault;
         private float opacity;
-        private static CallbackHolder callback = new CallbackHolder();
-        private static readonly FieldInfo? SelectedColorField = typeof(Dialog_ChooseColor).GetField("selectedColor", BindingFlags.Instance | BindingFlags.NonPublic);
+        private Vector2 scrollPosition = Vector2.zero;
+
+        public override Vector2 InitialSize => new Vector2(480f, 430f);
 
         public Dialog_ChooseMechColor(MechColorState state)
-            : base(GetTitle(state), state.ActiveColor, cachedColors, callback.Select)
         {
             this.state = state;
+            title = GetTitle(state);
             useDefault = !state.color.HasValue;
-            curDefault = state.DefaultColor;
+            defaultColor = state.DefaultColor;
+            curColor = state.ActiveColor;
             opacity = state.SetOpacity ?? 0.5f;
 
-            callback.dialog = this;
-            callback = new CallbackHolder();
+            closeOnClickedOutside = true;
+            absorbInputAroundWindow = true;
+            doCloseX = true;
         }
 
         private static string GetTitle(MechColorState s)
@@ -312,57 +312,112 @@ namespace Tolgrim_MechanitorExpanded
 
         public override void DoWindowContents(Rect inRect)
         {
-            Color prevColor = GetSelectedColor();
-            base.DoWindowContents(inRect);
+            // Título
+            Text.Font = GameFont.Medium;
+            Rect titleRect = new Rect(inRect.x, inRect.y, inRect.width - 30f, 32f);
+            Widgets.Label(titleRect, title);
+            Text.Font = GameFont.Small;
 
-            if (prevColor != GetSelectedColor())
+            float curY = inRect.y + 38f;
+
+            // Fila de muestra de color y checkbox de color por defecto
+            Rect previewRect = new Rect(inRect.x, curY, 52f, 52f);
+            Widgets.DrawBoxSolid(previewRect, new Color(0.1f, 0.1f, 0.1f, 1f));
+            Widgets.DrawBoxSolid(previewRect.ContractedBy(3f), useDefault ? defaultColor : curColor);
+            Widgets.DrawBox(previewRect);
+
+            Rect defaultCheckRect = new Rect(inRect.x + 62f, curY + 12f, 220f, 26f);
+            bool prevUseDefault = useDefault;
+            Widgets.CheckboxLabeled(defaultCheckRect, "Tolgrim_DefaultColorCheck".Translate(), ref useDefault);
+            if (useDefault && !prevUseDefault)
             {
-                useDefault = false;
+                curColor = defaultColor;
             }
 
-            // Checkbox "Usar color predeterminado"
-            Rect checkRect = new Rect(inRect.x + 2f, inRect.y + 35f + 10f + 88f + 4f, 130f, 24f);
-            Widgets.CheckboxLabeled(checkRect, "Tolgrim_DefaultColorCheck".Translate(), ref useDefault);
-            if (useDefault)
+            curY += 60f;
+
+            // Paleta de colores en cuadrícula ordenada
+            Rect paletteOuterRect = new Rect(inRect.x, curY, inRect.width, 180f);
+            Widgets.DrawBoxSolid(paletteOuterRect, new Color(0f, 0f, 0f, 0.2f));
+
+            int boxSize = 22;
+            int boxPad = 4;
+            int totalBox = boxSize + boxPad;
+            int columns = Mathf.FloorToInt((paletteOuterRect.width - 16f) / totalBox);
+            if (columns < 1) columns = 1;
+            int rows = Mathf.CeilToInt((float)cachedColors.Count / columns);
+            Rect viewRect = new Rect(0f, 0f, paletteOuterRect.width - 16f, rows * totalBox + 6f);
+
+            Widgets.BeginScrollView(paletteOuterRect, ref scrollPosition, viewRect);
+            for (int i = 0; i < cachedColors.Count; i++)
             {
-                SetSelectedColor(curDefault);
+                int col = i % columns;
+                int row = i / columns;
+                Rect boxRect = new Rect(col * totalBox + 2f, row * totalBox + 2f, boxSize, boxSize);
+                Color c = cachedColors[i];
+
+                Widgets.DrawBoxSolid(boxRect, c);
+                if (curColor.IndistinguishableFrom(c) && !useDefault)
+                {
+                    Widgets.DrawBox(boxRect.ExpandedBy(2f), 2);
+                }
+
+                if (Mouse.IsOver(boxRect))
+                {
+                    Widgets.DrawHighlight(boxRect);
+                    if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+                    {
+                        Event.current.Use();
+                        curColor = c;
+                        useDefault = false;
+                        SoundDefOf.Tick_High.PlayOneShotOnCamera();
+                    }
+                }
             }
+            Widgets.EndScrollView();
 
-            Vector2 closeSize = Window.CloseButSize;
-            Rect sliderArea = new Rect(inRect.x + closeSize.x + 12f, inRect.height - closeSize.y, inRect.width - (closeSize.x * 2f) - 24f, closeSize.y);
+            curY += 190f;
 
-            string defaultNotice = useDefault ? $" ({"Tolgrim_FromDefaultColor".Translate()})" : "";
-            Widgets.Label(new Rect(sliderArea.x, sliderArea.y - 20f, sliderArea.width, 22f), $"{"Tolgrim_MechColorOpacity".Translate()} {opacity:P0}{defaultNotice}");
+            // Control deslizante de opacidad
+            string opacityText = $"{"Tolgrim_MechColorOpacity".Translate()} {opacity:P0}" + (useDefault ? $" ({"Tolgrim_FromDefaultColor".Translate()})" : "");
+            Widgets.Label(new Rect(inRect.x, curY, inRect.width, 22f), opacityText);
+            curY += 24f;
 
             if (!useDefault)
             {
-                opacity = Widgets.HorizontalSlider(new Rect(sliderArea.x, sliderArea.y + 2f, sliderArea.width, 20f), opacity, 0f, 1f, roundTo: 0.05f);
-            }
-        }
-
-        private Color GetSelectedColor()
-        {
-            if (SelectedColorField != null)
-            {
-                return (Color)SelectedColorField.GetValue(this);
-            }
-            return Color.white;
-        }
-
-        private void SetSelectedColor(Color col)
-        {
-            SelectedColorField?.SetValue(this, col);
-        }
-
-        public void OnColorSelected(Color col)
-        {
-            if (useDefault)
-            {
-                state.Reset();
+                opacity = Widgets.HorizontalSlider(new Rect(inRect.x, curY, inRect.width, 22f), opacity, 0.1f, 1f, roundTo: 0.05f);
             }
             else
             {
-                state.Set(col, opacity);
+                GUI.color = ColoredText.SubtleGrayColor;
+                Widgets.HorizontalSlider(new Rect(inRect.x, curY, inRect.width, 22f), opacity, 0.1f, 1f, roundTo: 0.05f);
+                GUI.color = Color.white;
+            }
+
+            curY += 32f;
+
+            // Botones inferiores: Guardar / Cancelar
+            float btnWidth = 130f;
+            float btnHeight = 32f;
+            Rect closeRect = new Rect(inRect.x, inRect.height - btnHeight, btnWidth, btnHeight);
+            Rect okRect = new Rect(inRect.width - btnWidth, inRect.height - btnHeight, btnWidth, btnHeight);
+
+            if (Widgets.ButtonText(closeRect, "CloseButton".Translate()))
+            {
+                Close();
+            }
+
+            if (Widgets.ButtonText(okRect, "OK".Translate()))
+            {
+                if (useDefault)
+                {
+                    state.Reset();
+                }
+                else
+                {
+                    state.Set(curColor, opacity);
+                }
+                Close();
             }
         }
     }

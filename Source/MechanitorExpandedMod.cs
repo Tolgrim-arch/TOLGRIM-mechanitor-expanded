@@ -65,7 +65,7 @@ namespace Tolgrim_MechanitorExpanded
             TabDrawer.DrawTabs(tabRect, tabs);
 
             Rect contentRect = tabRect.ContractedBy(14f);
-            float viewHeight = currentTab == SettingsTab.Crafting ? 820f : (currentTab == SettingsTab.Interface ? 560f : 380f);
+            float viewHeight = currentTab == SettingsTab.Crafting ? 820f : (currentTab == SettingsTab.Interface ? 560f : (currentTab == SettingsTab.Balance ? 420f : 380f));
             Rect viewRect = new Rect(0f, 0f, contentRect.width - 20f, viewHeight);
 
             Widgets.BeginScrollView(contentRect, ref scrollPosition, viewRect);
@@ -100,6 +100,7 @@ namespace Tolgrim_MechanitorExpanded
                 Settings.ResetToDefaults();
                 SubcoreEncoderRecipeManager.ApplyRecipeRouting(Settings.moveRecipesToSubcoreEncoder);
                 SubcoreEncoderCraftingManager.ApplyAllIngredientCosts();
+                UnbreakableChipsManager.ApplySetting(Settings.unbreakableMechChips);
                 SyncCraftingBuffers();
             }
 
@@ -152,8 +153,8 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_CraftSubcoreRegular".Translate(), ref Settings.craftSubcoreRegular);
             if (Settings.craftSubcoreRegular)
             {
-                DrawCostRow(listing, "Steel".Translate(), ref Settings.costSubcoreRegularSteel, ref bufSubcoreRegSteel);
-                DrawCostRow(listing, "ComponentIndustrial".Translate(), ref Settings.costSubcoreRegularComponents, ref bufSubcoreRegComp);
+                DrawCostRow(listing, "Steel", ref Settings.costSubcoreRegularSteel, ref bufSubcoreRegSteel);
+                DrawCostRow(listing, "ComponentIndustrial", ref Settings.costSubcoreRegularComponents, ref bufSubcoreRegComp);
             }
             listing.Gap(6f);
 
@@ -161,8 +162,8 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_CraftSubcoreHigh".Translate(), ref Settings.craftSubcoreHigh);
             if (Settings.craftSubcoreHigh)
             {
-                DrawCostRow(listing, "Steel".Translate(), ref Settings.costSubcoreHighSteel, ref bufSubcoreHighSteel);
-                DrawCostRow(listing, "ComponentIndustrial".Translate(), ref Settings.costSubcoreHighComponents, ref bufSubcoreHighComp);
+                DrawCostRow(listing, "Steel", ref Settings.costSubcoreHighSteel, ref bufSubcoreHighSteel);
+                DrawCostRow(listing, "ComponentIndustrial", ref Settings.costSubcoreHighComponents, ref bufSubcoreHighComp);
             }
             listing.Gap(6f);
 
@@ -170,9 +171,9 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_CraftSignalChip".Translate(), ref Settings.craftSignalChip);
             if (Settings.craftSignalChip)
             {
-                DrawCostRow(listing, "Plasteel".Translate(), ref Settings.costSignalChipPlasteel, ref bufSigChipPlasteel);
-                DrawCostRow(listing, "Uranium".Translate(), ref Settings.costSignalChipUranium, ref bufSigChipUranium);
-                DrawCostRow(listing, "ComponentIndustrial".Translate(), ref Settings.costSignalChipComponents, ref bufSigChipComp);
+                DrawCostRow(listing, "Plasteel", ref Settings.costSignalChipPlasteel, ref bufSigChipPlasteel);
+                DrawCostRow(listing, "Uranium", ref Settings.costSignalChipUranium, ref bufSigChipUranium);
+                DrawCostRow(listing, "ComponentIndustrial", ref Settings.costSignalChipComponents, ref bufSigChipComp);
             }
             listing.Gap(6f);
 
@@ -180,9 +181,9 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_CraftPowerfocusChip".Translate(), ref Settings.craftPowerfocusChip);
             if (Settings.craftPowerfocusChip)
             {
-                DrawCostRow(listing, "Plasteel".Translate(), ref Settings.costPowerfocusChipPlasteel, ref bufPowChipPlasteel);
-                DrawCostRow(listing, "Uranium".Translate(), ref Settings.costPowerfocusChipUranium, ref bufPowChipUranium);
-                DrawCostRow(listing, "ComponentIndustrial".Translate(), ref Settings.costPowerfocusChipComponents, ref bufPowChipComp);
+                DrawCostRow(listing, "Plasteel", ref Settings.costPowerfocusChipPlasteel, ref bufPowChipPlasteel);
+                DrawCostRow(listing, "Uranium", ref Settings.costPowerfocusChipUranium, ref bufPowChipUranium);
+                DrawCostRow(listing, "ComponentIndustrial", ref Settings.costPowerfocusChipComponents, ref bufPowChipComp);
             }
             listing.Gap(6f);
 
@@ -190,9 +191,9 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_CraftNanostructuringChip".Translate(), ref Settings.craftNanostructuringChip);
             if (Settings.craftNanostructuringChip)
             {
-                DrawCostRow(listing, "Plasteel".Translate(), ref Settings.costNanostructuringChipPlasteel, ref bufNanoChipPlasteel);
-                DrawCostRow(listing, "Uranium".Translate(), ref Settings.costNanostructuringChipUranium, ref bufNanoChipUranium);
-                DrawCostRow(listing, "ComponentSpacer".Translate(), ref Settings.costNanostructuringChipSpacerComponents, ref bufNanoChipComp);
+                DrawCostRow(listing, "Plasteel", ref Settings.costNanostructuringChipPlasteel, ref bufNanoChipPlasteel);
+                DrawCostRow(listing, "Uranium", ref Settings.costNanostructuringChipUranium, ref bufNanoChipUranium);
+                DrawCostRow(listing, "ComponentSpacer", ref Settings.costNanostructuringChipSpacerComponents, ref bufNanoChipComp);
             }
             listing.Gap(6f);
 
@@ -200,19 +201,22 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_CraftMechlink".Translate(), ref Settings.craftMechlink);
             if (Settings.craftMechlink)
             {
-                DrawCostRow(listing, "NanostructuringChip".Translate(), ref Settings.costMechlinkNanostructuringChips, ref bufMechlinkNano);
-                DrawCostRow(listing, "ComponentSpacer".Translate(), ref Settings.costMechlinkSpacerComponents, ref bufMechlinkComp);
+                DrawCostRow(listing, "NanostructuringChip", ref Settings.costMechlinkNanostructuringChips, ref bufMechlinkNano);
+                DrawCostRow(listing, "ComponentSpacer", ref Settings.costMechlinkSpacerComponents, ref bufMechlinkComp);
             }
 
             // Aplicar cambios en vivo a las recetas
             SubcoreEncoderCraftingManager.ApplyAllIngredientCosts();
         }
 
-        private static void DrawCostRow(Listing_Standard listing, string label, ref int costValue, ref string buffer)
+        private static void DrawCostRow(Listing_Standard listing, string thingDefName, ref int costValue, ref string buffer)
         {
             Rect rowRect = listing.GetRect(24f);
             Rect labelRect = new Rect(rowRect.x + 24f, rowRect.y, 220f, rowRect.height);
             Rect entryRect = new Rect(rowRect.x + 250f, rowRect.y, 160f, rowRect.height);
+
+            ThingDef? def = DefDatabase<ThingDef>.GetNamedSilentFail(thingDefName);
+            string label = def != null ? def.LabelCap.Resolve() : thingDefName;
 
             Text.Anchor = TextAnchor.MiddleLeft;
             Widgets.Label(labelRect, label);
@@ -320,6 +324,13 @@ namespace Tolgrim_MechanitorExpanded
             listing.CheckboxLabeled("Tolgrim_SettingsInstantGestation".Translate(), ref Settings.instantMechGestation, "Tolgrim_SettingsInstantGestationTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsInfiniteEnergy".Translate(), ref Settings.infiniteMechEnergy, "Tolgrim_SettingsInfiniteEnergyTip".Translate());
             listing.CheckboxLabeled("Tolgrim_SettingsDisableWastepacks".Translate(), ref Settings.disableMechWastepacks, "Tolgrim_SettingsDisableWastepacksTip".Translate());
+
+            bool prevUnbreakable = Settings.unbreakableMechChips;
+            listing.CheckboxLabeled("Tolgrim_SettingsUnbreakableMechChips".Translate(), ref Settings.unbreakableMechChips, "Tolgrim_SettingsUnbreakableMechChipsTip".Translate());
+            if (prevUnbreakable != Settings.unbreakableMechChips)
+            {
+                UnbreakableChipsManager.ApplySetting(Settings.unbreakableMechChips);
+            }
         }
     }
 }

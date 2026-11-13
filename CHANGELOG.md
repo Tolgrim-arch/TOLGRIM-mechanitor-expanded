@@ -5,6 +5,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Sem
 
 ---
 
+## [0.8.0] — 2026-11-12
+
+### Feature: Native Mechanoid Inspect Tab (`ITab_Pawn_Mechanoid`) & Cleaned Color Dialog
+
+#### Added
+- **Native Mechanoid Inspection Tab (`ITab_Pawn_Mechanoid`):**
+  - Added dedicated "Mecanoide" / "Mechanoid" tab to all player mechanoids alongside vanilla tabs (Registro, Equipo, Necesidad, Salud).
+  - Displays mechanoid general information: Assigned overseer, control group and work mode, bandwidth cost, current energy level (with color-coded alerts), and wastepacks generated per recharge cycle.
+  - Displays combat capabilities and stats: Movement speed, armor ratings (Sharp, Blunt, Heat), and primary weapon/equipment.
+  - Integrated dedicated accent color section with real-time swatch preview, inheritance status ("Custom color" vs "Default color (inherited)"), and direct button to customize the color.
+- **Redesigned Color Customization Modal (`Dialog_ChooseMechColor`):**
+  - Replaced the cluttered base modal with a clean, proportioned window without overlapping UI elements.
+  - Dedicated preview square, clean checkbox for default inheritance, structured grid palette with highlight indicators, and dedicated opacity slider.
+- **Removed Intrusive Bottom Bar Gizmos:**
+  - Removed persistent bottom gizmo buttons from mechanoids and mechanitors, decluttering the action command bar. Color customization is now accessed natively through the inspect tab or control group context menus.
+
+---
+
 ## [0.7.0] — 2026-11-12
 
 ### Feature: Mechanitor Exclusive Resurrection & Memory (Forgetful Mech Resurrection Integration)

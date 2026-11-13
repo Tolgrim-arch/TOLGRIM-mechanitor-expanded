@@ -73,6 +73,9 @@ namespace Tolgrim_MechanitorExpanded
         public int costMechlinkNanostructuringChips = 2;
         public int costMechlinkSpacerComponents = 10;
 
+        // Parche integrado: Chips mecanoides indestructibles (Unbreakable Mech Chips)
+        public bool unbreakableMechChips = false;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -136,6 +139,7 @@ namespace Tolgrim_MechanitorExpanded
             Scribe_Values.Look(ref craftMechlink, "craftMechlink", true);
             Scribe_Values.Look(ref costMechlinkNanostructuringChips, "costMechlinkNanostructuringChips", 2);
             Scribe_Values.Look(ref costMechlinkSpacerComponents, "costMechlinkSpacerComponents", 10);
+            Scribe_Values.Look(ref unbreakableMechChips, "unbreakableMechChips", false);
         }
 
         public void ResetToDefaults()
@@ -194,6 +198,7 @@ namespace Tolgrim_MechanitorExpanded
             craftMechlink = true;
             costMechlinkNanostructuringChips = 2;
             costMechlinkSpacerComponents = 10;
+            unbreakableMechChips = false;
         }
     }
 }
